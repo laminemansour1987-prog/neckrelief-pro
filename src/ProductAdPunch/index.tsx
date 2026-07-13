@@ -14,25 +14,25 @@ import { loadFont, TheBoldFont } from "../load-font";
 
 const PINK = "#f0a8bd";
 const PINK_DARK = "#d9578a";
-const INK = "#0d0d0d";
+const INK = "#241f2b";
 
 const HOOK_DURATION = 70;
 const PROBLEM_DURATION = 85;
 const SOLUTION_DURATION = 150;
 const CTA_DURATION = 85;
 
-const FLASH_DURATION = 6;
+const FLASH_DURATION = 8;
 
 const Flash: React.FC = () => {
   const frame = useCurrentFrame();
   const opacity = interpolate(
     frame,
     [0, FLASH_DURATION / 2, FLASH_DURATION],
-    [0, 1, 0],
+    [0, 0.35, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
   return (
-    <AbsoluteFill style={{ backgroundColor: "white", opacity, zIndex: 50 }} />
+    <AbsoluteFill style={{ backgroundColor: "#fff5f7", opacity, zIndex: 50 }} />
   );
 };
 
@@ -40,9 +40,8 @@ const Hook: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const punch = spring({ frame, fps, config: { damping: 12, mass: 0.6 }, durationInFrames: 18 });
-  const scale = interpolate(punch, [0, 1], [1.6, 1]);
-  const shake = Math.sin(frame * 2) * interpolate(frame, [0, 10], [4, 0], { extrapolateRight: "clamp" });
+  const punch = spring({ frame, fps, config: { damping: 18, mass: 0.7 }, durationInFrames: 22 });
+  const scale = interpolate(punch, [0, 1], [1.15, 1]);
 
   return (
     <AbsoluteFill
@@ -60,7 +59,7 @@ const Hook: React.FC = () => {
           lineHeight: 1.05,
           color: "white",
           textAlign: "center",
-          transform: `scale(${scale}) translateX(${shake}px)`,
+          transform: `scale(${scale})`,
         }}
       >
         VOTRE BÉBÉ
@@ -148,8 +147,8 @@ const Solution: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const punch = spring({ frame, fps, config: { damping: 16, mass: 0.7 }, durationInFrames: 22 });
-  const scale = interpolate(punch, [0, 1], [1.35, 1.05]);
+  const punch = spring({ frame, fps, config: { damping: 22, mass: 0.7 }, durationInFrames: 22 });
+  const scale = interpolate(punch, [0, 1], [1.12, 1.03]);
 
   const titleIn = spring({ frame: frame - 8, fps, config: { damping: 16 }, durationInFrames: 18 });
 
@@ -271,7 +270,7 @@ export const ProductAdPunch: React.FC = () => {
 
   return (
     <AbsoluteFill>
-      <Audio src={staticFile("audio/percussive-beat.mp3")} />
+      <Audio src={staticFile("audio/warm-lullaby-beat.mp3")} />
       <Sequence from={hookStart} durationInFrames={HOOK_DURATION}>
         <Hook />
       </Sequence>
