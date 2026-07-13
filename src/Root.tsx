@@ -7,6 +7,7 @@ import {
 } from "./CaptionedVideo";
 import { ProductAd } from "./ProductAd";
 import { ProductAdPunch, PRODUCT_AD_PUNCH_DURATION } from "./ProductAdPunch";
+import { PresenterAd, PRESENTER_AD_DURATION } from "./PresenterAd";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -40,6 +41,14 @@ export const RemotionRoot: React.FC = () => {
         id="ProductAdPunch"
         component={ProductAdPunch}
         durationInFrames={PRODUCT_AD_PUNCH_DURATION}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="PresenterAd"
+        component={PresenterAd}
+        durationInFrames={PRESENTER_AD_DURATION}
         fps={30}
         width={1080}
         height={1920}
