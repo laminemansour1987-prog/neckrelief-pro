@@ -6,6 +6,7 @@ import {
   captionedVideoSchema,
 } from "./CaptionedVideo";
 import { ProductAd } from "./ProductAd";
+import { ProductAdPunch, PRODUCT_AD_PUNCH_DURATION } from "./ProductAdPunch";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -34,6 +35,14 @@ export const RemotionRoot: React.FC = () => {
           image: staticFile("neckrelief-babycomfort.png"),
           ctaText: "NeckRelief + BabyComfort — Un sommeil sûr dès le premier jour",
         }}
+      />
+      <Composition
+        id="ProductAdPunch"
+        component={ProductAdPunch}
+        durationInFrames={PRODUCT_AD_PUNCH_DURATION}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );
