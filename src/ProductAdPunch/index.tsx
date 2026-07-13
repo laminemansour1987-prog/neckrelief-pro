@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import {
   AbsoluteFill,
+  Audio,
   Img,
   interpolate,
   Sequence,
@@ -270,6 +271,7 @@ export const ProductAdPunch: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Audio src={staticFile("audio/percussive-beat.mp3")} />
       <Sequence from={hookStart} durationInFrames={HOOK_DURATION}>
         <Hook />
       </Sequence>
