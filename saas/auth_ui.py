@@ -7,6 +7,8 @@ import os
 import plotly.graph_objects as go
 import streamlit as st
 
+from trend_predictor import MARKET_LABELS
+
 from . import billing, db
 
 _SESSION_KEY = "user_email"
@@ -49,30 +51,33 @@ def _render_demo_charts() -> None:
     fig.add_trace(
         go.Scatter(
             x=weeks, y=leader, mode="lines", name="Marche leader (ex: Etats-Unis)",
-            line=dict(color="#f43f5e", width=3),
-            fill="tozeroy", fillcolor="rgba(244,63,94,0.08)",
+            line=dict(color="#fb7185", width=3),
+            fill="tozeroy", fillcolor="rgba(251,113,133,0.12)",
         )
     )
     fig.add_trace(
         go.Scatter(
             x=weeks, y=target, mode="lines", name="Ton marche cible (ex: France)",
-            line=dict(color="#7c3aed", width=3),
-            fill="tozeroy", fillcolor="rgba(124,58,237,0.18)",
+            line=dict(color="#c084fc", width=3),
+            fill="tozeroy", fillcolor="rgba(192,132,252,0.20)",
         )
     )
     fig.add_annotation(
         x=9, y=20, text="🔥 Signal detecte ici — avant l'explosion",
         showarrow=True, arrowhead=2, ax=-30, ay=-55,
-        font=dict(color="#f43f5e", size=13), bgcolor="white", bordercolor="#f43f5e", borderwidth=1,
+        font=dict(color="#fecdd3", size=13), bgcolor="rgba(15,10,30,0.85)", bordercolor="#fb7185", borderwidth=1,
     )
     fig.update_layout(
         xaxis_title="Semaines",
         yaxis_title="Interet de recherche (0-100)",
         height=320,
         margin=dict(l=10, r=10, t=40, b=10),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
-        plot_bgcolor="white",
-        paper_bgcolor="white",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0, font=dict(color="rgba(255,255,255,0.85)")),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="rgba(255,255,255,0.75)"),
+        xaxis=dict(gridcolor="rgba(255,255,255,0.08)", zerolinecolor="rgba(255,255,255,0.15)"),
+        yaxis=dict(gridcolor="rgba(255,255,255,0.08)", zerolinecolor="rgba(255,255,255,0.15)"),
     )
     st.markdown("**Comment ca marche : un produit explose ailleurs avant d'arriver sur ton marche**")
     st.plotly_chart(fig, use_container_width=True)
@@ -87,7 +92,8 @@ def _render_landing_pitch() -> None:
     st.markdown(
         """
         <div class="hero-band">
-            <h1>🔮 Ne rate plus jamais le prochain produit qui explose</h1>
+            <span class="badge-pill">🆕 Nouveau : marches internationaux disponibles</span>
+            <h1>🔮 Ne rate plus jamais <span class="grad-text">le prochain produit qui explose</span></h1>
             <p>Chaque semaine, des produits explosent sur TikTok et en pub Meta. La plupart des
             vendeurs les decouvrent <strong>quand c'est deja sature</strong>. Cet outil repere le
             signal de recherche qui monte, souvent des semaines avant l'explosion — pour que tu
@@ -109,6 +115,9 @@ def _render_landing_pitch() -> None:
     with c3:
         st.markdown("**📝 Scorecard produit gagnant**")
         st.caption("Marge, effet wahou, logistique... note n'importe quel produit en 1 minute.")
+
+    market_pills = "".join(f'<span class="market-pill">{label}</span>' for label in MARKET_LABELS.values())
+    st.markdown(f"<div style='margin: 6px 0 20px;'>{market_pills}</div>", unsafe_allow_html=True)
 
     _render_demo_charts()
 

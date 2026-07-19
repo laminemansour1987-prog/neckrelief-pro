@@ -38,63 +38,113 @@ st.markdown(
     html, body, [class*="css"], .stApp, p, span, div, label, input, textarea {
         font-family: 'Inter', -apple-system, sans-serif;
     }
-    h1, h2, h3, .hero-band h1, .hero-band p {
+    h1, h2, h3 {
         font-family: 'Manrope', -apple-system, sans-serif !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em;
     }
 
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     div[data-testid="stDecoration"] {display: none;}
 
+    .stApp {
+        background:
+            radial-gradient(circle at 15% 8%, rgba(168,85,247,0.28) 0%, transparent 45%),
+            radial-gradient(circle at 88% 12%, rgba(244,63,94,0.20) 0%, transparent 42%),
+            radial-gradient(circle at 50% 95%, rgba(124,58,237,0.18) 0%, transparent 50%),
+            #0a0714;
+    }
+
+    .badge-pill {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 999px;
+        background: rgba(168,85,247,0.15);
+        border: 1px solid rgba(168,85,247,0.45);
+        color: #e9d5ff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
     .hero-band {
-        background: linear-gradient(135deg, #6d28d9 0%, #9333ea 45%, #f43f5e 100%);
+        position: relative;
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015));
+        border: 1px solid rgba(255,255,255,0.10);
         border-radius: 24px;
         padding: 44px 40px;
         margin-bottom: 28px;
-        box-shadow: 0 24px 60px rgba(109,40,217,0.28);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 30px 80px rgba(124,58,237,0.28);
+        overflow: hidden;
+    }
+    .hero-band::before {
+        content: "";
+        position: absolute;
+        top: -120px; right: -80px;
+        width: 320px; height: 320px;
+        background: radial-gradient(circle, rgba(244,63,94,0.35), transparent 70%);
+        filter: blur(10px);
+        pointer-events: none;
+    }
+    .hero-band::after {
+        content: "";
+        position: absolute;
+        bottom: -140px; left: -100px;
+        width: 300px; height: 300px;
+        background: radial-gradient(circle, rgba(124,58,237,0.45), transparent 70%);
+        filter: blur(10px);
+        pointer-events: none;
     }
     .hero-band h1 {
+        position: relative;
         color: #ffffff !important;
-        font-weight: 800 !important;
         font-size: 2.5rem;
         line-height: 1.15;
-        letter-spacing: -0.02em;
         margin: 0 0 14px 0 !important;
     }
+    .hero-band .grad-text {
+        background: linear-gradient(90deg, #c084fc, #f472b6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
     .hero-band p {
-        color: rgba(255,255,255,0.94) !important;
+        position: relative;
+        color: rgba(255,255,255,0.78) !important;
         font-size: 1.05rem;
-        line-height: 1.55;
+        line-height: 1.6;
         margin: 0 !important;
         max-width: 760px;
-    }
-
-    h1, h2, h3 {
-        font-weight: 800 !important;
-        letter-spacing: -0.02em;
     }
 
     .stButton > button, .stLinkButton > a, .stDownloadButton > button {
         border-radius: 10px;
         font-weight: 600;
-        font-family: 'Inter', sans-serif;
         transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #7c3aed, #f43f5e);
+        background: linear-gradient(135deg, #a855f7, #f43f5e);
         border: none;
-        box-shadow: 0 6px 16px rgba(124,58,237,0.35);
+        box-shadow: 0 8px 20px rgba(168,85,247,0.4);
     }
     .stButton > button[kind="primary"]:hover {
         transform: translateY(-1px);
-        box-shadow: 0 10px 24px rgba(124,58,237,0.45);
+        box-shadow: 0 12px 28px rgba(168,85,247,0.55);
     }
 
     div[data-testid="stMetric"] {
-        background: #f5f3ff;
-        border: 1px solid #ede9fe;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.10);
         border-radius: 14px;
         padding: 14px 18px;
+        backdrop-filter: blur(10px);
+    }
+    div[data-testid="stExpander"] {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
     }
     .stTabs [data-baseweb="tab-list"] { gap: 4px; }
     .stTabs [data-baseweb="tab"] {
@@ -102,10 +152,35 @@ st.markdown(
         padding: 10px 16px;
         font-weight: 600;
     }
+
+    .market-pill {
+        display: inline-block;
+        padding: 6px 14px;
+        margin: 3px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.12);
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.85);
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
+
+def dark_plotly_layout(**overrides) -> dict:
+    base = dict(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="rgba(255,255,255,0.75)"),
+        legend=dict(font=dict(color="rgba(255,255,255,0.85)")),
+        xaxis=dict(gridcolor="rgba(255,255,255,0.08)", zerolinecolor="rgba(255,255,255,0.15)"),
+        yaxis=dict(gridcolor="rgba(255,255,255,0.08)", zerolinecolor="rgba(255,255,255,0.15)"),
+    )
+    base.update(overrides)
+    return base
+
 
 user = auth_ui.render_login_gate()
 if user is None:
@@ -122,7 +197,7 @@ st.markdown(
     """
     <div class="hero-band" style="padding: 26px 32px;">
         <h1 style="font-size: 1.7rem !important; margin-bottom: 4px !important;">
-            🔮 Ne rate plus jamais le prochain produit qui explose
+            🔮 Ne rate plus jamais <span class="grad-text">le prochain produit qui explose</span>
         </h1>
         <p>Tape un produit, choisis un marche, et vois s'il vaut le coup — en 30 secondes.</p>
     </div>
@@ -268,12 +343,12 @@ with tab_single:
             fig = go.Figure()
             for geo in multi_df.columns:
                 fig.add_trace(go.Scatter(x=multi_df.index, y=multi_df[geo], mode="lines", name=geo))
-            fig.update_layout(
+            fig.update_layout(**dark_plotly_layout(
                 title=f"Interet de recherche — {MARKET_LABELS.get(market, market)} vs. pays de comparaison (12 derniers mois)",
                 yaxis_title="Interet relatif (0-100)",
                 xaxis_title="Date",
                 height=380,
-            )
+            ))
             st.plotly_chart(fig, use_container_width=True)
             if geo_errors:
                 st.caption("Pays sans donnees : " + ", ".join(sorted(geo_errors)))
@@ -455,13 +530,16 @@ with tab_history:
             history = watchlist.get_history(selected, owner=OWNER)
             hist_df = pd.DataFrame([dict(r) for r in history])
             fig = go.Figure()
-            fig.add_trace(go.Scatter(x=hist_df["timestamp"], y=hist_df["final_score"], mode="lines+markers", name="Score final"))
-            fig.update_layout(
+            fig.add_trace(go.Scatter(
+                x=hist_df["timestamp"], y=hist_df["final_score"], mode="lines+markers", name="Score final",
+                line=dict(color="#c084fc", width=3), marker=dict(color="#f472b6", size=8),
+            ))
+            fig.update_layout(**dark_plotly_layout(
                 title=f"Evolution du score — {selected}",
                 yaxis_title="Score /100",
                 xaxis_title="Date d'analyse",
                 height=350,
-            )
+            ))
             st.plotly_chart(fig, use_container_width=True)
 
 # ---------------------------------------------------------------------------
