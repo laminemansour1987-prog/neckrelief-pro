@@ -81,3 +81,32 @@ def test_get_user_by_customer_id(tmp_path, monkeypatch):
     assert found is not None
     assert found["email"] == "byid@example.com"
     assert db.get_user_by_customer_id("cus_inconnu") is None
+
+
+def test_manual_activation_without_stripe(tmp_path, monkeypatch):
+    db = _fresh_db(tmp_path, monkeypatch)
+    db.create_user("manuel@example.com", "motdepasse123")
+
+    db.set_manual_subscription("manuel@example.com", plan="mensuel", active=True)
+    user = db.get_user_by_email("manuel@example.com")
+    assert user["subscription_status"] == "active"
+    assert user["plan"] == "mensuel"
+    assert db.has_access(user) is True
+
+    db.set_manual_subscription("manuel@example.com", active=False)
+    user = db.get_user_by_email("manuel@example.com")
+    assert user["subscription_status"] == "canceled"
+    assert db.has_access(user) is False
+
+
+def test_extend_trial_pushes_end_date_forward(tmp_path, monkeypatch):
+    db = _fresh_db(tmp_path, monkeypatch)
+    user = db.create_user("prolonge@example.com", "motdepasse123")
+    original_end = datetime.datetime.fromisoformat(user["trial_end"])
+
+    db.extend_trial("prolonge@example.com", 30)
+
+    updated = db.get_user_by_email("prolonge@example.com")
+    new_end = datetime.datetime.fromisoformat(updated["trial_end"])
+    assert (new_end - original_end).days == 30
+    assert db.has_access(updated) is True

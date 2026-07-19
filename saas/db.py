@@ -134,6 +134,28 @@ def set_subscription_status_by_customer(customer_id: str, status: str, subscript
     conn.close()
 
 
+def set_manual_subscription(email: str, plan: str = "manuel", active: bool = True) -> None:
+    """Active ou desactive l'acces d'un client 'a la main' (paiement recu par
+    virement, especes, etc.), sans passer par Stripe."""
+    conn = _connect()
+    with conn:
+        conn.execute(
+            "UPDATE users SET subscription_status = ?, plan = ? WHERE email = ?",
+            ("active" if active else "canceled", plan, email.strip().lower()),
+        )
+    conn.close()
+
+
+def extend_trial(email: str, days: int) -> None:
+    conn = _connect()
+    with conn:
+        conn.execute(
+            "UPDATE users SET trial_end = datetime(trial_end, ?) WHERE email = ?",
+            (f"+{int(days)} days", email.strip().lower()),
+        )
+    conn.close()
+
+
 def trial_days_left(user: dict) -> int:
     trial_end = datetime.datetime.fromisoformat(user["trial_end"])
     delta = trial_end - _now()

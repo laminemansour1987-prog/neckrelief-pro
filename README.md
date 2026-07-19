@@ -29,22 +29,43 @@ chaque produit, une conclusion honnete sur son potentiel et un angle
 marketing concret a tester.
 
 Le dashboard est un **service par abonnement multi-clients** : chaque
-personne cree un compte (14 jours d'essai gratuit), puis doit s'abonner via
-Stripe (mensuel/annuel) pour continuer. Chaque client ne voit que ses propres
-analyses.
+personne cree un compte (14 jours d'essai gratuit). Chaque client ne voit que
+ses propres analyses.
 
 ### Installation
 
 ```bash
 pip install -r requirements.txt
-cp .env.example .env   # puis remplir les cles (voir ci-dessous)
 ```
 
-### Configurer les abonnements Stripe
+### Faire payer tes clients — la methode simple (rien a configurer)
 
-C'est une etape a faire toi-meme (compte Stripe = identite legale/bancaire du
+Tu n'as besoin de RIEN configurer pour commencer a vendre l'acces des
+aujourd'hui :
+
+1. Le client va sur le dashboard et cree son compte (14 jours d'essai
+   gratuit automatique).
+2. Il te paie comme tu veux (virement, especes, Lydia, autre outil...).
+3. Tu tapes une seule commande pour lui donner l'acces :
+
+```bash
+python manage_clients.py list                              # voir tous les clients
+python manage_clients.py activer client@example.com         # lui donner l'acces apres paiement
+python manage_clients.py prolonger client@example.com --jours 30   # offrir plus d'essai gratuit
+python manage_clients.py desactiver client@example.com      # couper l'acces
+```
+
+C'est tout. Pas de compte Stripe, pas de serveur de webhook, rien.
+
+### (Optionnel, plus tard) Automatiser les paiements avec Stripe
+
+Si un jour tu veux que le paiement et l'activation se fassent tout seuls
+(carte bancaire, prelevement automatique), tu peux configurer Stripe. C'est
+une etape a faire toi-meme (compte Stripe = identite legale/bancaire du
 vendeur, cet outil ne peut pas la creer a ta place) :
 
+0. `cp .env.example .env` puis remplis les cles au fur et a mesure des
+   etapes suivantes.
 1. Cree un compte sur [dashboard.stripe.com](https://dashboard.stripe.com).
 2. Dans **Produits**, cree un produit "Predicteur de produits gagnants" avec
    un prix recurrent mensuel et/ou annuel. Copie les **Price ID**
