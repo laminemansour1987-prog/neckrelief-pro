@@ -204,10 +204,15 @@ def render_login_gate() -> dict | None:
 def render_subscribe_gate(user: dict) -> None:
     """Affiche l'ecran de blocage + bouton d'abonnement Stripe. Doit etre
     suivi de `st.stop()` par l'appelant."""
-    st.title("🔒 Abonnement requis")
-    st.write(
-        f"Bonjour **{user['email']}**. "
-        + ("Ta periode d'essai est terminee." if user["subscription_status"] == "trialing" else "Ton abonnement n'est plus actif.")
+    trial_msg = "Ta periode d'essai est terminee." if user["subscription_status"] == "trialing" else "Ton abonnement n'est plus actif."
+    st.markdown(
+        f"""
+        <div class="hero-band">
+            <h1 style="font-size: 2rem !important;">🔒 Abonnement requis</h1>
+            <p>Bonjour <strong>{user['email']}</strong>. {trial_msg}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     if not billing.is_configured():
