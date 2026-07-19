@@ -84,13 +84,18 @@ def _render_demo_charts() -> None:
 
 
 def _render_landing_pitch() -> None:
-    st.title("🔮 Ne rate plus jamais le prochain produit qui explose")
     st.markdown(
-        "Chaque semaine, des produits explosent sur TikTok et en pub Meta. "
-        "La plupart des vendeurs les decouvrent **quand c'est deja sature**. "
-        "Cet outil repere le signal de recherche qui monte, souvent des semaines "
-        "avant l'explosion — pour que tu sois le premier a le vendre, pas le dernier. "
-        "France, Belgique, Etats-Unis, Allemagne... choisis ton marche cible, l'outil s'adapte."
+        """
+        <div class="hero-band">
+            <h1>🔮 Ne rate plus jamais le prochain produit qui explose</h1>
+            <p>Chaque semaine, des produits explosent sur TikTok et en pub Meta. La plupart des
+            vendeurs les decouvrent <strong>quand c'est deja sature</strong>. Cet outil repere le
+            signal de recherche qui monte, souvent des semaines avant l'explosion — pour que tu
+            sois le premier a le vendre, pas le dernier. France, Belgique, Etats-Unis, Allemagne...
+            choisis ton marche cible, l'outil s'adapte.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
     st.markdown(f"### 💶 {PRICE_LABEL} — {db.TRIAL_DAYS} jours d'essai gratuit avant le premier paiement")
 

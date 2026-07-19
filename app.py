@@ -33,13 +33,63 @@ st.set_page_config(page_title="Predicteur de produits gagnants", page_icon="🔮
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap');
+
+    html, body, [class*="css"], .stApp, p, span, div, label, input, textarea {
+        font-family: 'Inter', -apple-system, sans-serif;
+    }
+    h1, h2, h3, .hero-band h1, .hero-band p {
+        font-family: 'Manrope', -apple-system, sans-serif !important;
+    }
+
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     div[data-testid="stDecoration"] {display: none;}
+
+    .hero-band {
+        background: linear-gradient(135deg, #6d28d9 0%, #9333ea 45%, #f43f5e 100%);
+        border-radius: 24px;
+        padding: 44px 40px;
+        margin-bottom: 28px;
+        box-shadow: 0 24px 60px rgba(109,40,217,0.28);
+    }
+    .hero-band h1 {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        font-size: 2.5rem;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0 0 14px 0 !important;
+    }
+    .hero-band p {
+        color: rgba(255,255,255,0.94) !important;
+        font-size: 1.05rem;
+        line-height: 1.55;
+        margin: 0 !important;
+        max-width: 760px;
+    }
+
+    h1, h2, h3 {
+        font-weight: 800 !important;
+        letter-spacing: -0.02em;
+    }
+
     .stButton > button, .stLinkButton > a, .stDownloadButton > button {
         border-radius: 10px;
         font-weight: 600;
+        font-family: 'Inter', sans-serif;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #7c3aed, #f43f5e);
+        border: none;
+        box-shadow: 0 6px 16px rgba(124,58,237,0.35);
+    }
+    .stButton > button[kind="primary"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(124,58,237,0.45);
+    }
+
     div[data-testid="stMetric"] {
         background: #f5f3ff;
         border: 1px solid #ede9fe;
@@ -50,6 +100,7 @@ st.markdown(
     .stTabs [data-baseweb="tab"] {
         border-radius: 10px 10px 0 0;
         padding: 10px 16px;
+        font-weight: 600;
     }
     </style>
     """,
@@ -67,8 +118,17 @@ if not user_db.has_access(user):
 auth_ui.render_account_sidebar(user)
 OWNER = user["email"]
 
-st.title("🔮 Ne rate plus jamais le prochain produit qui explose")
-st.caption("Tape un produit, choisis un marche, et vois s'il vaut le coup — en 30 secondes.")
+st.markdown(
+    """
+    <div class="hero-band" style="padding: 26px 32px;">
+        <h1 style="font-size: 1.7rem !important; margin-bottom: 4px !important;">
+            🔮 Ne rate plus jamais le prochain produit qui explose
+        </h1>
+        <p>Tape un produit, choisis un marche, et vois s'il vaut le coup — en 30 secondes.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 if user_db.is_admin(OWNER) and not ai_insights.is_available():
     st.caption(
         "💡 Astuce (visible admin uniquement) : definis la variable d'environnement "
