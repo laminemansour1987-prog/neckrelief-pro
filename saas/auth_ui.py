@@ -10,6 +10,7 @@ from . import billing, db
 
 _SESSION_KEY = "user_email"
 PRICE_LABEL = "19€/mois"
+GUARANTEE_LABEL = "Satisfait ou rembourse sous 7 jours"
 
 
 def _owner_contact_email() -> str:
@@ -63,6 +64,28 @@ def _render_landing_pitch() -> None:
         f"🎁 {db.TRIAL_DAYS} jours d'essai gratuit, sans carte bancaire, puis {PRICE_LABEL}. "
         "Cree ton compte en bas de page."
     )
+
+    tc1, tc2, tc3, tc4 = st.columns(4)
+    with tc1:
+        st.caption("🔒 Connexion securisee (HTTPS)")
+    with tc2:
+        st.caption("🔐 Mot de passe chiffre, jamais en clair")
+    with tc3:
+        st.caption(f"💸 {GUARANTEE_LABEL}")
+    with tc4:
+        st.caption(f"✉️ Contact direct : {_owner_contact_email()}")
+
+    with st.expander("🛡️ Confidentialite, securite et remboursement"):
+        st.markdown(
+            f"""
+- **Mots de passe** : jamais stockes en clair, chiffres avec bcrypt (standard de l'industrie).
+- **Connexion** : toutes les pages passent par HTTPS (chiffrement du trafic).
+- **Donnees bancaires** : cet outil ne collecte ni ne stocke aucune coordonnee bancaire. Le paiement se convient directement avec toi par email.
+- **Tes analyses** : privees, visibles uniquement par ton compte.
+- **Garantie** : {GUARANTEE_LABEL.lower()} apres le premier paiement — ecris simplement a {_owner_contact_email()}.
+- **Essai gratuit** : {db.TRIAL_DAYS} jours, aucune carte bancaire requise, tu peux arreter a tout moment sans rien payer.
+            """
+        )
     st.divider()
 
 
@@ -126,9 +149,10 @@ def render_subscribe_gate(user: dict) -> None:
     if not billing.is_configured():
         owner_email = _owner_contact_email()
         st.info(
-            f"💶 Abonnement : **{PRICE_LABEL}**\n\n"
+            f"💶 Abonnement : **{PRICE_LABEL}** · 🛡️ {GUARANTEE_LABEL}\n\n"
             f"Pour continuer, contacte-moi a **{owner_email}** pour convenir du paiement "
-            "(virement, PayPal, Lydia...). Ton acces sera active des reception."
+            "(virement, PayPal, Lydia...). Ton acces sera active des reception. "
+            "Aucune coordonnee bancaire n'est demandee ici."
         )
         st.link_button("✉️ Envoyer un email", f"mailto:{owner_email}?subject=Abonnement%20Predicteur%20de%20produits%20gagnants")
         return
