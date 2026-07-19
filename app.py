@@ -10,7 +10,9 @@ import os
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+from dotenv import load_dotenv
 
+from saas import auth_ui, db as user_db
 from trend_predictor import (
     SCORECARD_CRITERIA,
     ai_insights,
@@ -22,7 +24,20 @@ from trend_predictor import (
 )
 from trend_predictor.google_trends import DEFAULT_LEAD_GEOS, TrendsUnavailableError
 
+load_dotenv()
+
 st.set_page_config(page_title="Predicteur de produits gagnants — France", page_icon="🔮", layout="wide")
+
+user = auth_ui.render_login_gate()
+if user is None:
+    st.stop()
+
+if not user_db.has_access(user):
+    auth_ui.render_subscribe_gate(user)
+    st.stop()
+
+auth_ui.render_account_sidebar(user)
+OWNER = user["email"]
 
 st.title("🔮 Quel produit va faire fureur en France ?")
 st.caption(
@@ -99,6 +114,7 @@ with tab_single:
                 trends_score=prediction.trends_result.score if prediction.trends_result else None,
                 scorecard_score=prediction.scorecard_score,
                 lead_score=prediction.lead_result.score if prediction.lead_result else None,
+                owner=OWNER,
             )
 
         st.metric("Score final de potentiel", f"{prediction.final_score}/100")
@@ -211,6 +227,7 @@ with tab_batch:
                     trends_score=pred.trends_result.score if pred.trends_result else None,
                     scorecard_score=pred.scorecard_score,
                     lead_score=pred.lead_result.score if pred.lead_result else None,
+                    owner=OWNER,
                 )
                 results.append(
                     {
@@ -297,7 +314,7 @@ with tab_history:
         "Re-analyse regulierement tes produits candidats pour voir si le score accelere avec le temps — "
         "c'est souvent ce qui confirme un signal avant l'explosion."
     )
-    latest = watchlist.list_latest()
+    latest = watchlist.list_latest(owner=OWNER)
     if not latest:
         st.info("Aucune analyse enregistree pour l'instant. Lance une analyse dans les autres onglets.")
     else:
@@ -315,10 +332,10 @@ with tab_history:
         )
         st.dataframe(latest_df, use_container_width=True)
 
-        products = watchlist.list_products()
+        products = watchlist.list_products(owner=OWNER)
         selected = st.selectbox("Voir l'evolution d'un produit", products)
         if selected:
-            history = watchlist.get_history(selected)
+            history = watchlist.get_history(selected, owner=OWNER)
             hist_df = pd.DataFrame([dict(r) for r in history])
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=hist_df["timestamp"], y=hist_df["final_score"], mode="lines+markers", name="Score final"))
