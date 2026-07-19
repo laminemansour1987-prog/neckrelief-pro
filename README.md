@@ -145,7 +145,7 @@ notion d'abonnement) :
 
 ```bash
 python batch_analyze.py sample_products.csv --out resultats.csv
-python batch_analyze.py sample_products.csv --international --ai --out resultats.csv
+python batch_analyze.py sample_products.csv --market US --international --ai --out resultats.csv
 ```
 
 ### Tests
