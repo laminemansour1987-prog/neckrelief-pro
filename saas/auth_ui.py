@@ -26,6 +26,37 @@ def logout() -> None:
     st.session_state.pop(_SESSION_KEY, None)
 
 
+def _asset_path(filename: str) -> str:
+    return os.path.join(os.path.dirname(__file__), "..", "assets", filename)
+
+
+def _render_landing_pitch() -> None:
+    st.title("🔮 Sais quel produit va faire fureur en France — avant tout le monde")
+    st.markdown(
+        "Chaque semaine, des produits explosent sur TikTok et en pub Meta. "
+        "La plupart des vendeurs les decouvrent **quand c'est deja sature**. "
+        "Cet outil repere le signal de recherche qui monte, souvent des semaines "
+        "avant l'explosion — pour que tu sois le premier a le vendre, pas le dernier."
+    )
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("**📈 Google Trends France**")
+        st.caption("Detecte l'acceleration des recherches avant la saturation.")
+    with c2:
+        st.markdown("**🌍 Signal international**")
+        st.caption("Un produit qui explose aux US/UK arrive souvent en France 4 a 12 semaines plus tard.")
+    with c3:
+        st.markdown("**📝 Scorecard produit gagnant**")
+        st.caption("Marge, effet wahou, logistique... note n'importe quel produit en 1 minute.")
+
+    if os.path.exists(_asset_path("apercu_resultat.png")):
+        st.image(_asset_path("apercu_resultat.png"), caption="Exemple d'analyse produit dans le dashboard")
+
+    st.success(f"🎁 {db.TRIAL_DAYS} jours d'essai gratuit, sans carte bancaire. Cree ton compte en bas de page.")
+    st.divider()
+
+
 def render_login_gate() -> dict | None:
     """Affiche connexion/inscription si necessaire. Retourne l'utilisateur
     connecte, ou None (dans ce cas l'appelant doit stopper le rendu)."""
@@ -33,8 +64,7 @@ def render_login_gate() -> dict | None:
     if user:
         return user
 
-    st.title("🔮 Predicteur de produits gagnants — France")
-    st.caption(f"{db.TRIAL_DAYS} jours d'essai gratuit, puis abonnement mensuel ou annuel.")
+    _render_landing_pitch()
 
     tab_login, tab_signup = st.tabs(["Connexion", "Creer un compte"])
 
