@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 
+import plotly.graph_objects as go
 import streamlit as st
 
 from . import billing, db
@@ -36,6 +37,52 @@ def _asset_path(filename: str) -> str:
     return os.path.join(os.path.dirname(__file__), "..", "assets", filename)
 
 
+def _render_demo_charts() -> None:
+    """Illustre visuellement le principe avec des courbes d'exemple. Donnees
+    fictives, clairement signalees comme telles — les vraies analyses dans
+    le dashboard utilisent les donnees Google Trends en temps reel."""
+    weeks = list(range(1, 17))
+    leader = [5, 6, 5, 7, 8, 10, 12, 15, 20, 28, 38, 50, 62, 75, 85, 92]
+    target = [2, 2, 3, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8, 9, 10]
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=weeks, y=leader, mode="lines", name="Marche leader (ex: Etats-Unis)",
+            line=dict(color="#f43f5e", width=3),
+            fill="tozeroy", fillcolor="rgba(244,63,94,0.08)",
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=weeks, y=target, mode="lines", name="Ton marche cible (ex: France)",
+            line=dict(color="#7c3aed", width=3),
+            fill="tozeroy", fillcolor="rgba(124,58,237,0.18)",
+        )
+    )
+    fig.add_annotation(
+        x=9, y=20, text="🔥 Signal detecte ici — avant l'explosion",
+        showarrow=True, arrowhead=2, ax=-30, ay=-55,
+        font=dict(color="#f43f5e", size=13), bgcolor="white", bordercolor="#f43f5e", borderwidth=1,
+    )
+    fig.update_layout(
+        xaxis_title="Semaines",
+        yaxis_title="Interet de recherche (0-100)",
+        height=320,
+        margin=dict(l=10, r=10, t=40, b=10),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+    )
+    st.markdown("**Comment ca marche : un produit explose ailleurs avant d'arriver sur ton marche**")
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption(
+        "📊 Donnees d'exemple pour illustrer le principe (pas des ventes garanties). "
+        "Dans le dashboard, ces courbes sont generees en temps reel avec les vraies donnees "
+        "Google Trends du marche que tu analyses."
+    )
+
+
 def _render_landing_pitch() -> None:
     st.title("🔮 Sais quel produit va faire fureur — avant tout le monde")
     st.markdown(
@@ -57,6 +104,8 @@ def _render_landing_pitch() -> None:
     with c3:
         st.markdown("**📝 Scorecard produit gagnant**")
         st.caption("Marge, effet wahou, logistique... note n'importe quel produit en 1 minute.")
+
+    _render_demo_charts()
 
     if os.path.exists(_asset_path("apercu_resultat.png")):
         st.image(_asset_path("apercu_resultat.png"), caption="Exemple d'analyse produit dans le dashboard")
