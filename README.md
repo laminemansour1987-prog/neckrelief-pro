@@ -46,7 +46,15 @@ aujourd'hui :
 1. Le client va sur le dashboard et cree son compte (3 jours d'essai
    gratuit automatique).
 2. Il te paie comme tu veux (virement, especes, Lydia, autre outil...).
-3. Tu tapes une seule commande pour lui donner l'acces :
+3. Tu lui donnes l'acces — deux facons possibles :
+
+**Depuis le dashboard (recommande, pas de terminal)** : connecte-toi avec
+ton propre compte (par defaut, seul `laminemansour1987@gmail.com` a ce
+droit — configurable via `ADMIN_EMAILS`), un onglet **👑 Admin** apparait :
+liste des clients, activer/desactiver l'acces, prolonger l'essai, tout en
+cliquant.
+
+**Depuis un terminal (equivalent en ligne de commande)** :
 
 ```bash
 python manage_clients.py list                              # voir tous les clients

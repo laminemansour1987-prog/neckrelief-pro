@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from dotenv import load_dotenv
 
-from saas import auth_ui, db as user_db
+from saas import admin_ui, auth_ui, db as user_db
 from trend_predictor import (
     SCORECARD_CRITERIA,
     ai_insights,
@@ -51,15 +51,19 @@ if not ai_insights.is_available():
         "`streamlit run app.py` pour activer l'analyse qualitative par IA."
     )
 
-tab_single, tab_scorecard, tab_batch, tab_radar, tab_history = st.tabs(
-    [
-        "📈 Analyse d'un produit",
-        "📝 Scorecard seul",
-        "📂 Analyse en masse (CSV)",
-        "📡 Radar d'opportunites",
-        "🕓 Historique",
-    ]
-)
+tab_labels = [
+    "📈 Analyse d'un produit",
+    "📝 Scorecard seul",
+    "📂 Analyse en masse (CSV)",
+    "📡 Radar d'opportunites",
+    "🕓 Historique",
+]
+if user_db.is_admin(OWNER):
+    tab_labels.append("👑 Admin")
+
+_tabs = st.tabs(tab_labels)
+tab_single, tab_scorecard, tab_batch, tab_radar, tab_history = _tabs[:5]
+tab_admin = _tabs[5] if user_db.is_admin(OWNER) else None
 
 # ---------------------------------------------------------------------------
 # Onglet 1 : analyse complete d'un produit (trends FR + international + scorecard)
@@ -346,3 +350,10 @@ with tab_history:
                 height=350,
             )
             st.plotly_chart(fig, use_container_width=True)
+
+# ---------------------------------------------------------------------------
+# Onglet 6 (admin uniquement) : gerer les clients sans terminal
+# ---------------------------------------------------------------------------
+if tab_admin is not None:
+    with tab_admin:
+        admin_ui.render_admin_panel()

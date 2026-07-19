@@ -157,6 +157,25 @@ def extend_trial(email: str, days: int) -> None:
     conn.close()
 
 
+def delete_user(email: str) -> None:
+    conn = _connect()
+    with conn:
+        conn.execute("DELETE FROM users WHERE email = ?", (email.strip().lower(),))
+    conn.close()
+
+
+def is_admin(email: str | None) -> bool:
+    """Comptes autorises a acceder au panneau d'administration. Configurable
+    via la variable d'environnement ADMIN_EMAILS (adresses separees par des
+    virgules) ; par defaut, seul le compte du proprietaire du service."""
+    if not email:
+        return False
+    default_admin = os.environ.get("OWNER_CONTACT_EMAIL", "laminemansour1987@gmail.com")
+    admins_raw = os.environ.get("ADMIN_EMAILS", default_admin)
+    admins = {a.strip().lower() for a in admins_raw.split(",") if a.strip()}
+    return email.strip().lower() in admins
+
+
 def trial_days_left(user: dict) -> int:
     trial_end = datetime.datetime.fromisoformat(user["trial_end"])
     delta = trial_end - _now()

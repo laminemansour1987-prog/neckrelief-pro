@@ -110,3 +110,32 @@ def test_extend_trial_pushes_end_date_forward(tmp_path, monkeypatch):
     new_end = datetime.datetime.fromisoformat(updated["trial_end"])
     assert (new_end - original_end).days == 30
     assert db.has_access(updated) is True
+
+
+def test_is_admin_defaults_to_owner_email(tmp_path, monkeypatch):
+    db = _fresh_db(tmp_path, monkeypatch)
+    monkeypatch.delenv("ADMIN_EMAILS", raising=False)
+    monkeypatch.setenv("OWNER_CONTACT_EMAIL", "proprietaire@example.com")
+
+    assert db.is_admin("proprietaire@example.com") is True
+    assert db.is_admin("PROPRIETAIRE@EXAMPLE.COM") is True
+    assert db.is_admin("client@example.com") is False
+    assert db.is_admin(None) is False
+
+
+def test_is_admin_respects_admin_emails_override(tmp_path, monkeypatch):
+    db = _fresh_db(tmp_path, monkeypatch)
+    monkeypatch.setenv("ADMIN_EMAILS", "admin1@example.com, admin2@example.com")
+
+    assert db.is_admin("admin1@example.com") is True
+    assert db.is_admin("admin2@example.com") is True
+    assert db.is_admin("proprietaire@example.com") is False
+
+
+def test_delete_user_removes_account(tmp_path, monkeypatch):
+    db = _fresh_db(tmp_path, monkeypatch)
+    db.create_user("asupprimer@example.com", "motdepasse123")
+    assert db.get_user_by_email("asupprimer@example.com") is not None
+
+    db.delete_user("asupprimer@example.com")
+    assert db.get_user_by_email("asupprimer@example.com") is None
