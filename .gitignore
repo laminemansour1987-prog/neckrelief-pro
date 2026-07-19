@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .venv/
 resultats_predictions.csv
+watchlist.db
+.pytest_cache/
