@@ -29,7 +29,7 @@ chaque produit, une conclusion honnete sur son potentiel et un angle
 marketing concret a tester.
 
 Le dashboard est un **service par abonnement multi-clients** : chaque
-personne cree un compte (14 jours d'essai gratuit). Chaque client ne voit que
+personne cree un compte (3 jours d'essai gratuit). Chaque client ne voit que
 ses propres analyses.
 
 ### Installation
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 Tu n'as besoin de RIEN configurer pour commencer a vendre l'acces des
 aujourd'hui :
 
-1. Le client va sur le dashboard et cree son compte (14 jours d'essai
+1. Le client va sur le dashboard et cree son compte (3 jours d'essai
    gratuit automatique).
 2. Il te paie comme tu veux (virement, especes, Lydia, autre outil...).
 3. Tu tapes une seule commande pour lui donner l'acces :
@@ -92,7 +92,7 @@ uvicorn webhook_server:app --host 0.0.0.0 --port 8000
 ```
 
 Sans cles Stripe, l'app fonctionne quand meme : les comptes profitent de leur
-essai gratuit de 14 jours, puis l'ecran d'abonnement affiche un message
+essai gratuit de 3 jours, puis l'ecran d'abonnement affiche un message
 indiquant que le paiement n'est pas encore configure.
 
 Optionnel — analyse qualitative par IA : renseigne `ANTHROPIC_API_KEY` dans

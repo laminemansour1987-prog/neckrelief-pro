@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gerer l'acces de tes clients A LA MAIN, sans rien configurer (pas de Stripe requis).
 
-Un client cree son compte lui-meme sur le dashboard (14 jours d'essai
+Un client cree son compte lui-meme sur le dashboard (3 jours d'essai
 gratuit). Quand il te paie (virement, especes, autre moyen), tu lui donnes
 l'acces avec une seule commande :
 

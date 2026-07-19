@@ -1,8 +1,9 @@
 """Base des comptes clients : inscription, connexion, statut d'abonnement.
 
 SQLite, aucune dependance externe hormis `bcrypt` pour le hash des mots de
-passe. Un compte demarre avec 14 jours d'essai gratuit ; au-dela, il faut un
-abonnement Stripe actif (voir `saas.billing` et `webhook_server.py`).
+passe. Un compte demarre avec un court essai gratuit ; au-dela, il faut un
+abonnement actif (voir `saas.billing`, `webhook_server.py`, ou activation
+manuelle via `manage_clients.py`).
 """
 
 from __future__ import annotations
@@ -13,7 +14,7 @@ import sqlite3
 
 import bcrypt
 
-TRIAL_DAYS = 14
+TRIAL_DAYS = 3
 
 ACTIVE_STATUSES = {"trialing", "active"}
 
