@@ -19,26 +19,27 @@ import sys
 
 import pandas as pd
 
-from trend_predictor import predict_product, watchlist
-from trend_predictor.google_trends import DEFAULT_LEAD_GEOS
+from trend_predictor import default_lead_geos_for, predict_product, watchlist
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("input_csv", help="CSV avec une colonne 'product' (et optionnellement 'keyword')")
     parser.add_argument("--out", default="resultats_predictions.csv", help="Fichier CSV de sortie")
-    parser.add_argument("--trends-weight", type=float, default=0.4, help="Poids du signal Google Trends France (0-1)")
+    parser.add_argument("--market", default="FR", help="Marche cible (code ISO-2, ex: FR, US, GB, DE...)")
+    parser.add_argument("--trends-weight", type=float, default=0.4, help="Poids du signal Google Trends (marche cible) (0-1)")
     parser.add_argument("--scorecard-weight", type=float, default=0.35, help="Poids du scorecard (0-1)")
     parser.add_argument("--lead-weight", type=float, default=0.25, help="Poids du signal international (0-1)")
     parser.add_argument(
         "--international",
         action="store_true",
-        help="Active le signal international (compare la France a --lead-geos). Plus lent (requetes reseau en plus).",
+        help="Active le signal international (compare le marche cible a --lead-geos). Plus lent (requetes reseau en plus).",
     )
     parser.add_argument(
         "--lead-geos",
-        default=",".join(DEFAULT_LEAD_GEOS),
-        help="Pays de comparaison pour le signal international (codes ISO-2 separes par des virgules).",
+        default=None,
+        help="Pays de comparaison pour le signal international (codes ISO-2 separes par des virgules). "
+        "Par defaut, choisis automatiquement selon --market.",
     )
     parser.add_argument(
         "--ai",
@@ -52,7 +53,12 @@ def main() -> int:
         print("Erreur : le CSV doit contenir une colonne 'product'.", file=sys.stderr)
         return 1
 
-    lead_geos = tuple(g.strip().upper() for g in args.lead_geos.split(",") if g.strip())
+    market = args.market.strip().upper()
+    lead_geos = (
+        tuple(g.strip().upper() for g in args.lead_geos.split(",") if g.strip())
+        if args.lead_geos
+        else default_lead_geos_for(market)
+    )
 
     rows = []
     for _, row in df_in.iterrows():
@@ -62,6 +68,7 @@ def main() -> int:
         pred = predict_product(
             product=product,
             keyword=keyword,
+            geo=market,
             lead_geos=lead_geos,
             trends_weight=args.trends_weight,
             scorecard_weight=args.scorecard_weight,

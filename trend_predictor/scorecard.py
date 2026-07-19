@@ -1,4 +1,4 @@
-"""Scorecard 'produit gagnant', adapte au marche francais.
+"""Scorecard 'produit gagnant', utilisable pour n'importe quel marche cible.
 
 Chaque critere est note de 1 (faible) a 5 (excellent) par l'utilisateur.
 On calcule ensuite un score pondere sur 100. Les criteres et poids
@@ -26,9 +26,9 @@ SCORECARD_CRITERIA: dict[str, tuple[str, int, str]] = {
         "Prix de vente possible nettement superieur au cout d'achat/fabrication.",
     ),
     "nouveaute_france": (
-        "Nouveaute / faible saturation en France",
+        "Nouveaute / faible saturation sur le marche cible",
         15,
-        "Peu ou pas encore vendu massivement par des concurrents francais.",
+        "Peu ou pas encore vendu massivement par des concurrents locaux.",
     ),
     "ciblage_pub": (
         "Facilite de ciblage publicitaire",

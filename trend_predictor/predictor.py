@@ -1,4 +1,4 @@
-"""Combine le signal Google Trends France, le signal international
+"""Combine le signal Google Trends du marche cible, le signal international
 d'anticipation et le scorecard manuel en une seule prediction exploitable."""
 
 from __future__ import annotations
@@ -75,8 +75,9 @@ def predict_product(
 
     - `ratings` : notes du scorecard manuel (voir scorecard.SCORECARD_CRITERIA)
     - `keyword` : mot-cle a interroger sur Google Trends (par defaut = `product`)
-    - `include_international` : compare la France a `lead_geos` (US/UK/DE par
-      defaut) pour detecter un produit deja en train de percer a l'etranger.
+    - `geo` : marche cible (code ISO-2, ex: FR, US, GB, DE...)
+    - `include_international` : compare `geo` a `lead_geos` pour detecter un
+      produit deja en train de percer ailleurs avant d'arriver sur le marche cible.
     - `include_ai` : genere une courte analyse qualitative via Claude si
       `ANTHROPIC_API_KEY` est configure (sinon ignore silencieusement).
     """
@@ -94,7 +95,7 @@ def predict_product(
             forecast = forecast_trend(df[kw])
     except TrendsUnavailableError as exc:
         trends_error = str(exc)
-        notes.append("Google Trends France indisponible pour ce mot-cle.")
+        notes.append(f"Google Trends {geo} indisponible pour ce mot-cle.")
 
     lead_result: LeadSignal | None = None
     lead_error: str | None = None
@@ -104,7 +105,7 @@ def predict_product(
             if geo in multi_df.columns:
                 lead_result = compute_lead_signal(multi_df, kw, home_geo=geo)
             else:
-                lead_error = f"Pas de donnees France pour comparer aux autres pays ({', '.join(geo_errors) or 'inconnu'})."
+                lead_error = f"Pas de donnees {geo} pour comparer aux autres pays ({', '.join(geo_errors) or 'inconnu'})."
             if geo_errors:
                 notes.append(
                     "Pays sans donnees pour le signal international : " + ", ".join(sorted(geo_errors)) + "."
@@ -139,7 +140,7 @@ def predict_product(
                 context_lines.append(f"Score scorecard : {scorecard_score}/100")
             if trends_result is not None:
                 context_lines.append(
-                    f"Google Trends France : niveau actuel {trends_result.current_level}/100, "
+                    f"Google Trends {geo} : niveau actuel {trends_result.current_level}/100, "
                     f"{trends_result.label}"
                 )
             if forecast is not None:

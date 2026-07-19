@@ -140,12 +140,46 @@ def compute_velocity_score_from_series(series: pd.Series, keyword: str, recent_w
 
 
 # ---------------------------------------------------------------------------
-# Signal international : beaucoup de produits "explosent" d'abord aux
-# Etats-Unis / Royaume-Uni / Allemagne avant d'arriver en France quelques
-# semaines plus tard. On compare la France a ces marches pour anticiper.
+# Marches disponibles : l'outil n'est plus limite a la France. Chaque marche
+# a des pays de comparaison par defaut ("signal international") ou les
+# produits ont tendance a percer un peu avant.
 # ---------------------------------------------------------------------------
 
+MARKET_LABELS: dict[str, str] = {
+    "FR": "France 🇫🇷",
+    "BE": "Belgique 🇧🇪",
+    "CH": "Suisse 🇨🇭",
+    "US": "Etats-Unis 🇺🇸",
+    "GB": "Royaume-Uni 🇬🇧",
+    "DE": "Allemagne 🇩🇪",
+    "ES": "Espagne 🇪🇸",
+    "IT": "Italie 🇮🇹",
+    "CA": "Canada 🇨🇦",
+    "NL": "Pays-Bas 🇳🇱",
+    "PT": "Portugal 🇵🇹",
+    "MA": "Maroc 🇲🇦",
+}
+
+DEFAULT_LEAD_GEOS_BY_MARKET: dict[str, tuple[str, ...]] = {
+    "FR": ("US", "GB", "DE"),
+    "BE": ("FR", "NL", "GB"),
+    "CH": ("FR", "DE", "IT"),
+    "US": ("GB", "CA", "AU"),
+    "GB": ("US", "DE", "FR"),
+    "DE": ("US", "GB", "NL"),
+    "ES": ("US", "FR", "IT"),
+    "IT": ("US", "FR", "DE"),
+    "CA": ("US", "GB", "FR"),
+    "NL": ("DE", "GB", "US"),
+    "PT": ("ES", "FR", "US"),
+    "MA": ("FR", "ES", "US"),
+}
+
 DEFAULT_LEAD_GEOS: tuple[str, ...] = ("US", "GB", "DE")
+
+
+def default_lead_geos_for(market: str) -> tuple[str, ...]:
+    return DEFAULT_LEAD_GEOS_BY_MARKET.get(market.upper(), DEFAULT_LEAD_GEOS)
 
 
 def get_multi_geo_interest(

@@ -1,4 +1,4 @@
-"""Dashboard : predire quel produit va faire fureur en France.
+"""Dashboard : predire quel produit va faire fureur, marche par marche.
 
 Lancer avec :  streamlit run app.py
 """
@@ -14,19 +14,47 @@ from dotenv import load_dotenv
 
 from saas import admin_ui, auth_ui, db as user_db
 from trend_predictor import (
+    MARKET_LABELS,
     SCORECARD_CRITERIA,
     ai_insights,
     compute_scorecard_score,
+    default_lead_geos_for,
     get_multi_geo_interest,
     get_rising_related_queries,
     predict_product,
     watchlist,
 )
-from trend_predictor.google_trends import DEFAULT_LEAD_GEOS, TrendsUnavailableError
+from trend_predictor.google_trends import TrendsUnavailableError
 
 load_dotenv()
 
-st.set_page_config(page_title="Predicteur de produits gagnants — France", page_icon="🔮", layout="wide")
+st.set_page_config(page_title="Predicteur de produits gagnants", page_icon="🔮", layout="wide")
+
+st.markdown(
+    """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    div[data-testid="stDecoration"] {display: none;}
+    .stButton > button, .stLinkButton > a, .stDownloadButton > button {
+        border-radius: 10px;
+        font-weight: 600;
+    }
+    div[data-testid="stMetric"] {
+        background: #f5f3ff;
+        border: 1px solid #ede9fe;
+        border-radius: 14px;
+        padding: 14px 18px;
+    }
+    .stTabs [data-baseweb="tab-list"] { gap: 4px; }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 10px 10px 0 0;
+        padding: 10px 16px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 user = auth_ui.render_login_gate()
 if user is None:
@@ -39,10 +67,10 @@ if not user_db.has_access(user):
 auth_ui.render_account_sidebar(user)
 OWNER = user["email"]
 
-st.title("🔮 Quel produit va faire fureur en France ?")
+st.title("🔮 Quel produit va faire fureur — et ou ?")
 st.caption(
-    "Repere un produit AVANT qu'il explose : signal de recherche precoce en France, "
-    "signal d'anticipation depuis l'etranger (US/UK/DE arrivent souvent avant la France), "
+    "Repere un produit AVANT qu'il explose, sur le marche de ton choix : signal de recherche "
+    "precoce, signal d'anticipation depuis d'autres pays (souvent en avance de quelques semaines), "
     "et grille d'evaluation « produit gagnant »."
 )
 if not ai_insights.is_available():
@@ -76,14 +104,20 @@ with tab_single:
             "Mot-cle Google Trends (optionnel, sinon on utilise le nom du produit)",
             placeholder="ex: coussin cervical",
         )
+        market = st.selectbox(
+            "Marche cible",
+            list(MARKET_LABELS.keys()),
+            format_func=lambda code: MARKET_LABELS.get(code, code),
+            key="single_market",
+        )
         lead_geos_input = st.text_input(
             "Pays de comparaison (code ISO-2, separes par des virgules)",
-            value=", ".join(DEFAULT_LEAD_GEOS),
-            help="Pays souvent en avance sur la France pour les tendances produit.",
+            value=", ".join(default_lead_geos_for(market)),
+            help="Pays souvent en avance sur le marche cible pour les tendances produit.",
         )
     with col_b:
         st.markdown("**Poids de la note finale**")
-        trends_weight = st.slider("Poids Google Trends France", 0.0, 1.0, 0.4, 0.05)
+        trends_weight = st.slider("Poids Google Trends (marche cible)", 0.0, 1.0, 0.4, 0.05)
         scorecard_weight = st.slider("Poids Scorecard", 0.0, 1.0, 0.35, 0.05)
         lead_weight = st.slider("Poids Signal international", 0.0, 1.0, 0.25, 0.05)
         include_international = st.checkbox("Inclure le signal international", value=True)
@@ -104,6 +138,7 @@ with tab_single:
                 product=product_name,
                 ratings=ratings,
                 keyword=keyword or None,
+                geo=market,
                 lead_geos=lead_geos,
                 trends_weight=trends_weight,
                 scorecard_weight=scorecard_weight,
@@ -129,7 +164,7 @@ with tab_single:
             st.markdown("**Scorecard**")
             st.write(f"{prediction.scorecard_score}/100" if prediction.scorecard_score is not None else "—")
         with c2:
-            st.markdown("**Google Trends France**")
+            st.markdown(f"**Google Trends {MARKET_LABELS.get(market, market)}**")
             if prediction.trends_result:
                 tr = prediction.trends_result
                 st.write(f"{tr.score}/100")
@@ -157,14 +192,14 @@ with tab_single:
             st.markdown("**🤖 Analyse IA**")
             st.write(prediction.ai_insight)
 
-        # graphique : France vs pays de comparaison
+        # graphique : marche cible vs pays de comparaison
         try:
-            multi_df, geo_errors = get_multi_geo_interest(keyword or product_name, geos=("FR",) + lead_geos)
+            multi_df, geo_errors = get_multi_geo_interest(keyword or product_name, geos=(market,) + lead_geos)
             fig = go.Figure()
             for geo in multi_df.columns:
                 fig.add_trace(go.Scatter(x=multi_df.index, y=multi_df[geo], mode="lines", name=geo))
             fig.update_layout(
-                title="Interet de recherche — France vs. pays de comparaison (12 derniers mois)",
+                title=f"Interet de recherche — {MARKET_LABELS.get(market, market)} vs. pays de comparaison (12 derniers mois)",
                 yaxis_title="Interet relatif (0-100)",
                 xaxis_title="Date",
                 height=380,
@@ -197,6 +232,12 @@ with tab_batch:
         "Importe un CSV avec au minimum une colonne `product` (et optionnellement `keyword`). "
         "Chaque produit est note avec le scorecard neutre par defaut + son signal Google Trends."
     )
+    batch_market = st.selectbox(
+        "Marche cible",
+        list(MARKET_LABELS.keys()),
+        format_func=lambda code: MARKET_LABELS.get(code, code),
+        key="batch_market",
+    )
     batch_international = st.checkbox(
         "Inclure le signal international par produit (plus lent : plusieurs requetes/produit)",
         value=False,
@@ -222,6 +263,8 @@ with tab_batch:
                 pred = predict_product(
                     product=str(row["product"]),
                     keyword=kw,
+                    geo=batch_market,
+                    lead_geos=default_lead_geos_for(batch_market),
                     include_international=batch_international,
                 )
                 watchlist.save_analysis(

@@ -1,19 +1,21 @@
 # neckrelief-pro
 
-## Predicteur de produits gagnants (France)
+## Predicteur de produits gagnants (multi-marches)
 
-Outil pour reperer quel produit a des chances de « faire fureur » en France
+Outil pour reperer quel produit a des chances de « faire fureur » sur le
+marche de ton choix (France, Belgique, Etats-Unis, Allemagne, Royaume-Uni...)
 **avant** qu'il n'explose vraiment, en combinant trois signaux :
 
-1. **Google Trends France** — detecte une acceleration precoce des recherches
-   (un produit qui commence a monter alors qu'il n'est pas encore sature), et
-   projette la courbe sur les prochaines semaines (regression lineaire avec
-   indice de confiance).
-2. **Signal international** — beaucoup de produits explosent d'abord aux
-   Etats-Unis / Royaume-Uni / Allemagne avant d'arriver en France. L'outil
-   compare la France a ces marches, detecte quand un produit est deja en
-   forte hausse a l'etranger pendant que la France est encore plate, et
-   estime le decalage (en semaines) via une correlation croisee.
+1. **Google Trends, marche par marche** — detecte une acceleration precoce
+   des recherches sur le marche cible choisi (un produit qui commence a
+   monter alors qu'il n'est pas encore sature), et projette la courbe sur
+   les prochaines semaines (regression lineaire avec indice de confiance).
+2. **Signal international** — beaucoup de produits explosent d'abord dans un
+   pays avant d'arriver sur le marche cible. L'outil compare le marche
+   choisi a des pays de reference (adaptes automatiquement selon le marche,
+   ex. US/UK/DE pour la France), detecte quand un produit est deja en forte
+   hausse ailleurs pendant que le marche cible est encore plat, et estime le
+   decalage (en semaines) via une correlation croisee.
 3. **Scorecard « produit gagnant »** — grille d'evaluation manuelle (probleme
    resolu, effet wahou, marge, saturation, logistique, preuve sociale...)
    pour juger un produit meme sans historique de recherche.
@@ -115,19 +117,22 @@ streamlit run app.py
 
 La premiere visite demande de se connecter ou de creer un compte. Une fois
 connecte (essai gratuit ou abonnement actif), onglets disponibles :
-- **Analyse d'un produit** : score complet (Trends France + signal
-  international + scorecard, poids ajustables), projection a 4 semaines,
-  graphique France vs pays de comparaison, et analyse IA optionnelle.
+- **Analyse d'un produit** : choix du marche cible, score complet (Trends du
+  marche + signal international + scorecard, poids ajustables), projection
+  a 4 semaines, graphique marche cible vs pays de comparaison, et analyse
+  IA optionnelle.
 - **Scorecard seul** : evaluation rapide sans appel reseau.
 - **Analyse en masse (CSV)** : importe une liste de produits
-  (`sample_products.csv` fournit un exemple) et exporte les resultats tries
-  par score.
+  (`sample_products.csv` fournit un exemple), choisit un marche cible pour
+  tout le lot, et exporte les resultats tries par score.
 - **Radar d'opportunites** : entre plusieurs niches (une par ligne) et
   plusieurs pays, l'outil remonte les recherches "en hausse" associees —
   souvent les futurs produits gagnants, avant meme qu'ils soient recherches
-  en masse en France.
+  en masse sur ce marche.
 - **Historique** : suit l'evolution du score de chaque produit analyse au
   fil du temps (prive a chaque compte client).
+- **Admin** (proprietaire du service uniquement) : gerer les clients sans
+  terminal.
 
 La barre laterale affiche le statut du compte (essai/abonnement, jours
 restants) avec un lien vers le portail Stripe pour gerer/annuler

@@ -37,22 +37,23 @@ def _asset_path(filename: str) -> str:
 
 
 def _render_landing_pitch() -> None:
-    st.title("🔮 Sais quel produit va faire fureur en France — avant tout le monde")
+    st.title("🔮 Sais quel produit va faire fureur — avant tout le monde")
     st.markdown(
         "Chaque semaine, des produits explosent sur TikTok et en pub Meta. "
         "La plupart des vendeurs les decouvrent **quand c'est deja sature**. "
         "Cet outil repere le signal de recherche qui monte, souvent des semaines "
-        "avant l'explosion — pour que tu sois le premier a le vendre, pas le dernier."
+        "avant l'explosion — pour que tu sois le premier a le vendre, pas le dernier. "
+        "France, Belgique, Etats-Unis, Allemagne... choisis ton marche cible, l'outil s'adapte."
     )
     st.markdown(f"### 💶 {PRICE_LABEL} — {db.TRIAL_DAYS} jours d'essai gratuit avant le premier paiement")
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.markdown("**📈 Google Trends France**")
-        st.caption("Detecte l'acceleration des recherches avant la saturation.")
+        st.markdown("**📈 Google Trends, marche par marche**")
+        st.caption("Detecte l'acceleration des recherches avant la saturation, sur le pays de ton choix.")
     with c2:
         st.markdown("**🌍 Signal international**")
-        st.caption("Un produit qui explose aux US/UK arrive souvent en France 4 a 12 semaines plus tard.")
+        st.caption("Un produit qui explose dans un pays arrive souvent ailleurs 4 a 12 semaines plus tard.")
     with c3:
         st.markdown("**📝 Scorecard produit gagnant**")
         st.caption("Marge, effet wahou, logistique... note n'importe quel produit en 1 minute.")
