@@ -12,6 +12,10 @@ _SESSION_KEY = "user_email"
 PRICE_LABEL = "19€/mois"
 
 
+def _owner_contact_email() -> str:
+    return os.environ.get("OWNER_CONTACT_EMAIL", "laminemansour1987@gmail.com")
+
+
 def current_user() -> dict | None:
     email = st.session_state.get(_SESSION_KEY)
     if not email:
@@ -120,11 +124,13 @@ def render_subscribe_gate(user: dict) -> None:
     )
 
     if not billing.is_configured():
-        st.warning(
-            "Le paiement en ligne n'est pas encore configure sur ce serveur "
-            "(variables STRIPE_SECRET_KEY / STRIPE_PRICE_ID_MONTHLY manquantes). "
-            "Contacte l'administrateur du service."
+        owner_email = _owner_contact_email()
+        st.info(
+            f"💶 Abonnement : **{PRICE_LABEL}**\n\n"
+            f"Pour continuer, contacte-moi a **{owner_email}** pour convenir du paiement "
+            "(virement, PayPal, Lydia...). Ton acces sera active des reception."
         )
+        st.link_button("✉️ Envoyer un email", f"mailto:{owner_email}?subject=Abonnement%20Predicteur%20de%20produits%20gagnants")
         return
 
     plans = billing.available_plans()
