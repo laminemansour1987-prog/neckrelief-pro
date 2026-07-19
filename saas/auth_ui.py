@@ -84,7 +84,7 @@ def _render_demo_charts() -> None:
 
 
 def _render_landing_pitch() -> None:
-    st.title("🔮 Sais quel produit va faire fureur — avant tout le monde")
+    st.title("🔮 Ne rate plus jamais le prochain produit qui explose")
     st.markdown(
         "Chaque semaine, des produits explosent sur TikTok et en pub Meta. "
         "La plupart des vendeurs les decouvrent **quand c'est deja sature**. "

@@ -67,16 +67,12 @@ if not user_db.has_access(user):
 auth_ui.render_account_sidebar(user)
 OWNER = user["email"]
 
-st.title("🔮 Quel produit va faire fureur — et ou ?")
-st.caption(
-    "Repere un produit AVANT qu'il explose, sur le marche de ton choix : signal de recherche "
-    "precoce, signal d'anticipation depuis d'autres pays (souvent en avance de quelques semaines), "
-    "et grille d'evaluation « produit gagnant »."
-)
-if not ai_insights.is_available():
+st.title("🔮 Ne rate plus jamais le prochain produit qui explose")
+st.caption("Tape un produit, choisis un marche, et vois s'il vaut le coup — en 30 secondes.")
+if user_db.is_admin(OWNER) and not ai_insights.is_available():
     st.caption(
-        "💡 Astuce : definis la variable d'environnement `ANTHROPIC_API_KEY` avant de lancer "
-        "`streamlit run app.py` pour activer l'analyse qualitative par IA."
+        "💡 Astuce (visible admin uniquement) : definis la variable d'environnement "
+        "`ANTHROPIC_API_KEY` pour activer l'analyse qualitative par IA pour tous les clients."
     )
 
 tab_labels = [
@@ -97,41 +93,49 @@ tab_admin = _tabs[5] if user_db.is_admin(OWNER) else None
 # Onglet 1 : analyse complete d'un produit (trends FR + international + scorecard)
 # ---------------------------------------------------------------------------
 with tab_single:
-    col_a, col_b = st.columns([2, 1])
+    st.caption("Tape un produit, choisis ton marche, clique sur Analyser. C'est tout.")
+    col_a, col_b = st.columns([3, 1])
     with col_a:
         product_name = st.text_input("Nom du produit", placeholder="ex: coussin cervical chauffant")
-        keyword = st.text_input(
-            "Mot-cle Google Trends (optionnel, sinon on utilise le nom du produit)",
-            placeholder="ex: coussin cervical",
-        )
+    with col_b:
         market = st.selectbox(
             "Marche cible",
             list(MARKET_LABELS.keys()),
             format_func=lambda code: MARKET_LABELS.get(code, code),
             key="single_market",
         )
+
+    ratings: dict[str, int] = {key: 3 for key in SCORECARD_CRITERIA}
+    keyword = ""
+    trends_weight, scorecard_weight, lead_weight = 0.4, 0.35, 0.25
+    include_international = True
+    include_ai = ai_insights.is_available()
+
+    with st.expander("⚙️ Options avancees (facultatif)"):
+        keyword = st.text_input(
+            "Mot-cle Google Trends (si different du nom du produit)",
+            placeholder="ex: coussin cervical",
+        )
         lead_geos_input = st.text_input(
             "Pays de comparaison (code ISO-2, separes par des virgules)",
             value=", ".join(default_lead_geos_for(market)),
             help="Pays souvent en avance sur le marche cible pour les tendances produit.",
         )
-    with col_b:
         st.markdown("**Poids de la note finale**")
-        trends_weight = st.slider("Poids Google Trends (marche cible)", 0.0, 1.0, 0.4, 0.05)
-        scorecard_weight = st.slider("Poids Scorecard", 0.0, 1.0, 0.35, 0.05)
-        lead_weight = st.slider("Poids Signal international", 0.0, 1.0, 0.25, 0.05)
-        include_international = st.checkbox("Inclure le signal international", value=True)
-        include_ai = st.checkbox("Generer une analyse IA (Claude)", value=ai_insights.is_available())
+        trends_weight = st.slider("Poids Google Trends (marche cible)", 0.0, 1.0, trends_weight, 0.05)
+        scorecard_weight = st.slider("Poids Scorecard", 0.0, 1.0, scorecard_weight, 0.05)
+        lead_weight = st.slider("Poids Signal international", 0.0, 1.0, lead_weight, 0.05)
+        include_international = st.checkbox("Inclure le signal international", value=include_international)
+        include_ai = st.checkbox("Generer une analyse IA (Claude)", value=include_ai)
 
-    st.subheader("Scorecard produit gagnant")
-    st.caption("Note chaque critere de 1 (faible) a 5 (excellent).")
-    ratings: dict[str, int] = {}
-    cols = st.columns(2)
-    for i, (key, (label, weight, desc)) in enumerate(SCORECARD_CRITERIA.items()):
-        with cols[i % 2]:
-            ratings[key] = st.slider(f"{label} (poids {weight})", 1, 5, 3, help=desc, key=f"single_{key}")
+        st.markdown("**Ton avis sur le produit (facultatif)**")
+        st.caption("Note chaque critere de 1 (faible) a 5 (excellent). Sans reponse, une note neutre est utilisee.")
+        cols = st.columns(2)
+        for i, (key, (label, weight, desc)) in enumerate(SCORECARD_CRITERIA.items()):
+            with cols[i % 2]:
+                ratings[key] = st.slider(f"{label} (poids {weight})", 1, 5, 3, help=desc, key=f"single_{key}")
 
-    if st.button("Analyser", type="primary", disabled=not product_name):
+    if st.button("🔮 Analyser", type="primary", disabled=not product_name):
         lead_geos = tuple(g.strip().upper() for g in lead_geos_input.split(",") if g.strip())
         with st.spinner("Analyse en cours (plusieurs requetes Google Trends, ca peut prendre un moment)..."):
             prediction = predict_product(
@@ -175,7 +179,10 @@ with tab_single:
                 if prediction.forecast:
                     st.caption(f"📅 {prediction.forecast.label} (confiance {prediction.forecast.confidence})")
             elif prediction.trends_error:
-                st.warning(prediction.trends_error)
+                st.warning("Donnees de recherche indisponibles pour le moment. Reessaie dans quelques minutes.")
+                if user_db.is_admin(OWNER):
+                    with st.expander("Detail technique (admin)"):
+                        st.code(prediction.trends_error)
         with c3:
             st.markdown("**Signal international**")
             if prediction.lead_result:
@@ -183,7 +190,10 @@ with tab_single:
                 st.write(f"{ld.score}/100")
                 st.caption(ld.label)
             elif prediction.lead_error:
-                st.warning(prediction.lead_error)
+                st.warning("Signal international indisponible pour le moment.")
+                if user_db.is_admin(OWNER):
+                    with st.expander("Detail technique (admin)"):
+                        st.code(prediction.lead_error)
 
         for note in prediction.notes:
             st.info(note)
