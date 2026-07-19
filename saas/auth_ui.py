@@ -9,6 +9,7 @@ import streamlit as st
 from . import billing, db
 
 _SESSION_KEY = "user_email"
+PRICE_LABEL = "19€/mois"
 
 
 def current_user() -> dict | None:
@@ -38,6 +39,7 @@ def _render_landing_pitch() -> None:
         "Cet outil repere le signal de recherche qui monte, souvent des semaines "
         "avant l'explosion — pour que tu sois le premier a le vendre, pas le dernier."
     )
+    st.markdown(f"### 💶 {PRICE_LABEL} — {db.TRIAL_DAYS} jours d'essai gratuit avant le premier paiement")
 
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -53,7 +55,10 @@ def _render_landing_pitch() -> None:
     if os.path.exists(_asset_path("apercu_resultat.png")):
         st.image(_asset_path("apercu_resultat.png"), caption="Exemple d'analyse produit dans le dashboard")
 
-    st.success(f"🎁 {db.TRIAL_DAYS} jours d'essai gratuit, sans carte bancaire. Cree ton compte en bas de page.")
+    st.success(
+        f"🎁 {db.TRIAL_DAYS} jours d'essai gratuit, sans carte bancaire, puis {PRICE_LABEL}. "
+        "Cree ton compte en bas de page."
+    )
     st.divider()
 
 
