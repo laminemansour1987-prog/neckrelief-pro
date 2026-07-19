@@ -33,14 +33,14 @@ st.set_page_config(page_title="Predicteur de produits gagnants", page_icon="🔮
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
     html, body, [class*="css"], .stApp, p, span, div, label, input, textarea {
-        font-family: 'Inter', -apple-system, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     h1, h2, h3 {
-        font-family: 'Manrope', -apple-system, sans-serif !important;
-        font-weight: 800 !important;
+        font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        font-weight: 700 !important;
         letter-spacing: -0.02em;
     }
 
