@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PLANS } from "@/lib/plans";
 import ChatPreview from "@/components/ChatPreview";
 import Reveal from "@/components/Reveal";
@@ -104,6 +105,33 @@ const USE_CASES = [
 ];
 
 const HEADLINE_WORDS = ["Une", "IA", "essentielle", "chaque", "jour", "de", "votre", "vie"];
+
+const MOMENTS = [
+  {
+    image: "/images/scene-stretch.png",
+    alt: "Illustration : une personne s'étire à son bureau au lever du soleil",
+    kicker: "Le matin",
+    title: "Commencez la journée du bon pied",
+    description:
+      "Un étirement guidé, la météo de votre énergie, vos priorités du jour. Aura vous rappelle de bouger avant que la nuque ne se bloque — pas après.",
+  },
+  {
+    image: "/images/scene-chat.png",
+    alt: "Illustration : une conversation avec Aura sur un téléphone",
+    kicker: "Toute la journée",
+    title: "Une réponse, tout de suite",
+    description:
+      "Une question de travail, un mail à reformuler, un dîner à improviser. Vous demandez, Aura répond en streaming — sur web aujourd'hui, mobile demain.",
+  },
+  {
+    image: "/images/scene-family.png",
+    alt: "Illustration : plusieurs profils d'une famille reliés à Aura",
+    kicker: "Pour tout le foyer",
+    title: "Une IA que toute la famille partage",
+    description:
+      "Avec le plan Pro, jusqu'à 5 profils sous un même toit : chacun ses conversations, ses rappels et ses habitudes. Une seule facture.",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -220,6 +248,47 @@ export default function HomePage() {
               </Reveal>
             );
           })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <Reveal>
+          <h2 className="text-center font-display text-3xl font-medium text-white sm:text-4xl">
+            Aura dans votre quotidien
+          </h2>
+        </Reveal>
+        <div className="mt-16 space-y-24">
+          {MOMENTS.map((moment, i) => (
+            <Reveal key={moment.title}>
+              <div
+                className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+                  i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-aura-950/40">
+                  <Image
+                    src={moment.image}
+                    alt={moment.alt}
+                    width={1600}
+                    height={1200}
+                    className="h-auto w-full"
+                    sizes="(min-width: 1024px) 560px, 100vw"
+                  />
+                </div>
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-aura-300">
+                    {moment.kicker}
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-medium text-white sm:text-3xl">
+                    {moment.title}
+                  </h3>
+                  <p className="mt-4 max-w-md text-base leading-relaxed text-white/55">
+                    {moment.description}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 

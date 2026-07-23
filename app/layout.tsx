@@ -37,11 +37,13 @@ export const metadata: Metadata = {
     url: appUrl,
     siteName: "Aura",
     locale: "fr_FR",
+    images: [{ url: "/og.png", width: 2400, height: 1260, alt: "Aura — votre compagnon IA au quotidien" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title,
     description,
+    images: ["/og.png"],
   },
 };
 
