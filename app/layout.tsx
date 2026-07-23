@@ -52,7 +52,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${inter.variable} ${fraunces.variable}`}>
-      <body className="min-h-screen bg-canvas font-sans antialiased">
+      <body className="min-h-screen font-sans antialiased">
         <div className="pointer-events-none fixed inset-0 -z-10 bg-aura-radial" />
         <div className="pointer-events-none fixed inset-0 -z-10 bg-grain" />
         <Navbar />

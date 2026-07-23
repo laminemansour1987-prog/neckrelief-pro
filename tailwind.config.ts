@@ -8,7 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: "#08080f",
+        canvas: "#0c0920",
         aura: {
           50: "#f2f1ff",
           100: "#e6e3ff",
@@ -34,7 +34,7 @@ const config: Config = {
       },
       backgroundImage: {
         "aura-radial":
-          "radial-gradient(circle at 15% 10%, rgba(112,82,255,0.30), transparent 50%), radial-gradient(circle at 85% 0%, rgba(255,116,224,0.16), transparent 45%), radial-gradient(circle at 50% 100%, rgba(82,180,255,0.16), transparent 50%)",
+          "radial-gradient(circle at 15% 10%, rgba(124,92,255,0.45), transparent 55%), radial-gradient(circle at 85% 5%, rgba(255,116,224,0.28), transparent 50%), radial-gradient(circle at 90% 60%, rgba(82,180,255,0.22), transparent 50%), radial-gradient(circle at 10% 90%, rgba(255,140,120,0.16), transparent 45%)",
         "aura-glow":
           "radial-gradient(circle at 50% 0%, rgba(139,118,255,0.35), transparent 60%)",
         grain:

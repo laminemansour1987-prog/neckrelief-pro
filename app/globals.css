@@ -6,9 +6,14 @@
   color-scheme: dark;
 }
 
-html,
+/* Background lives on html only: body must stay transparent so the
+   negative-z-index backdrop layers (nebula canvas, radial glows, grain)
+   paint above it instead of being buried under an opaque body background. */
+html {
+  background-color: #0c0920;
+}
+
 body {
-  background-color: #08080f;
   color: #f5f4ff;
 }
 

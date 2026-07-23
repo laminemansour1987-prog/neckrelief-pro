@@ -3,10 +3,11 @@ import { PLANS } from "@/lib/plans";
 import ChatPreview from "@/components/ChatPreview";
 import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
-import AuraOrb from "@/components/AuraOrb";
+import AuraCanvas from "@/components/AuraCanvas";
 import SpotlightCard from "@/components/SpotlightCard";
 import Marquee from "@/components/Marquee";
 import { ZapIcon, SparkleIcon, TargetIcon, GlobeIcon, LockIcon, MessageIcon } from "@/components/icons";
+import StepIllustration from "@/components/StepIllustration";
 
 const FEATURES = [
   {
@@ -52,16 +53,19 @@ const STEPS = [
     n: "01",
     title: "Créez votre compte",
     description: "Inscription gratuite en 10 secondes, sans carte bancaire.",
+    illustration: "account" as const,
   },
   {
     n: "02",
     title: "Posez votre première question",
     description: "Travail, santé, organisation — Aura répond en streaming, en temps réel.",
+    illustration: "question" as const,
   },
   {
     n: "03",
     title: "Revenez chaque jour",
     description: "Aura s'améliore avec vos habitudes. Passez Plus ou Pro quand vous en avez besoin.",
+    illustration: "daily" as const,
   },
 ];
 
@@ -105,7 +109,7 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       <section className="relative">
-        <AuraOrb className="left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2" />
+        <AuraCanvas className="absolute inset-x-0 top-0 -z-10 h-[640px] w-full" />
         <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 pb-24 pt-20 lg:grid-cols-[1.1fr_1fr] lg:pt-28">
           <div className="flex flex-col items-start text-left">
             <Reveal>
@@ -166,18 +170,19 @@ export default function HomePage() {
 
       <Marquee items={USE_CASES} />
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="relative mx-auto max-w-6xl px-6 py-20">
         <Reveal>
           <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-white/30">
             Comment ça marche
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-8 sm:grid-cols-3">
+        <div className="relative mt-10 grid gap-8 sm:grid-cols-3">
           {STEPS.map((step, i) => (
             <Reveal key={step.n} delay={i * 120}>
-              <div className="relative rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6">
-                <span className="font-display text-3xl italic text-white/15">{step.n}</span>
-                <h3 className="mt-4 text-base font-semibold text-white">{step.title}</h3>
+              <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03] p-6 backdrop-blur-sm">
+                <StepIllustration variant={step.illustration} />
+                <span className="mt-2 block font-display text-2xl italic text-white/15">{step.n}</span>
+                <h3 className="mt-2 text-base font-semibold text-white">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{step.description}</p>
               </div>
             </Reveal>
@@ -195,17 +200,26 @@ export default function HomePage() {
           </p>
         </Reveal>
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f, i) => (
-            <Reveal key={f.title} delay={(i % 3) * 100}>
-              <SpotlightCard className="h-full rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition duration-300 hover:border-aura-400/30">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-aura-500/20 to-bloom-pink/10 text-aura-200">
-                  <f.Icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-base font-semibold text-white">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/50">{f.description}</p>
-              </SpotlightCard>
-            </Reveal>
-          ))}
+          {FEATURES.map((f, i) => {
+            const gradients = [
+              "from-aura-500/25 to-bloom-pink/10",
+              "from-bloom-pink/25 to-bloom-blue/10",
+              "from-bloom-blue/25 to-aura-500/10",
+            ];
+            return (
+              <Reveal key={f.title} delay={(i % 3) * 100}>
+                <SpotlightCard className="h-full rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition duration-300 hover:border-aura-400/30">
+                  <div
+                    className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br text-aura-100 ${gradients[i % 3]}`}
+                  >
+                    <f.Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-base font-semibold text-white">{f.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/50">{f.description}</p>
+                </SpotlightCard>
+              </Reveal>
+            );
+          })}
         </div>
       </section>
 
@@ -213,6 +227,7 @@ export default function HomePage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-aura-900/30 via-transparent to-transparent p-10 text-center sm:p-14">
             <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-aura-500/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 right-0 h-52 w-52 rounded-full bg-bloom-pink/15 blur-3xl" />
             <h2 className="font-display text-3xl font-medium text-white sm:text-4xl">
               Des abonnements simples, sans surprise
             </h2>
@@ -250,13 +265,13 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="relative mx-auto max-w-3xl px-6 py-20">
         <Reveal>
           <h2 className="text-center font-display text-3xl font-medium text-white sm:text-4xl">
             Questions fréquentes
           </h2>
         </Reveal>
-        <Reveal delay={100} className="mt-10">
+        <Reveal delay={100} className="relative mt-10">
           <FAQ items={FAQ_ITEMS} />
         </Reveal>
       </section>
