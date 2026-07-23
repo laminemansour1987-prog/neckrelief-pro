@@ -17,28 +17,42 @@ export default async function AccountPage() {
   const planId = subscriber?.status === "active" ? subscriber.plan : "free";
   const plan = getPlan(planId);
   const usageToday = await getUsageToday(`user:${email}`);
+  const usagePct = plan.dailyMessageLimit
+    ? Math.min(100, (usageToday / plan.dailyMessageLimit) * 100)
+    : 0;
 
   return (
     <div className="mx-auto max-w-lg px-6 py-20">
-      <h1 className="text-3xl font-bold text-white">Mon compte</h1>
-      <p className="mt-1 text-sm text-white/50">{email}</p>
+      <h1 className="font-display text-3xl font-medium text-white">Mon compte</h1>
+      <p className="mt-1 text-sm text-white/40">{email}</p>
 
-      <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
-        <p className="text-xs uppercase tracking-wide text-white/40">Plan actuel</p>
-        <p className="mt-1 text-2xl font-semibold text-white">{plan.name}</p>
-        <p className="mt-1 text-sm text-white/50">
-          {plan.dailyMessageLimit === null
-            ? "Messages illimités"
-            : `${usageToday}/${plan.dailyMessageLimit} messages aujourd'hui`}
-        </p>
+      <div className="mt-8 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7">
+        <p className="text-xs uppercase tracking-wide text-white/35">Plan actuel</p>
+        <p className="mt-1 font-display text-2xl font-medium text-white">{plan.name}</p>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        {plan.dailyMessageLimit === null ? (
+          <p className="mt-2 text-sm text-white/50">Messages illimités</p>
+        ) : (
+          <div className="mt-3">
+            <p className="text-sm text-white/50">
+              {usageToday}/{plan.dailyMessageLimit} messages aujourd&apos;hui
+            </p>
+            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-aura-400 to-bloom-pink transition-all duration-500"
+                style={{ width: `${usagePct}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="mt-7 flex flex-wrap gap-3">
           {subscriber?.stripeCustomerId ? (
             <BillingPortalButton />
           ) : (
             <Link
               href="/pricing"
-              className="rounded-full bg-aura-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-aura-400"
+              className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-canvas transition hover:bg-white/90"
             >
               Passer à un plan payant
             </Link>

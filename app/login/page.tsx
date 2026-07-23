@@ -7,7 +7,7 @@ export const metadata = { title: "Connexion — Aura AI" };
 export default function LoginPage() {
   return (
     <div className="px-6 py-20">
-      <h1 className="text-center text-3xl font-bold text-white">Connexion</h1>
+      <h1 className="text-center font-display text-3xl font-medium text-white">Connexion</h1>
       <Suspense>
         <AuthForm mode="login" />
       </Suspense>

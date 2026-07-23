@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import LogoMark from "@/components/Logo";
 
 interface Message {
   role: "user" | "assistant";
@@ -14,6 +15,31 @@ interface MeResponse {
   plan: string;
   limit: number | null;
   usageToday: number;
+}
+
+function TypingDots() {
+  return (
+    <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm bg-white/10 px-4 py-3">
+      <span className="h-1.5 w-1.5 animate-blink rounded-full bg-white/50 [animation-delay:0ms]" />
+      <span className="h-1.5 w-1.5 animate-blink rounded-full bg-white/50 [animation-delay:200ms]" />
+      <span className="h-1.5 w-1.5 animate-blink rounded-full bg-white/50 [animation-delay:400ms]" />
+    </div>
+  );
+}
+
+function Avatar({ role, initial }: { role: "user" | "assistant"; initial: string }) {
+  if (role === "assistant") {
+    return (
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
+        <LogoMark className="h-5 w-5" />
+      </div>
+    );
+  }
+  return (
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs font-semibold uppercase text-white/70 ring-1 ring-white/10">
+      {initial}
+    </div>
+  );
 }
 
 export default function ChatWindow() {
@@ -101,34 +127,59 @@ export default function ChatWindow() {
 
   const usageLabel = me
     ? me.limit === null
-      ? "Messages illimités"
-      : `${me.usageToday}/${me.limit} messages aujourd'hui${me.isGuest ? " (essai)" : ` (${me.plan})`}`
+      ? "Illimité"
+      : `${me.usageToday}/${me.limit} aujourd'hui`
     : "";
+  const usagePct = me && me.limit ? Math.min(100, (me.usageToday / me.limit) * 100) : 0;
+  const userInitial = me?.email ? me.email[0] : "?";
 
   return (
-    <div className="mx-auto flex h-[75vh] max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
-        <div>
-          <p className="text-sm font-semibold text-white">Aura</p>
-          <p className="text-xs text-white/40">Votre compagnon IA du quotidien</p>
+    <div className="relative mx-auto flex h-[75vh] max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-2xl shadow-black/30 backdrop-blur-sm">
+      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5">
+        <div className="flex items-center gap-2.5">
+          <LogoMark className="h-7 w-7" />
+          <div>
+            <p className="text-sm font-semibold text-white">Aura</p>
+            <p className="text-xs text-white/35">Votre compagnon IA du quotidien</p>
+          </div>
         </div>
         {me && (
-          <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
-            {usageLabel}
-          </span>
+          <div className="flex items-center gap-2">
+            {me.limit !== null && (
+              <div className="hidden h-1.5 w-16 overflow-hidden rounded-full bg-white/10 sm:block">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-aura-400 to-bloom-pink transition-all duration-500"
+                  style={{ width: `${usagePct}%` }}
+                />
+              </div>
+            )}
+            <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+              {usageLabel}
+            </span>
+          </div>
         )}
       </div>
 
-      <div className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
+      <div className="flex-1 space-y-5 overflow-y-auto px-5 py-6">
         {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div
-              className={`max-w-[80%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                m.role === "user" ? "bg-aura-500 text-white" : "bg-white/10 text-white/90"
-              }`}
-            >
-              {m.content || (loading && i === messages.length - 1 ? "…" : "")}
-            </div>
+          <div
+            key={i}
+            className={`flex animate-fade-up items-end gap-2.5 ${m.role === "user" ? "flex-row-reverse" : ""}`}
+          >
+            <Avatar role={m.role} initial={userInitial} />
+            {m.content ? (
+              <div
+                className={`max-w-[75%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  m.role === "user"
+                    ? "rounded-br-sm bg-aura-500 text-white"
+                    : "rounded-bl-sm bg-white/10 text-white/90"
+                }`}
+              >
+                {m.content}
+              </div>
+            ) : loading && i === messages.length - 1 ? (
+              <TypingDots />
+            ) : null}
           </div>
         ))}
         <div ref={bottomRef} />
@@ -166,15 +217,24 @@ export default function ChatWindow() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Écrivez votre message…"
-            className="flex-1 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder-white/30 outline-none focus:border-aura-400"
+            className="flex-1 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-aura-400/60 focus:bg-white/[0.07]"
             disabled={loading}
           />
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="rounded-full bg-aura-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-aura-400 disabled:opacity-40"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-canvas transition hover:bg-white/90 disabled:opacity-30"
+            aria-label="Envoyer"
           >
-            Envoyer
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M14 2 7 9M14 2 9.5 14l-2.5-5L2 6.5 14 2Z"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
         </form>
       )}

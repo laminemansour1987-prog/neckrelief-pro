@@ -7,7 +7,7 @@ export const metadata = {
 export default function ChatPage() {
   return (
     <div className="px-6 py-16">
-      <h1 className="mb-8 text-center text-3xl font-bold text-white">
+      <h1 className="mb-8 text-center font-display text-3xl font-medium text-white">
         Discutez avec Aura
       </h1>
       <ChatWindow />

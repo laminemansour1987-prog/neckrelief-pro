@@ -1,7 +1,22 @@
 import type { Metadata } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["opsz", "SOFT", "WONK"],
+  style: ["normal", "italic"],
+});
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const title = "Aura — Votre compagnon IA au quotidien";
@@ -36,8 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
-      <body className="min-h-screen bg-[#0a0a12] bg-aura-radial antialiased">
+    <html lang="fr" className={`${inter.variable} ${fraunces.variable}`}>
+      <body className="min-h-screen bg-canvas font-sans antialiased">
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-aura-radial" />
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-grain" />
         <Navbar />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <Footer />

@@ -60,31 +60,34 @@ export default function PricingCards() {
         {PLANS.map((plan) => (
           <div
             key={plan.id}
-            className={`flex flex-col rounded-2xl border p-8 ${
+            className={`relative flex flex-col rounded-2xl border p-8 transition duration-300 ${
               plan.highlighted
-                ? "border-aura-400 bg-aura-500/10 shadow-xl shadow-aura-500/10"
-                : "border-white/10 bg-white/5"
+                ? "border-aura-400/50 bg-aura-500/[0.08] shadow-2xl shadow-aura-500/10 sm:-translate-y-3"
+                : "border-white/[0.08] bg-white/[0.02] hover:border-white/15"
             }`}
           >
             {plan.highlighted && (
-              <span className="mb-4 w-fit rounded-full bg-aura-500 px-3 py-1 text-xs font-semibold text-white">
+              <div className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-aura-500/25 blur-3xl" />
+            )}
+            {plan.highlighted && (
+              <span className="mb-4 w-fit rounded-full bg-gradient-to-r from-aura-500 to-bloom-pink px-3 py-1 text-xs font-semibold text-white">
                 Le plus populaire
               </span>
             )}
-            <h3 className="text-xl font-semibold text-white">{plan.name}</h3>
-            <p className="mt-1 text-sm text-white/50">{plan.tagline}</p>
-            <p className="mt-6">
-              <span className="text-4xl font-bold text-white">
+            <h3 className="font-display text-xl font-medium text-white">{plan.name}</h3>
+            <p className="mt-1 text-sm text-white/45">{plan.tagline}</p>
+            <p className="mt-6 flex items-baseline gap-1">
+              <span className="font-display text-4xl font-medium text-white">
                 {plan.priceMonthly === 0 ? "Gratuit" : `${plan.priceMonthly}€`}
               </span>
-              {plan.priceMonthly > 0 && (
-                <span className="text-sm text-white/40"> / mois</span>
-              )}
+              {plan.priceMonthly > 0 && <span className="text-sm text-white/35">/ mois</span>}
             </p>
-            <ul className="mt-6 flex-1 space-y-3 text-sm text-white/70">
+            <ul className="mt-6 flex-1 space-y-3 text-sm text-white/65">
               {plan.features.map((f) => (
-                <li key={f} className="flex items-start gap-2">
-                  <span className="mt-0.5 text-aura-300">✓</span>
+                <li key={f} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-aura-500/20 text-[10px] text-aura-300">
+                    ✓
+                  </span>
                   {f}
                 </li>
               ))}
@@ -94,7 +97,7 @@ export default function PricingCards() {
               disabled={loadingPlan === plan.id}
               className={`mt-8 w-full rounded-full px-4 py-2.5 text-sm font-semibold transition disabled:opacity-50 ${
                 plan.highlighted
-                  ? "bg-aura-500 text-white hover:bg-aura-400"
+                  ? "bg-white text-canvas hover:bg-white/90"
                   : "border border-white/15 text-white hover:border-white/30"
               }`}
             >

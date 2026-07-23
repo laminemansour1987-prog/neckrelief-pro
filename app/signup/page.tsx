@@ -7,7 +7,7 @@ export const metadata = { title: "Créer un compte — Aura AI" };
 export default function SignupPage() {
   return (
     <div className="px-6 py-20">
-      <h1 className="text-center text-3xl font-bold text-white">Créer un compte</h1>
+      <h1 className="text-center font-display text-3xl font-medium text-white">Créer un compte</h1>
       <p className="mx-auto mt-2 max-w-sm text-center text-sm text-white/50">
         Gratuit, sans carte bancaire. Passez à Plus ou Pro quand vous voulez.
       </p>

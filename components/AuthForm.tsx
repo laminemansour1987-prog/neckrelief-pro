@@ -34,27 +34,30 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-sm space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto mt-10 max-w-sm space-y-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7"
+    >
       <div>
-        <label className="mb-1 block text-sm text-white/60">Email</label>
+        <label className="mb-1.5 block text-sm text-white/50">Email</label>
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none focus:border-aura-400"
+          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition focus:border-aura-400/60 focus:bg-white/[0.07]"
           placeholder="vous@example.com"
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm text-white/60">Mot de passe</label>
+        <label className="mb-1.5 block text-sm text-white/50">Mot de passe</label>
         <input
           type="password"
           required
           minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none focus:border-aura-400"
+          className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition focus:border-aura-400/60 focus:bg-white/[0.07]"
           placeholder="8 caractères minimum"
         />
       </div>
@@ -62,7 +65,7 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-aura-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-aura-400 disabled:opacity-50"
+        className="w-full rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-canvas transition hover:bg-white/90 disabled:opacity-50"
       >
         {loading ? "Un instant…" : mode === "login" ? "Se connecter" : "Créer mon compte"}
       </button>
