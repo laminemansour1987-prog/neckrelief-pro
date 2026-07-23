@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { resolveIdentity, ANON_COOKIE, ANON_COOKIE_MAX_AGE } from "@/lib/identity";
+import { getUsageToday, incrementUsage } from "@/lib/usage";
 
 export const runtime = "nodejs";
 
@@ -24,6 +26,24 @@ function demoReply(messages: ChatMessage[]): string {
   return "Je suis en mode démo pour le moment (aucune clé ANTHROPIC_API_KEY configurée sur le serveur). Une fois la clé ajoutée dans .env.local, je pourrai répondre à absolument tout, tous les jours.";
 }
 
+function streamFromText(text: string): ReadableStream<Uint8Array> {
+  const words = text.split(" ");
+  const encoder = new TextEncoder();
+  let i = 0;
+  return new ReadableStream({
+    async pull(controller) {
+      if (i >= words.length) {
+        controller.close();
+        return;
+      }
+      const chunk = (i === 0 ? "" : " ") + words[i];
+      controller.enqueue(encoder.encode(chunk));
+      i += 1;
+      await new Promise((r) => setTimeout(r, 25));
+    },
+  });
+}
+
 export async function POST(req: NextRequest) {
   let body: { messages?: ChatMessage[] };
   try {
@@ -37,24 +57,62 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "messages is required" }, { status: 400 });
   }
 
+  const identity = await resolveIdentity(req);
+
+  if (identity.limit !== null) {
+    const usedToday = await getUsageToday(identity.key);
+    if (usedToday >= identity.limit) {
+      const message = identity.isGuest
+        ? "Limite d'essai gratuite atteinte. Créez un compte gratuit pour continuer à discuter avec Aura."
+        : "Vous avez atteint la limite quotidienne de votre plan. Passez à un plan supérieur pour continuer.";
+      return NextResponse.json({ error: message, limitReached: true }, { status: 429 });
+    }
+  }
+
+  await incrementUsage(identity.key);
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
+  const headers = new Headers({ "Content-Type": "text/plain; charset=utf-8" });
+  if (identity.newAnonId) {
+    headers.append(
+      "Set-Cookie",
+      `${ANON_COOKIE}=${identity.newAnonId}; Path=/; Max-Age=${ANON_COOKIE_MAX_AGE}; SameSite=Lax${
+        process.env.NODE_ENV === "production" ? "; Secure" : ""
+      }; HttpOnly`
+    );
+  }
+
   if (!apiKey) {
-    return NextResponse.json({ reply: demoReply(messages), demo: true });
+    return new Response(streamFromText(demoReply(messages)), { headers });
   }
 
   try {
     const anthropic = new Anthropic({ apiKey });
-    const response = await anthropic.messages.create({
+    const anthropicStream = anthropic.messages.stream({
       model: "claude-sonnet-4-5",
       max_tokens: 1024,
       system: SYSTEM_PROMPT,
       messages: messages.map((m) => ({ role: m.role, content: m.content })),
     });
 
-    const textBlock = response.content.find((block) => block.type === "text");
-    const reply = textBlock && textBlock.type === "text" ? textBlock.text : "";
+    const encoder = new TextEncoder();
+    const responseStream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          for await (const event of anthropicStream) {
+            if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+              controller.enqueue(encoder.encode(event.delta.text));
+            }
+          }
+        } catch (error) {
+          console.error("Anthropic streaming error:", error);
+        } finally {
+          controller.close();
+        }
+      },
+    });
 
-    return NextResponse.json({ reply, demo: false });
+    return new Response(responseStream, { headers });
   } catch (error) {
     console.error("Anthropic API error:", error);
     return NextResponse.json(

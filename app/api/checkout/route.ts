@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe, isStripeConfigured } from "@/lib/stripe";
 import { getPlan } from "@/lib/plans";
+import { getSessionEmail } from "@/lib/auth";
 
 export const runtime = "nodejs";
 
@@ -12,7 +13,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { planId?: string; email?: string };
+  const email = await getSessionEmail();
+  if (!email) {
+    return NextResponse.json(
+      { error: "Connectez-vous pour souscrire à un abonnement.", requiresAuth: true },
+      { status: 401 }
+    );
+  }
+
+  let body: { planId?: string };
   try {
     body = await req.json();
   } catch {
@@ -23,9 +32,6 @@ export async function POST(req: NextRequest) {
   if (plan.id === "free" || !plan.priceId) {
     return NextResponse.json({ error: "Plan invalide pour le paiement." }, { status: 400 });
   }
-  if (!body.email || !/^\S+@\S+\.\S+$/.test(body.email)) {
-    return NextResponse.json({ error: "Adresse email invalide." }, { status: 400 });
-  }
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || `${req.nextUrl.origin}`;
 
@@ -33,7 +39,7 @@ export async function POST(req: NextRequest) {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
-      customer_email: body.email,
+      customer_email: email,
       line_items: [{ price: plan.priceId, quantity: 1 }],
       success_url: `${appUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/pricing`,

@@ -1,25 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PLANS, type PlanId } from "@/lib/plans";
 
 export default function PricingCards() {
-  const [email, setEmail] = useState("");
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => setIsLoggedIn(Boolean(data.email)))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
 
   async function handleSubscribe(planId: PlanId) {
     setError(null);
 
     if (planId === "free") {
-      router.push("/chat");
+      router.push(isLoggedIn ? "/chat" : "/signup");
       return;
     }
 
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      setError("Merci d'entrer une adresse email valide avant de continuer.");
+    if (!isLoggedIn) {
+      router.push("/login?next=/pricing");
       return;
     }
 
@@ -28,7 +35,7 @@ export default function PricingCards() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId, email }),
+        body: JSON.stringify({ planId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Erreur lors de la création du paiement.");
@@ -42,19 +49,12 @@ export default function PricingCards() {
 
   return (
     <div>
-      <div className="mx-auto mb-10 max-w-sm">
-        <label className="mb-2 block text-center text-sm text-white/60">
-          Votre email (requis pour les plans payants)
-        </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="vous@example.com"
-          className="w-full rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-center text-sm text-white placeholder-white/30 outline-none focus:border-aura-400"
-        />
-        {error && <p className="mt-2 text-center text-xs text-red-300">{error}</p>}
-      </div>
+      {isLoggedIn === false && (
+        <p className="mx-auto mb-8 max-w-md text-center text-sm text-white/50">
+          Connectez-vous pour souscrire à un plan payant — c&apos;est gratuit et rapide.
+        </p>
+      )}
+      {error && <p className="mx-auto mb-6 max-w-md text-center text-sm text-red-300">{error}</p>}
 
       <div className="grid gap-6 sm:grid-cols-3">
         {PLANS.map((plan) => (

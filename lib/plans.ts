@@ -59,3 +59,6 @@ export const PLANS: Plan[] = [
 export function getPlan(id: string | null | undefined): Plan {
   return PLANS.find((p) => p.id === id) ?? PLANS[0];
 }
+
+/** Daily message limit for anonymous (not signed in) visitors trying Aura. */
+export const GUEST_DAILY_LIMIT = 5;

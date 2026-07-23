@@ -2,39 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { PLANS } from "@/lib/plans";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
-const FREE_DAILY_LIMIT = PLANS.find((p) => p.id === "free")?.dailyMessageLimit ?? 15;
-const STORAGE_KEY = "aura_daily_usage";
-
-function todayKey(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function readUsage(): number {
-  if (typeof window === "undefined") return 0;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return 0;
-    const parsed = JSON.parse(raw);
-    if (parsed.date !== todayKey()) return 0;
-    return parsed.count ?? 0;
-  } catch {
-    return 0;
-  }
-}
-
-function writeUsage(count: number) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({ date: todayKey(), count })
-  );
+interface MeResponse {
+  email: string | null;
+  isGuest: boolean;
+  plan: string;
+  limit: number | null;
+  usageToday: number;
 }
 
 export default function ChatWindow() {
@@ -47,19 +26,29 @@ export default function ChatWindow() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [usage, setUsage] = useState(0);
+  const [me, setMe] = useState<MeResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [limitReached, setLimitReached] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  async function refreshMe() {
+    try {
+      const res = await fetch("/api/auth/me");
+      const data: MeResponse = await res.json();
+      setMe(data);
+      if (data.limit !== null) setLimitReached(data.usageToday >= data.limit);
+    } catch {
+      // non-fatal: usage badge just won't show
+    }
+  }
+
   useEffect(() => {
-    setUsage(readUsage());
+    refreshMe();
   }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
-
-  const limitReached = usage >= FREE_DAILY_LIMIT;
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
@@ -68,7 +57,7 @@ export default function ChatWindow() {
 
     setError(null);
     const nextMessages: Message[] = [...messages, { role: "user", content: text }];
-    setMessages(nextMessages);
+    setMessages([...nextMessages, { role: "assistant", content: "" }]);
     setInput("");
     setLoading(true);
 
@@ -78,20 +67,43 @@ export default function ChatWindow() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: nextMessages }),
       });
-      const data = await res.json();
+
       if (!res.ok) {
-        throw new Error(data.error || "Erreur inconnue");
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 429) setLimitReached(true);
+        throw new Error(data.error || "Une erreur est survenue.");
       }
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-      const newUsage = usage + 1;
-      setUsage(newUsage);
-      writeUsage(newUsage);
+
+      const reader = res.body?.getReader();
+      if (!reader) throw new Error("Réponse invalide du serveur.");
+      const decoder = new TextDecoder();
+
+      let fullText = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        fullText += decoder.decode(value, { stream: true });
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "assistant", content: fullText };
+          return updated;
+        });
+      }
+
+      await refreshMe();
     } catch (err) {
+      setMessages((prev) => prev.slice(0, -1));
       setError(err instanceof Error ? err.message : "Une erreur est survenue.");
     } finally {
       setLoading(false);
     }
   }
+
+  const usageLabel = me
+    ? me.limit === null
+      ? "Messages illimités"
+      : `${me.usageToday}/${me.limit} messages aujourd'hui${me.isGuest ? " (essai)" : ` (${me.plan})`}`
+    : "";
 
   return (
     <div className="mx-auto flex h-[75vh] max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5">
@@ -100,35 +112,25 @@ export default function ChatWindow() {
           <p className="text-sm font-semibold text-white">Aura</p>
           <p className="text-xs text-white/40">Votre compagnon IA du quotidien</p>
         </div>
-        <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
-          {usage}/{FREE_DAILY_LIMIT} messages aujourd'hui (Free)
-        </span>
+        {me && (
+          <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/50">
+            {usageLabel}
+          </span>
+        )}
       </div>
 
       <div className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
         {messages.map((m, i) => (
-          <div
-            key={i}
-            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+          <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                m.role === "user"
-                  ? "bg-aura-500 text-white"
-                  : "bg-white/10 text-white/90"
+              className={`max-w-[80%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                m.role === "user" ? "bg-aura-500 text-white" : "bg-white/10 text-white/90"
               }`}
             >
-              {m.content}
+              {m.content || (loading && i === messages.length - 1 ? "…" : "")}
             </div>
           </div>
         ))}
-        {loading && (
-          <div className="flex justify-start">
-            <div className="rounded-2xl bg-white/10 px-4 py-2.5 text-sm text-white/50">
-              Aura réfléchit…
-            </div>
-          </div>
-        )}
         <div ref={bottomRef} />
       </div>
 
@@ -140,11 +142,23 @@ export default function ChatWindow() {
 
       {limitReached ? (
         <div className="border-t border-white/10 px-5 py-4 text-center text-sm text-white/60">
-          Vous avez atteint la limite quotidienne du plan Free.{" "}
-          <Link href="/pricing" className="font-medium text-aura-300 underline">
-            Passez à Plus ou Pro
-          </Link>{" "}
-          pour continuer sans limite.
+          {me?.isGuest ? (
+            <>
+              Essai gratuit terminé pour aujourd&apos;hui.{" "}
+              <Link href="/signup" className="font-medium text-aura-300 underline">
+                Créez un compte gratuit
+              </Link>{" "}
+              pour continuer à discuter avec Aura.
+            </>
+          ) : (
+            <>
+              Vous avez atteint la limite quotidienne du plan {me?.plan}.{" "}
+              <Link href="/pricing" className="font-medium text-aura-300 underline">
+                Passez à un plan supérieur
+              </Link>{" "}
+              pour continuer sans limite.
+            </>
+          )}
         </div>
       ) : (
         <form onSubmit={sendMessage} className="flex gap-2 border-t border-white/10 p-3">

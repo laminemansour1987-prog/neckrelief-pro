@@ -45,7 +45,7 @@ export default function HomePage() {
     <div>
       <section className="mx-auto flex max-w-4xl flex-col items-center px-6 pb-20 pt-24 text-center sm:pt-32">
         <span className="mb-6 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-medium uppercase tracking-wide text-aura-300">
-          L'IA d'usage quotidien, pour tout le monde
+          L&apos;IA d&apos;usage quotidien, pour tout le monde
         </span>
         <h1 className="text-balance text-4xl font-bold leading-tight text-white sm:text-6xl">
           Une intelligence artificielle
@@ -82,7 +82,7 @@ export default function HomePage() {
           Pensé pour être utile, tous les jours
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-white/60">
-          Pas un gadget qu'on essaie une fois — un outil qu'on garde ouvert.
+          Pas un gadget qu&apos;on essaie une fois — un outil qu&apos;on garde ouvert.
         </p>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
