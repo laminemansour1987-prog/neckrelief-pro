@@ -105,6 +105,34 @@
     }
   }
 
+  // FAQ accordion
+  document.querySelectorAll(".faq-item").forEach(function (item) {
+    var question = item.querySelector(".faq-question");
+    var answer = item.querySelector(".faq-answer");
+
+    question.addEventListener("click", function () {
+      var isOpen = item.classList.contains("is-open");
+
+      document.querySelectorAll(".faq-item.is-open").forEach(function (openItem) {
+        if (openItem !== item) {
+          openItem.classList.remove("is-open");
+          openItem.querySelector(".faq-answer").style.maxHeight = null;
+          openItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (isOpen) {
+        item.classList.remove("is-open");
+        answer.style.maxHeight = null;
+        question.setAttribute("aria-expanded", "false");
+      } else {
+        item.classList.add("is-open");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        question.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
   // Footer year
   var yearEl = document.querySelector("#current-year");
   if (yearEl) {

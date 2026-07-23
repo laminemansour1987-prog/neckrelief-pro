@@ -1142,26 +1142,227 @@ h3 {
   color: #fff;
 }
 
-/* ---------- Mobile call button ---------- */
-.mobile-call-btn {
+/* ---------- Mobile sticky CTA bar ---------- */
+.sticky-cta-bar {
   display: none;
   position: fixed;
-  bottom: 18px;
-  right: 18px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-lg);
+  background: #fff;
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -8px 24px rgba(8, 44, 68, 0.12);
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
 }
 
-.mobile-call-btn svg {
-  width: 24px;
-  height: 24px;
-  color: #fff;
+.sticky-cta-bar .row {
+  display: flex;
+  gap: 10px;
+}
+
+.sticky-cta-bar .btn {
+  flex: 1;
+  padding: 13px 14px;
+}
+
+/* ---------- Trust / certifications bar ---------- */
+.trust-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trust-bar .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 24px;
+}
+
+.trust-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 220px;
+}
+
+.trust-bar-item .icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(11, 60, 93, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-bar-item .icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+}
+
+.trust-bar-item strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.trust-bar-item span {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Rating badge / avis ---------- */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.rating-badge .score {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.rating-badge .stars {
+  display: flex;
+  gap: 2px;
+  color: var(--color-accent);
+  margin-top: 4px;
+}
+
+.rating-badge .stars svg {
+  width: 15px;
+  height: 15px;
+}
+
+.rating-badge .meta {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.rating-badge .meta a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ---------- FAQ accordion ---------- */
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.faq-question .plus {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(11, 60, 93, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.faq-question .plus::before,
+.faq-question .plus::after {
+  content: "";
+  position: absolute;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.faq-question .plus::before {
+  width: 12px;
+  height: 2px;
+}
+
+.faq-question .plus::after {
+  width: 2px;
+  height: 12px;
+  transition: opacity 0.2s ease;
+}
+
+.faq-item.is-open .faq-question .plus {
+  background: var(--color-accent);
+  transform: rotate(180deg);
+}
+
+.faq-item.is-open .faq-question .plus::before,
+.faq-item.is-open .faq-question .plus::after {
+  background: #fff;
+}
+
+.faq-item.is-open .faq-question .plus::after {
+  opacity: 0;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.faq-answer p {
+  padding: 0 24px 22px;
+  color: var(--color-text-muted);
+  font-size: 0.94rem;
+}
+
+/* ---------- Payment methods ---------- */
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.payment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(238, 243, 247, 0.85);
 }
 
 /* ---------- Reveal animation ----------
@@ -1264,8 +1465,16 @@ h3 {
     display: none;
   }
 
-  .mobile-call-btn {
-    display: flex;
+  .sticky-cta-bar {
+    display: block;
+  }
+
+  body {
+    padding-bottom: 74px;
+  }
+
+  .trust-bar .container {
+    justify-content: flex-start;
   }
 }
 
