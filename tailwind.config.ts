@@ -53,11 +53,33 @@ const config: Config = {
           "0%, 80%, 100%": { opacity: "0.2" },
           "40%": { opacity: "1" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "blob-a": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(6%, -8%) scale(1.15)" },
+          "66%": { transform: "translate(-8%, 5%) scale(0.9)" },
+        },
+        "blob-b": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "40%": { transform: "translate(-10%, 6%) scale(0.9)" },
+          "75%": { transform: "translate(7%, 8%) scale(1.1)" },
+        },
+        "blob-c": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(5%, -6%) scale(1.2)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
         float: "float 6s ease-in-out infinite",
         blink: "blink 1.4s infinite both",
+        marquee: "marquee 32s linear infinite",
+        "blob-a": "blob-a 16s ease-in-out infinite",
+        "blob-b": "blob-b 20s ease-in-out infinite",
+        "blob-c": "blob-c 24s ease-in-out infinite",
       },
     },
   },

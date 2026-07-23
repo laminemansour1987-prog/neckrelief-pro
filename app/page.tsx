@@ -3,43 +3,47 @@ import { PLANS } from "@/lib/plans";
 import ChatPreview from "@/components/ChatPreview";
 import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
+import AuraOrb from "@/components/AuraOrb";
+import SpotlightCard from "@/components/SpotlightCard";
+import Marquee from "@/components/Marquee";
+import { ZapIcon, SparkleIcon, TargetIcon, GlobeIcon, LockIcon, MessageIcon } from "@/components/icons";
 
 const FEATURES = [
   {
     title: "Réponses instantanées",
     description:
       "Posez n'importe quelle question du quotidien — travail, santé, organisation — et obtenez une réponse claire en secondes.",
-    icon: "⚡",
+    Icon: ZapIcon,
   },
   {
     title: "Bien-être & posture",
     description:
       "Rappels intelligents pour bouger, s'étirer et corriger sa posture pendant les longues journées assis devant un écran.",
-    icon: "🧘",
+    Icon: SparkleIcon,
   },
   {
     title: "Mémoire de vos habitudes",
     description:
       "Aura apprend vos préférences pour des conseils de plus en plus personnalisés, jour après jour.",
-    icon: "🧠",
+    Icon: TargetIcon,
   },
   {
     title: "Disponible partout",
     description:
       "Web aujourd'hui, mobile demain. Une seule IA qui vous suit sur tous vos appareils.",
-    icon: "🌍",
+    Icon: GlobeIcon,
   },
   {
     title: "Confidentialité d'abord",
     description:
       "Vos conversations vous appartiennent. Aucune revente de données, contrôle total sur votre historique.",
-    icon: "🔒",
+    Icon: LockIcon,
   },
   {
     title: "Multilingue",
     description:
       "Aura comprend et répond dans votre langue, où que vous soyez sur la planète.",
-    icon: "🗣️",
+    Icon: MessageIcon,
   },
 ];
 
@@ -84,56 +88,83 @@ const FAQ_ITEMS = [
   },
 ];
 
+const USE_CASES = [
+  "Organisation",
+  "Bien-être",
+  "Productivité",
+  "Posture",
+  "Sommeil",
+  "Concentration",
+  "Habitudes",
+  "Motivation",
+];
+
+const HEADLINE_WORDS = ["Une", "IA", "essentielle", "chaque", "jour", "de", "votre", "vie"];
+
 export default function HomePage() {
   return (
     <div className="overflow-hidden">
-      <section className="mx-auto grid max-w-6xl items-center gap-16 px-6 pb-24 pt-20 lg:grid-cols-[1.1fr_1fr] lg:pt-28">
-        <div className="flex flex-col items-start text-left">
-          <Reveal>
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-aura-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-aura-400" />
-              L&apos;IA d&apos;usage quotidien, pour tout le monde
-            </span>
-          </Reveal>
-          <Reveal delay={80}>
+      <section className="relative">
+        <AuraOrb className="left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2" />
+        <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 pb-24 pt-20 lg:grid-cols-[1.1fr_1fr] lg:pt-28">
+          <div className="flex flex-col items-start text-left">
+            <Reveal>
+              <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-aura-300">
+                <span className="h-1.5 w-1.5 rounded-full bg-aura-400" />
+                L&apos;IA d&apos;usage quotidien, pour tout le monde
+              </span>
+            </Reveal>
             <h1 className="text-balance font-display text-5xl font-medium leading-[1.05] text-white sm:text-6xl">
-              Une IA <em className="text-gradient not-italic">essentielle</em>
-              <br /> chaque jour de votre vie
+              {HEADLINE_WORDS.map((word, i) => (
+                <span
+                  key={i}
+                  className="mr-3 inline-block animate-fade-up"
+                  style={{ animationDelay: `${i * 70}ms` }}
+                >
+                  {word === "essentielle" ? (
+                    <em className="text-gradient not-italic">{word}</em>
+                  ) : (
+                    word
+                  )}
+                </span>
+              ))}
             </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-white/55">
-              Aura combine un assistant conversationnel puissant et des
-              conseils bien-être personnalisés pour devenir le compagnon IA
-              que vous ouvrez tous les jours — au travail, à la maison,
-              partout.
-            </p>
-          </Reveal>
-          <Reveal delay={240}>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/chat"
-                className="rounded-full bg-white px-8 py-3 text-base font-semibold text-canvas shadow-lg shadow-black/20 transition hover:bg-white/90"
-              >
-                Essayer Aura gratuitement
-              </Link>
-              <Link
-                href="/pricing"
-                className="rounded-full border border-white/15 px-8 py-3 text-base font-semibold text-white/80 transition hover:border-white/30 hover:text-white"
-              >
-                Voir les abonnements
-              </Link>
-            </div>
-            <p className="mt-4 text-xs text-white/30">
-              Aucune carte bancaire requise pour le plan gratuit.
-            </p>
+            <Reveal delay={160}>
+              <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-white/55">
+                Aura combine un assistant conversationnel puissant et des
+                conseils bien-être personnalisés pour devenir le compagnon IA
+                que vous ouvrez tous les jours — au travail, à la maison,
+                partout.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href="/chat"
+                  className="rounded-full bg-white px-8 py-3 text-base font-semibold text-canvas shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-white/90"
+                >
+                  Essayer Aura gratuitement
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="rounded-full border border-white/15 px-8 py-3 text-base font-semibold text-white/80 transition hover:-translate-y-0.5 hover:border-white/30 hover:text-white"
+                >
+                  Voir les abonnements
+                </Link>
+              </div>
+              <p className="mt-4 text-xs text-white/30">
+                Aucune carte bancaire requise pour le plan gratuit.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={200} className="lg:justify-self-end">
+            <ChatPreview />
           </Reveal>
         </div>
-
-        <Reveal delay={200} className="lg:justify-self-end">
-          <ChatPreview />
-        </Reveal>
       </section>
+
+      <Marquee items={USE_CASES} />
 
       <section className="mx-auto max-w-6xl px-6 py-20">
         <Reveal>
@@ -166,13 +197,13 @@ export default function HomePage() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <Reveal key={f.title} delay={(i % 3) * 100}>
-              <div className="group h-full rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition duration-300 hover:border-aura-400/30 hover:bg-white/[0.045]">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-aura-500/20 to-bloom-pink/10 text-xl">
-                  {f.icon}
+              <SpotlightCard className="h-full rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition duration-300 hover:border-aura-400/30">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-aura-500/20 to-bloom-pink/10 text-aura-200">
+                  <f.Icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-base font-semibold text-white">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/50">{f.description}</p>
-              </div>
+              </SpotlightCard>
             </Reveal>
           ))}
         </div>
@@ -211,7 +242,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/pricing"
-              className="mt-10 inline-block rounded-full bg-white px-8 py-3 text-base font-semibold text-canvas transition hover:bg-white/90"
+              className="mt-10 inline-block rounded-full bg-white px-8 py-3 text-base font-semibold text-canvas transition hover:-translate-y-0.5 hover:bg-white/90"
             >
               Voir tous les détails
             </Link>

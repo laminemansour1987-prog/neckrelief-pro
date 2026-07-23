@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PLANS, type PlanId } from "@/lib/plans";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function PricingCards() {
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
@@ -58,16 +59,16 @@ export default function PricingCards() {
 
       <div className="grid gap-6 sm:grid-cols-3">
         {PLANS.map((plan) => (
-          <div
+          <SpotlightCard
             key={plan.id}
-            className={`relative flex flex-col rounded-2xl border p-8 transition duration-300 ${
+            className={`rounded-2xl border p-8 transition duration-300 ${
               plan.highlighted
                 ? "border-aura-400/50 bg-aura-500/[0.08] shadow-2xl shadow-aura-500/10 sm:-translate-y-3"
                 : "border-white/[0.08] bg-white/[0.02] hover:border-white/15"
             }`}
           >
             {plan.highlighted && (
-              <div className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-aura-500/25 blur-3xl" />
+              <div className="pointer-events-none absolute -top-6 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-aura-500/25 blur-3xl" />
             )}
             {plan.highlighted && (
               <span className="mb-4 w-fit rounded-full bg-gradient-to-r from-aura-500 to-bloom-pink px-3 py-1 text-xs font-semibold text-white">
@@ -107,7 +108,7 @@ export default function PricingCards() {
                 ? "Commencer gratuitement"
                 : `Passer à ${plan.name}`}
             </button>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </div>
