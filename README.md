@@ -21,15 +21,19 @@ comptes utilisateurs et abonnements payants gérés par Stripe.
   et un accès au portail de facturation Stripe (annuler/changer de plan)
 - **Webhook Stripe** pour synchroniser l'état des abonnements
   (`/api/webhook`)
+- **Base de données réelle** (Prisma + SQLite) pour les comptes, abonnés
+  et compteurs d'usage, avec écritures atomiques
 - **SEO / partage** : Open Graph, `robots.txt`, `sitemap.xml`, favicon
 - **Tests** (Vitest) sur la logique métier (plans, auth, quotas) et **CI**
   GitHub Actions (lint, typecheck, tests, build)
+- **Dockerfile** pour un déploiement auto-hébergé
 
 ## Démarrage local
 
 ```bash
-npm install
+npm install                 # installe aussi Prisma Client (postinstall)
 cp .env.example .env.local
+npx prisma db push          # crée prisma/dev.db à partir du schéma
 # renseignez au minimum ANTHROPIC_API_KEY pour activer le vrai chat IA
 npm run dev
 ```
@@ -39,6 +43,21 @@ L'application est accessible sur http://localhost:3000.
 Sans `ANTHROPIC_API_KEY`, le chat fonctionne quand même en **mode démo**
 (réponses statiques, diffusées en streaming) pour permettre de tester
 l'interface sans clé API.
+
+## Base de données
+
+Les comptes (`User`), abonnements (`Subscriber`) et compteurs d'usage
+quotidiens (`UsageCounter`) sont stockés via [Prisma](https://www.prisma.io/)
+(schéma dans `prisma/schema.prisma`). En local/démo, le provider est
+**SQLite** (`prisma/dev.db`, ignoré par git) — zéro configuration requise.
+
+Pour passer sur une vraie base de production (Postgres, MySQL…) :
+
+1. Changez `provider = "sqlite"` en `provider = "postgresql"` (ou `mysql`)
+   dans `prisma/schema.prisma`.
+2. Pointez `DATABASE_URL` vers votre instance (ex: Neon, Supabase, RDS).
+3. Relancez `npx prisma db push` (ou passez à `prisma migrate` pour des
+   migrations versionnées).
 
 ## Comptes & sessions
 
@@ -87,14 +106,37 @@ Les plans sont définis dans `lib/plans.ts`.
 ## Tests
 
 ```bash
-npm test        # Vitest — logique métier (plans, auth, quotas)
+npm test        # Vitest — logique métier (plans, auth, quotas), sur la vraie DB
 npm run lint
 npm run typecheck
 npm run build
 ```
 
-Le workflow `.github/workflows/ci.yml` exécute ces quatre étapes sur
-chaque push/PR vers `main`.
+Le workflow `.github/workflows/ci.yml` exécute (dans l'ordre) lint,
+typecheck, `prisma db push` sur une base SQLite éphémère, tests, puis
+build, sur chaque push/PR vers `main`.
+
+## Déploiement avec Docker
+
+```bash
+docker build -t aura-ai .
+docker run -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=sk-ant-... \
+  -e SESSION_SECRET=... \
+  -e STRIPE_SECRET_KEY=... \
+  -v aura-data:/app/prisma \
+  aura-ai
+```
+
+Le `Dockerfile` construit l'app en production et exécute `prisma db push`
+au démarrage du conteneur pour garder le schéma SQLite à jour. Montez un
+volume sur `/app/prisma` pour que les données survivent aux redémarrages.
+Pour un déploiement multi-instances, passez à Postgres (voir section
+« Base de données ») plutôt que SQLite sur volume.
+
+> Ce Dockerfile suit le pattern standard Next.js + Prisma mais n'a pas pu
+> être testé par un vrai build Docker dans cet environnement (pas de
+> daemon Docker disponible ici) — à valider avant un déploiement réel.
 
 ## Stack technique
 
@@ -102,16 +144,14 @@ chaque push/PR vers `main`.
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Anthropic SDK](https://github.com/anthropics/anthropic-sdk-typescript) pour le chat IA (streaming)
 - [Stripe](https://stripe.com/) pour les abonnements et le portail de facturation
+- [Prisma](https://www.prisma.io/) + SQLite pour la persistance
 - [Vitest](https://vitest.dev/) pour les tests unitaires
 
 ## Notes de production
 
-- Le stockage des comptes, abonnés et compteurs d'usage (`lib/users.ts`,
-  `lib/subscribers.ts`, `lib/usage.ts`) utilise de simples fichiers JSON
-  locaux à des fins de démo/développement. Avant un déploiement en
-  production, remplacez-les par une vraie base de données (Postgres,
-  etc.) — le stockage fichier n'est pas adapté à plusieurs instances ou
-  à une forte concurrence.
+- SQLite convient pour une démo ou un déploiement mono-instance ; pour
+  plusieurs instances/serverless, passez à Postgres (voir « Base de
+  données » ci-dessus).
 - `npm audit` signale des vulnérabilités connues sur la branche Next.js
   14.x (déjà sur la dernière version patch, `14.2.35`) ; les correctifs
   complets nécessitent Next.js 15/16, une montée de version majeure non

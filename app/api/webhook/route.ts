@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
             stripeSubscriptionId: String(session.subscription),
             plan: planId,
             status: "active",
-            updatedAt: new Date().toISOString(),
           });
         }
         break;
@@ -65,7 +64,6 @@ export async function POST(req: NextRequest) {
             stripeSubscriptionId: subscription.id,
             plan: subscription.status === "active" ? planId : "free",
             status: subscription.status,
-            updatedAt: new Date().toISOString(),
           });
         }
         break;

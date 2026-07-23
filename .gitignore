@@ -13,8 +13,9 @@
 .env.local
 .env*.local
 
-# data (local dev subscriber store)
-/data/*.json
+# local SQLite database (dev/demo)
+/prisma/*.db
+/prisma/*.db-journal
 
 # misc
 .DS_Store
