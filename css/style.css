@@ -1622,6 +1622,71 @@ h3 {
   background: rgba(56, 198, 217, 0.06);
 }
 
+.pricing-row.is-featured {
+  background: rgba(56, 198, 217, 0.1);
+}
+
+.pricing-cat {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.pricing-cat + .pricing-cat {
+  margin-top: 44px;
+}
+
+.pricing-cat-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.pricing-cat-head .service-icon {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 0;
+}
+
+.pricing-cat-head .service-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.pricing-cat-head h3 {
+  font-size: 1.4rem;
+}
+
+/* Urgence : accent braise */
+.pricing-cat--urgence .service-icon {
+  background: linear-gradient(120deg, #f2a33b, var(--braise));
+  box-shadow: 0 6px 20px rgba(242, 128, 59, 0.3);
+}
+
+.pricing-cat--urgence .pricing-row.is-featured {
+  background: var(--braise-soft);
+}
+
+.pricing-cat--urgence .price {
+  color: var(--braise);
+}
+
+.pricing-note {
+  max-width: 820px;
+  margin: 44px auto 0;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  border-left: 3px solid var(--aqua);
+  border-radius: var(--r-md);
+  padding: 24px 28px;
+  font-size: 0.92rem;
+  color: var(--brume);
+}
+
+.pricing-note strong {
+  color: var(--ecume);
+}
+
 /* ---------- Blog cards ---------- */
 .blog-card {
   display: flex;
