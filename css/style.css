@@ -364,6 +364,14 @@ h3 {
   letter-spacing: -0.01em;
 }
 
+.logo-mark-img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
 .logo-mark {
   width: 44px;
   height: 44px;
@@ -454,13 +462,84 @@ h3 {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(80px, 11vw, 150px) 0 clamp(72px, 9vw, 120px);
-  text-align: center;
+  padding: clamp(64px, 9vw, 120px) 0 clamp(64px, 8vw, 104px);
 }
 
 .hero .container {
   position: relative;
   z-index: 2;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+
+/* Photo « réalisation » : la vitrine du savoir-faire, cadrée façon galerie */
+.hero-photo {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--verre-bord);
+  box-shadow: 0 30px 80px rgba(4, 9, 16, 0.65);
+}
+
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(4, 9, 16, 0.55));
+  pointer-events: none;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  aspect-ratio: 4 / 5;
+}
+
+.hero-photo .photo-tag {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(7, 13, 23, 0.72);
+  border: 1px solid var(--verre-bord);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  backdrop-filter: blur(12px);
+}
+
+.hero-photo .photo-tag .stars {
+  display: flex;
+  gap: 2px;
+  color: var(--aqua);
+  flex-shrink: 0;
+}
+
+.hero-photo .photo-tag .stars svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hero-photo .photo-tag strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.hero-photo .photo-tag span {
+  font-size: 0.76rem;
+  color: var(--brume);
 }
 
 /* Nappes d'eau lumineuses en dérive lente */
@@ -534,29 +613,26 @@ h3 {
 }
 
 .hero h1 {
-  max-width: 21ch;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .hero p.lede {
-  margin: 24px auto 0;
-  max-width: 58ch;
+  margin: 22px 0 0;
+  max-width: 54ch;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 16px;
-  margin-top: 40px;
+  margin-top: 36px;
 }
 
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 48px;
+  gap: 12px;
+  margin-top: 32px;
 }
 
 .hero-trust-item {
@@ -581,7 +657,7 @@ h3 {
 }
 
 .hero-phone {
-  margin: 44px auto 0;
+  margin: 36px 0 0;
   display: inline-flex;
   align-items: center;
   gap: 16px;
@@ -1512,10 +1588,20 @@ h3 {
    ========================================================================== */
 
 @media (max-width: 980px) {
+  .hero-layout,
   .why-grid,
   .zone-grid,
   .about-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-photo {
+    max-width: 440px;
+    margin: 8px auto 0;
+  }
+
+  .hero-photo img {
+    aspect-ratio: 16 / 11;
   }
 
   .why-visual {
