@@ -1801,6 +1801,46 @@ h3 {
   text-align: center;
 }
 
+.rating-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  border-radius: var(--r-md);
+  padding: 16px 26px;
+  margin-bottom: 44px;
+  backdrop-filter: blur(8px);
+}
+
+.rating-summary .rating-score {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--grad-eau);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.rating-summary .stars {
+  display: flex;
+  gap: 2px;
+  color: var(--aqua);
+}
+
+.rating-summary .stars svg {
+  width: 16px;
+  height: 16px;
+}
+
+.rating-summary .rating-count {
+  font-size: 0.82rem;
+  color: var(--brume);
+  margin-top: 4px;
+}
+
 /* ---------- Reveal animation ---------- */
 .reveal {
   opacity: 1;
