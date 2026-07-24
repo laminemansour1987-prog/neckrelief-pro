@@ -229,4 +229,75 @@
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+
+  // Lightbox de la galerie « Nos réalisations »
+  var lightbox = document.querySelector("#lightbox");
+  var galleryItems = Array.prototype.slice.call(document.querySelectorAll(".gallery-item[data-full]"));
+  if (lightbox && galleryItems.length) {
+    var lbImg = lightbox.querySelector("#lb-img");
+    var lbCap = lightbox.querySelector("#lb-cap");
+    var lbCounter = lightbox.querySelector("#lb-counter");
+    var btnClose = lightbox.querySelector(".lb-close");
+    var btnPrev = lightbox.querySelector(".lb-prev");
+    var btnNext = lightbox.querySelector(".lb-next");
+    var current = 0;
+    var lastFocused = null;
+
+    var render = function () {
+      var item = galleryItems[current];
+      lbImg.src = item.getAttribute("data-full");
+      lbImg.alt = item.getAttribute("aria-label") || "";
+      lbCap.textContent = item.getAttribute("data-caption") || "";
+      lbCounter.textContent = current + 1 + " / " + galleryItems.length;
+      // relance l'animation de zoom à chaque changement
+      lbImg.style.animation = "none";
+      void lbImg.offsetWidth;
+      lbImg.style.animation = "";
+    };
+
+    var openAt = function (i) {
+      current = i;
+      lastFocused = document.activeElement;
+      lightbox.hidden = false;
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      render();
+      btnNext.focus();
+    };
+
+    var close = function () {
+      lightbox.classList.remove("is-open");
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    };
+
+    var step = function (dir) {
+      current = (current + dir + galleryItems.length) % galleryItems.length;
+      render();
+    };
+
+    galleryItems.forEach(function (item, i) {
+      item.addEventListener("click", function () {
+        openAt(i);
+      });
+    });
+
+    btnClose.addEventListener("click", close);
+    btnPrev.addEventListener("click", function () {
+      step(-1);
+    });
+    btnNext.addEventListener("click", function () {
+      step(1);
+    });
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "ArrowRight") step(1);
+    });
+  }
 })();

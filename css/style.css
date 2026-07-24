@@ -1644,6 +1644,205 @@ h3 {
   transform: translateY(0);
 }
 
+/* Bouton d'agrandissement : la galerie devient cliquable comme chez les grandes enseignes */
+.gallery-item {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.gallery-item .zoom-cue {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(4, 9, 16, 0.55);
+  border: 1px solid var(--verre-bord);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.gallery-item .zoom-cue svg {
+  width: 16px;
+  height: 16px;
+  color: var(--ecume);
+}
+
+.gallery-item:hover .zoom-cue,
+.gallery-item:focus-visible .zoom-cue {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(4, 9, 16, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.is-open {
+  display: flex;
+  animation: lbFade 0.25s ease;
+}
+
+@keyframes lbFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox-figure {
+  margin: 0;
+  max-width: min(92vw, 1000px);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-figure img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--r-md);
+  border: 1px solid var(--verre-bord);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  animation: lbZoom 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes lbZoom {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-figure figcaption {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ecume);
+}
+
+.lightbox-figure figcaption span {
+  color: var(--brume-faible);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  margin-left: 10px;
+}
+
+.lightbox button {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--verre-bord);
+  background: var(--verre);
+  color: var(--ecume);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.lightbox button:hover {
+  background: rgba(56, 198, 217, 0.15);
+  border-color: var(--verre-bord-vif);
+}
+
+.lightbox button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lightbox .lb-close {
+  top: 20px;
+  right: 20px;
+}
+
+.lightbox .lb-prev {
+  left: clamp(8px, 3vw, 32px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox .lb-next {
+  right: clamp(8px, 3vw, 32px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox .lb-counter {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono, var(--font-body));
+  font-size: 0.82rem;
+  color: var(--brume);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 640px) {
+  .lightbox .lb-prev { left: 8px; }
+  .lightbox .lb-next { right: 8px; }
+  .lightbox button { width: 44px; height: 44px; }
+}
+
+/* ---------- Hero rating chip ---------- */
+.hero-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.15s ease;
+}
+
+.hero-rating:hover {
+  border-color: var(--verre-bord-vif);
+}
+
+.hero-rating .stars {
+  display: flex;
+  gap: 2px;
+  color: var(--aqua);
+}
+
+.hero-rating .stars svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hero-rating .rating-text {
+  font-size: 0.85rem;
+  color: var(--brume);
+}
+
+.hero-rating .rating-text strong {
+  color: var(--ecume);
+  font-family: var(--font-display);
+}
+
 @media (max-width: 900px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1971,10 +2170,15 @@ h3 {
 .hero .container .reveal.is-visible > h1,
 .hero .container .reveal.is-visible > .lede,
 .hero .container .reveal.is-visible > .hero-actions,
+.hero .container .reveal.is-visible > .hero-rating,
 .hero .container .reveal.is-visible > .hero-trust,
 .hero .container .reveal.is-visible > .hero-phone {
   opacity: 0;
   animation: heroIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.hero .container .reveal.is-visible > .hero-rating {
+  animation-delay: 0.46s;
 }
 
 .hero .container .reveal.is-visible > .eyebrow-lux {
