@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { planId?: string };
+  let body: { planId?: string; billing?: string };
   try {
     body = await req.json();
   } catch {
@@ -29,7 +29,9 @@ export async function POST(req: NextRequest) {
   }
 
   const plan = getPlan(body.planId);
-  if (plan.id === "free" || !plan.priceId) {
+  const billing = body.billing === "annual" ? "annual" : "monthly";
+  const priceId = billing === "annual" ? plan.priceIdAnnual : plan.priceId;
+  if (plan.id === "free" || !priceId) {
     return NextResponse.json({ error: "Plan invalide pour le paiement." }, { status: 400 });
   }
 
@@ -40,7 +42,7 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       customer_email: email,
-      line_items: [{ price: plan.priceId, quantity: 1 }],
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${appUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/pricing`,
       metadata: { planId: plan.id },

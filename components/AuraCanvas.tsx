@@ -143,13 +143,23 @@ export default function AuraCanvas({ className = "" }: { className?: string }) {
       visible = document.visibilityState === "visible";
     }
 
+    // Slow parallax drift as the page scrolls, with a gentle fade-out.
+    function handleScroll() {
+      if (reduceMotion) return;
+      const y = window.scrollY;
+      canvas!.style.transform = `translateY(${y * 0.35}px)`;
+      canvas!.style.opacity = String(Math.max(0, 1 - y / 900));
+    }
+
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

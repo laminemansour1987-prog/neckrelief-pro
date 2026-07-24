@@ -27,4 +27,17 @@ describe("plans", () => {
     const free = getPlan("free");
     expect(GUEST_DAILY_LIMIT).toBeLessThan(free.dailyMessageLimit ?? Infinity);
   });
+
+  it("annual billing gives two months free on paid plans", () => {
+    for (const plan of PLANS.filter((p) => p.priceMonthly > 0)) {
+      expect(plan.priceAnnual).toBe(plan.priceMonthly * 10);
+      expect(plan.priceIdAnnual).toBeTruthy();
+    }
+  });
+
+  it("free plan has no annual price ids", () => {
+    const free = getPlan("free");
+    expect(free.priceAnnual).toBe(0);
+    expect(free.priceIdAnnual).toBeNull();
+  });
 });

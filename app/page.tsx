@@ -9,6 +9,8 @@ import SpotlightCard from "@/components/SpotlightCard";
 import Marquee from "@/components/Marquee";
 import { ZapIcon, SparkleIcon, TargetIcon, GlobeIcon, LockIcon, MessageIcon } from "@/components/icons";
 import StepIllustration from "@/components/StepIllustration";
+import Tilt from "@/components/Tilt";
+import StatsBand from "@/components/StatsBand";
 
 const FEATURES = [
   {
@@ -106,6 +108,30 @@ const USE_CASES = [
 
 const HEADLINE_WORDS = ["Une", "IA", "essentielle", "chaque", "jour", "de", "votre", "vie"];
 
+const TESTIMONIALS = [
+  {
+    avatar: "/images/avatars/av1.png",
+    name: "Léa",
+    role: "Graphiste indépendante",
+    quote:
+      "Le rappel d'étirement toutes les 30 minutes a changé mes journées. Je ne finis plus la semaine avec la nuque en vrac.",
+  },
+  {
+    avatar: "/images/avatars/av2.png",
+    name: "Karim",
+    role: "Développeur",
+    quote:
+      "C'est devenu mon premier réflexe le matin : je lui donne mes trois priorités et il me recadre quand je m'éparpille.",
+  },
+  {
+    avatar: "/images/avatars/av3.png",
+    name: "Awa",
+    role: "Maman de deux enfants",
+    quote:
+      "Chacun a son profil à la maison. Les devoirs, les recettes, mes séances de sport — une seule app pour tout le monde.",
+  },
+];
+
 const MOMENTS = [
   {
     image: "/images/scene-stretch.png",
@@ -191,7 +217,9 @@ export default function HomePage() {
           </div>
 
           <Reveal delay={200} className="lg:justify-self-end">
-            <ChatPreview />
+            <Tilt>
+              <ChatPreview />
+            </Tilt>
           </Reveal>
         </div>
       </section>
@@ -292,6 +320,47 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <Reveal>
+          <StatsBand />
+        </Reveal>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <Reveal>
+          <h2 className="text-center font-display text-3xl font-medium text-white sm:text-4xl">
+            Ils ouvrent Aura tous les jours
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {TESTIMONIALS.map((t, i) => (
+            <Reveal key={t.name} delay={i * 120}>
+              <figure className="flex h-full flex-col rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7">
+                <div className="mb-4 flex gap-1 text-bloom-amber" aria-label="5 étoiles">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <svg key={s} viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
+                      <path d="M10 1.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8L10 14.9l-5.3 2.7 1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
+                    </svg>
+                  ))}
+                </div>
+                <blockquote className="flex-1 text-sm leading-relaxed text-white/70">
+                  « {t.quote} »
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3">
+                  <span className="relative h-11 w-11 overflow-hidden rounded-full ring-1 ring-white/15">
+                    <Image src={t.avatar} alt="" fill sizes="44px" className="object-cover" />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-semibold text-white">{t.name}</span>
+                    <span className="block text-xs text-white/40">{t.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-6 py-20">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-aura-900/30 via-transparent to-transparent p-10 text-center sm:p-14">
@@ -342,6 +411,27 @@ export default function HomePage() {
         </Reveal>
         <Reveal delay={100} className="relative mt-10">
           <FAQ items={FAQ_ITEMS} />
+        </Reveal>
+      </section>
+
+      <section className="relative mx-auto max-w-4xl px-6 pb-28 pt-10 text-center">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-aura-400/25 bg-gradient-to-b from-aura-500/15 via-aura-900/20 to-transparent px-8 py-16 sm:px-16">
+            <div className="pointer-events-none absolute -top-28 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-aura-500/30 blur-3xl" />
+            <h2 className="text-balance font-display text-3xl font-medium text-white sm:text-5xl">
+              Votre journée mérite une <em className="text-gradient not-italic">aura</em>
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-white/55">
+              Gratuit en 10 secondes. Sans carte bancaire. Résiliable en un clic
+              si un jour vous n&apos;en voulez plus — mais on parie que non.
+            </p>
+            <Link
+              href="/signup"
+              className="mt-9 inline-block rounded-full bg-white px-10 py-3.5 text-base font-semibold text-canvas shadow-xl shadow-aura-500/20 transition hover:-translate-y-0.5 hover:bg-white/90"
+            >
+              Créer mon compte gratuit
+            </Link>
+          </div>
         </Reveal>
       </section>
     </div>
