@@ -1432,6 +1432,19 @@ h3 {
   margin-top: 3px;
 }
 
+.footer-seo {
+  padding: 26px 0 4px;
+  border-top: 1px solid var(--verre-bord);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--brume-faible);
+}
+
+.footer-seo strong {
+  color: var(--brume);
+  font-weight: 600;
+}
+
 .footer-bottom {
   display: flex;
   align-items: center;
