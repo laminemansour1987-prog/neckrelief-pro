@@ -1,0 +1,41 @@
+// Production schema used by Vercel (and any hosted deployment) — identical
+// models to prisma/schema.prisma, but with the PostgreSQL provider since
+// SQLite cannot run on Vercel's read-only, ephemeral serverless filesystem.
+//
+// Local development keeps using prisma/schema.prisma (SQLite). Vercel is
+// pointed at this file via the buildCommand in vercel.json.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Subscriber {
+  id                   String   @id @default(cuid())
+  email                String   @unique
+  stripeCustomerId     String
+  stripeSubscriptionId String?
+  plan                 String
+  status               String
+  updatedAt            DateTime @updatedAt
+}
+
+model UsageCounter {
+  id       String @id @default(cuid())
+  identity String
+  date     String
+  count    Int    @default(0)
+
+  @@unique([identity, date])
+}
