@@ -47,14 +47,19 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before paint: resolves the saved theme (or the OS preference) and
+// stamps it on <html> so there is no light/dark flash on first load.
+const themeInit = `(function(){try{var t=localStorage.getItem('aura-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="fr" data-theme="dark" suppressHydrationWarning className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <div className="pointer-events-none fixed inset-0 -z-10 bg-aura-radial" />
         <div className="pointer-events-none fixed inset-0 -z-10 bg-grain" />
         <Navbar />

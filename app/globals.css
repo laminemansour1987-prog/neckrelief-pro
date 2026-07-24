@@ -2,19 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   Theming
+   The UI is authored dark-first with Tailwind white-alpha utilities
+   (text-white, bg-white/5, border-white/10, bg-canvas…). Rather than rewrite
+   every component, a light theme is layered on by remapping those exact
+   utilities under [data-theme="light"]. Dark stays the untouched default.
+   `data-theme` is set on <html> before paint by an inline script (no FOUC).
+--------------------------------------------------------------------------- */
+
 :root {
   color-scheme: dark;
+  --bg: #0c0920;
+  --fg: #f5f4ff;
 }
 
-/* Background lives on html only: body must stay transparent so the
-   negative-z-index backdrop layers (nebula canvas, radial glows, grain)
-   paint above it instead of being buried under an opaque body background. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f1fb;
+  --fg: #1b1140;
+}
+
 html {
-  background-color: #0c0920;
+  background-color: var(--bg);
+  transition: background-color 0.3s ease;
 }
 
 body {
-  color: #f5f4ff;
+  color: var(--fg);
 }
 
 ::selection {
@@ -32,6 +47,10 @@ body {
   color: transparent;
 }
 
+:root[data-theme="light"] .text-gradient {
+  background-image: linear-gradient(100deg, #6a48f0 0%, #7052ff 40%, #a53fd0 75%, #d6379f 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -42,3 +61,60 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Light theme utility remap (flat selectors — this PostCSS pipeline does not
+   flatten nested CSS). Ink = #1b1140 (deep aura navy). Surfaces flip from
+   white-alpha (on dark) to ink-alpha (on light) so panels keep the same depth.
+--------------------------------------------------------------------------- */
+/* text */
+:root[data-theme="light"] .text-white { color: #1b1140; }
+:root[data-theme="light"] .text-white\/90 { color: rgba(27, 17, 64, 0.92); }
+:root[data-theme="light"] .text-white\/80 { color: rgba(27, 17, 64, 0.82); }
+:root[data-theme="light"] .text-white\/75 { color: rgba(27, 17, 64, 0.74); }
+:root[data-theme="light"] .text-white\/70 { color: rgba(27, 17, 64, 0.7); }
+:root[data-theme="light"] .text-white\/65 { color: rgba(27, 17, 64, 0.66); }
+:root[data-theme="light"] .text-white\/60 { color: rgba(27, 17, 64, 0.62); }
+:root[data-theme="light"] .text-white\/55 { color: rgba(27, 17, 64, 0.58); }
+:root[data-theme="light"] .text-white\/50 { color: rgba(27, 17, 64, 0.54); }
+:root[data-theme="light"] .text-white\/45 { color: rgba(27, 17, 64, 0.5); }
+:root[data-theme="light"] .text-white\/40 { color: rgba(27, 17, 64, 0.48); }
+:root[data-theme="light"] .text-white\/35 { color: rgba(27, 17, 64, 0.45); }
+:root[data-theme="light"] .text-white\/30 { color: rgba(27, 17, 64, 0.42); }
+
+/* primary buttons: white ground → deep aura accent, dark ink text → white */
+:root[data-theme="light"] .bg-white { background-color: #4c27d1; }
+:root[data-theme="light"] .hover\:bg-white\/90:hover { background-color: #5c34f5; }
+:root[data-theme="light"] .text-canvas { color: #ffffff; }
+
+/* nav ground */
+:root[data-theme="light"] .bg-canvas\/70 { background-color: rgba(243, 241, 251, 0.72); }
+
+/* panels (white-alpha → ink-alpha) */
+:root[data-theme="light"] .bg-white\/5 { background-color: rgba(27, 17, 64, 0.04); }
+:root[data-theme="light"] .bg-white\/10 { background-color: rgba(27, 17, 64, 0.07); }
+:root[data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgba(27, 17, 64, 0.025); }
+:root[data-theme="light"] .bg-white\/\[0\.03\] { background-color: rgba(27, 17, 64, 0.035); }
+:root[data-theme="light"] .bg-white\/\[0\.04\] { background-color: rgba(27, 17, 64, 0.04); }
+:root[data-theme="light"] .bg-white\/\[0\.045\] { background-color: rgba(27, 17, 64, 0.05); }
+:root[data-theme="light"] .bg-white\/\[0\.06\] { background-color: rgba(27, 17, 64, 0.055); }
+:root[data-theme="light"] .bg-white\/\[0\.07\] { background-color: rgba(27, 17, 64, 0.06); }
+:root[data-theme="light"] .bg-white\/\[0\.08\] { background-color: rgba(27, 17, 64, 0.07); }
+:root[data-theme="light"] .hover\:bg-white\/\[0\.07\]:hover { background-color: rgba(27, 17, 64, 0.06); }
+
+/* borders */
+:root[data-theme="light"] .border-white\/5 { border-color: rgba(27, 17, 64, 0.08); }
+:root[data-theme="light"] .border-white\/10 { border-color: rgba(27, 17, 64, 0.12); }
+:root[data-theme="light"] .border-white\/15 { border-color: rgba(27, 17, 64, 0.16); }
+:root[data-theme="light"] .border-white\/\[0\.06\] { border-color: rgba(27, 17, 64, 0.09); }
+:root[data-theme="light"] .border-white\/\[0\.07\] { border-color: rgba(27, 17, 64, 0.1); }
+:root[data-theme="light"] .border-white\/\[0\.08\] { border-color: rgba(27, 17, 64, 0.11); }
+:root[data-theme="light"] .hover\:border-white\/30:hover { border-color: rgba(27, 17, 64, 0.25); }
+
+/* input placeholders */
+:root[data-theme="light"] .placeholder-white\/30::placeholder { color: rgba(27, 17, 64, 0.4); }
+
+/* accent text (light lavender → deep aura so it stays legible on light) */
+:root[data-theme="light"] .text-aura-100 { color: #5c34f5; }
+:root[data-theme="light"] .text-aura-200 { color: #4c27d1; }
+:root[data-theme="light"] .text-aura-300 { color: #4c27d1; }

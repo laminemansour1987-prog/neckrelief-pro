@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getSessionEmail } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
 import LogoMark from "@/components/Logo";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default async function Navbar() {
   const email = await getSessionEmail();
@@ -32,10 +33,12 @@ export default async function Navbar() {
         {email ? (
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-white/40 sm:inline">{email}</span>
+            <ThemeToggle />
             <LogoutButton />
           </div>
         ) : (
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link href="/login" className="hidden text-sm text-white/60 transition hover:text-white sm:inline">
               Connexion
             </Link>

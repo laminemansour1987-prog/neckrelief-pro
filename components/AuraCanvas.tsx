@@ -42,6 +42,20 @@ export default function AuraCanvas({ className = "" }: { className?: string }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Theme-aware ground: the legibility scrims must fade into whatever the
+    // page background is, and the blobs run gentler on a light ground.
+    let scrim = "12,9,32";
+    let blobAlpha = 1;
+    function readTheme() {
+      const light = document.documentElement.dataset.theme === "light";
+      scrim = light ? "243,241,251" : "12,9,32";
+      blobAlpha = light ? 0.5 : 1;
+    }
+    readTheme();
+    const themeObserver = new MutationObserver(readTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
     let width = 0;
     let height = 0;
     let frame = 0;
@@ -86,9 +100,9 @@ export default function AuraCanvas({ className = "" }: { className?: string }) {
         const y = (b.baseY + Math.cos(time * b.freqY + b.phase) * b.ampY) * height;
         const r = b.radius * Math.min(width, height) * 2.2;
         const gradient = ctx!.createRadialGradient(x, y, 0, x, y, r);
-        gradient.addColorStop(0, `rgba(${b.color},0.65)`);
-        gradient.addColorStop(0.35, `rgba(${b.color},0.35)`);
-        gradient.addColorStop(0.7, `rgba(${b.color},0.12)`);
+        gradient.addColorStop(0, `rgba(${b.color},${0.65 * blobAlpha})`);
+        gradient.addColorStop(0.35, `rgba(${b.color},${0.35 * blobAlpha})`);
+        gradient.addColorStop(0.7, `rgba(${b.color},${0.12 * blobAlpha})`);
         gradient.addColorStop(1, `rgba(${b.color},0)`);
         ctx!.fillStyle = gradient;
         ctx!.beginPath();
@@ -102,24 +116,24 @@ export default function AuraCanvas({ className = "" }: { className?: string }) {
         const x = p.x * width;
         const y = p.y * height;
         ctx!.beginPath();
-        ctx!.fillStyle = `rgba(255,255,255,${twinkle * 0.8})`;
+        ctx!.fillStyle = `rgba(255,255,255,${twinkle * 0.8 * blobAlpha})`;
         ctx!.arc(x, y, p.r * dpr, 0, Math.PI * 2);
         ctx!.fill();
       }
 
-      // Legibility scrims: keep the left text column dark, and fade the
+      // Legibility scrims: keep the left text column readable, and fade the
       // bottom edge into the page background so the section ends softly.
       ctx!.globalCompositeOperation = "source-over";
       const leftScrim = ctx!.createLinearGradient(0, 0, width * 0.62, 0);
-      leftScrim.addColorStop(0, "rgba(12,9,32,0.88)");
-      leftScrim.addColorStop(0.55, "rgba(12,9,32,0.55)");
-      leftScrim.addColorStop(1, "rgba(12,9,32,0)");
+      leftScrim.addColorStop(0, `rgba(${scrim},0.88)`);
+      leftScrim.addColorStop(0.55, `rgba(${scrim},0.55)`);
+      leftScrim.addColorStop(1, `rgba(${scrim},0)`);
       ctx!.fillStyle = leftScrim;
       ctx!.fillRect(0, 0, width, height);
 
       const bottomScrim = ctx!.createLinearGradient(0, height * 0.45, 0, height);
-      bottomScrim.addColorStop(0, "rgba(12,9,32,0)");
-      bottomScrim.addColorStop(1, "rgba(12,9,32,1)");
+      bottomScrim.addColorStop(0, `rgba(${scrim},0)`);
+      bottomScrim.addColorStop(1, `rgba(${scrim},1)`);
       ctx!.fillStyle = bottomScrim;
       ctx!.fillRect(0, 0, width, height);
     }
@@ -157,6 +171,7 @@ export default function AuraCanvas({ className = "" }: { className?: string }) {
 
     return () => {
       cancelAnimationFrame(raf);
+      themeObserver.disconnect();
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("scroll", handleScroll);
