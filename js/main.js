@@ -32,9 +32,27 @@
   // Reveal-on-scroll animation (progressive enhancement: content is visible
   // by default via CSS; only hidden once .js-ready flips it, and always
   // force-shown after a short timeout as a safety net).
+  var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   var revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length && "IntersectionObserver" in window) {
     document.documentElement.classList.add("js-ready");
+
+    // Décalage progressif : les éléments d'un même groupe apparaissent l'un
+    // après l'autre pour un effet en cascade plus vivant.
+    if (!prefersReduced) {
+      revealEls.forEach(function (el) {
+        var parent = el.parentElement;
+        if (!parent) return;
+        var siblings = Array.prototype.filter.call(parent.children, function (c) {
+          return c.classList && c.classList.contains("reveal");
+        });
+        if (siblings.length > 1) {
+          var i = siblings.indexOf(el);
+          if (i > 0) el.style.setProperty("--reveal-delay", (i * 0.09).toFixed(2) + "s");
+        }
+      });
+    }
 
     var observer = new IntersectionObserver(
       function (entries) {
@@ -57,6 +75,79 @@
         el.classList.add("is-visible");
       });
     }, 2500);
+  }
+
+  // Flottement continu de la photo du hero après son entrée
+  var heroPhoto = document.querySelector(".hero-photo");
+  if (heroPhoto && !prefersReduced) {
+    heroPhoto.addEventListener("animationend", function onEnter(e) {
+      if (e.animationName === "heroIn") {
+        heroPhoto.classList.add("is-floating");
+        heroPhoto.removeEventListener("animationend", onEnter);
+      }
+    });
+    // Filet de sécurité si l'événement ne se déclenche pas
+    window.setTimeout(function () {
+      heroPhoto.classList.add("is-floating");
+    }, 1500);
+  }
+
+  // Compteurs animés (chiffres clés + note Google)
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length) {
+    var animateCount = function (el) {
+      var raw = el.getAttribute("data-count");
+      var m = raw.match(/^([^\d]*)([\d]+(?:[.,]\d+)?)(.*)$/);
+      if (!m) {
+        el.textContent = raw;
+        return;
+      }
+      var prefix = m[1] || "";
+      var numStr = m[2];
+      var suffix = m[3] || "";
+      var decimals = /[.,]/.test(numStr) ? 1 : 0;
+      var sep = numStr.indexOf(",") !== -1 ? "," : ".";
+      var target = parseFloat(numStr.replace(",", "."));
+      if (prefersReduced) {
+        el.textContent = raw;
+        return;
+      }
+      var duration = 1200;
+      var start = null;
+      var step = function (ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var val = (target * eased).toFixed(decimals);
+        if (decimals === 1) val = val.replace(".", sep);
+        el.textContent = prefix + val + suffix;
+        if (p < 1) window.requestAnimationFrame(step);
+        else el.textContent = raw;
+      };
+      window.requestAnimationFrame(step);
+    };
+
+    if ("IntersectionObserver" in window) {
+      var cObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("counting");
+              animateCount(entry.target);
+              cObs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      counters.forEach(function (el) {
+        cObs.observe(el);
+      });
+    } else {
+      counters.forEach(function (el) {
+        el.textContent = el.getAttribute("data-count");
+      });
+    }
   }
 
   // Contact form -> mailto handoff
