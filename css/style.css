@@ -1566,11 +1566,11 @@ h3 {
 .marquee-track {
   display: inline-flex;
   align-items: center;
-  gap: 60px;
-  padding-left: 60px;
+  gap: 28px;
+  padding-left: 28px;
   white-space: nowrap;
   will-change: transform;
-  animation: marquee 24s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 .marquee:hover .marquee-track {
@@ -1586,24 +1586,31 @@ h3 {
   }
 }
 
-.brands-strip .brand-name {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--brume);
-  letter-spacing: 0.03em;
-  transition: color 0.2s ease;
+.brands-strip .brand-logo {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 78px;
+  padding: 0 26px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.brands-strip .brand-name:hover {
-  color: var(--aqua);
+.brands-strip .brand-logo img {
+  height: 42px;
+  width: auto;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
 }
 
-.brands-strip .brand-dot {
-  color: var(--verre-bord-vif);
-  font-size: 1.2rem;
-  flex-shrink: 0;
+.brands-strip .brand-logo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(56, 198, 217, 0.28);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1612,7 +1619,7 @@ h3 {
     justify-content: center;
     flex-wrap: wrap;
     white-space: normal;
-    gap: 16px 36px;
+    gap: 16px 18px;
     padding-left: 0;
   }
   .marquee {
