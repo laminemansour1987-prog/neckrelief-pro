@@ -4,7 +4,9 @@ import { getSessionEmail } from "@/lib/auth";
 import { getSubscriberByEmail } from "@/lib/subscribers";
 import { getUsageToday } from "@/lib/usage";
 import { getPlan } from "@/lib/plans";
+import { getUserByEmail, getReferralCount } from "@/lib/users";
 import BillingPortalButton from "@/components/BillingPortalButton";
+import ReferralCard from "@/components/ReferralCard";
 
 export const metadata = { title: "Mon compte — Aura AI" };
 export const dynamic = "force-dynamic";
@@ -20,6 +22,9 @@ export default async function AccountPage() {
   const usagePct = plan.dailyMessageLimit
     ? Math.min(100, (usageToday / plan.dailyMessageLimit) * 100)
     : 0;
+
+  const user = await getUserByEmail(email);
+  const referralCount = user ? await getReferralCount(user.referralCode) : 0;
 
   return (
     <div className="mx-auto max-w-lg px-6 py-20">
@@ -65,6 +70,8 @@ export default async function AccountPage() {
           </Link>
         </div>
       </div>
+
+      {user && <ReferralCard code={user.referralCode} count={referralCount} />}
     </div>
   );
 }

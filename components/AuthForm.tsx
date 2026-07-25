@@ -16,13 +16,28 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
     setError(null);
     setLoading(true);
     try {
+      let ref: string | null = null;
+      if (mode === "signup") {
+        try {
+          ref = window.localStorage.getItem("aura_ref");
+        } catch {
+          ref = null;
+        }
+      }
       const res = await fetch(`/api/auth/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, ref }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Une erreur est survenue.");
+      if (mode === "signup") {
+        try {
+          window.localStorage.removeItem("aura_ref");
+        } catch {
+          // ignore
+        }
+      }
       const next = searchParams.get("next") || "/account";
       router.push(next);
       router.refresh();

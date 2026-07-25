@@ -11,7 +11,11 @@ model User {
   id           String   @id @default(cuid())
   email        String   @unique
   passwordHash String
+  referralCode String   @unique
+  referredBy   String? // referralCode of the user who referred this one
   createdAt    DateTime @default(now())
+
+  @@index([referredBy])
 }
 
 model Subscriber {

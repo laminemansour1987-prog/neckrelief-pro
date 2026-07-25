@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RefCapture from "@/components/RefCapture";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <div className="pointer-events-none fixed inset-0 -z-10 bg-aura-radial" />
         <div className="pointer-events-none fixed inset-0 -z-10 bg-grain" />
+        <RefCapture />
         <Navbar />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>
         <Footer />

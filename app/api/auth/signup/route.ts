@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createUser, getUserByEmail } from "@/lib/users";
+import { createUser, getUserByEmail, getUserByReferralCode } from "@/lib/users";
 import { hashPassword, createSessionToken, SESSION_COOKIE, SESSION_COOKIE_MAX_AGE } from "@/lib/auth";
 
 export const runtime = "nodejs";
@@ -9,7 +9,7 @@ function isValidEmail(email: unknown): email is string {
 }
 
 export async function POST(req: NextRequest) {
-  let body: { email?: string; password?: string };
+  let body: { email?: string; password?: string; ref?: string };
   try {
     body = await req.json();
   } catch {
@@ -34,7 +34,17 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  await createUser(body.email, hashPassword(body.password));
+  // Resolve the referral code (if any) to the referrer's code, ignoring
+  // invalid or self-referrals silently — a bad ref should never block signup.
+  let referredBy: string | null = null;
+  if (body.ref) {
+    const referrer = await getUserByReferralCode(body.ref);
+    if (referrer && referrer.email !== body.email.toLowerCase()) {
+      referredBy = referrer.referralCode;
+    }
+  }
+
+  await createUser(body.email, hashPassword(body.password), referredBy);
   const token = await createSessionToken(body.email.toLowerCase());
 
   const res = NextResponse.json({ email: body.email.toLowerCase() });

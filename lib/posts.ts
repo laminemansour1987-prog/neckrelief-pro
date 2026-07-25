@@ -179,6 +179,134 @@ export const POSTS: Post[] = [
   },
 ];
 
+POSTS.push(
+  {
+    slug: "fatigue-oculaire-ecran-solutions",
+    title: "Fatigue oculaire devant l'écran : causes et solutions simples",
+    description:
+      "Yeux secs, vision floue, maux de tête après l'écran ? Découvrez les causes de la fatigue oculaire et des solutions simples comme la règle du 20-20-20.",
+    excerpt:
+      "Yeux qui piquent, vision trouble, mal de tête en fin de journée : la fatigue oculaire numérique touche presque tous ceux qui travaillent sur écran. Voici comment la soulager.",
+    keyword: "fatigue oculaire écran",
+    readingMinutes: 4,
+    date: "2026-07-12",
+    body: [
+      {
+        type: "p",
+        text: "La fatigue oculaire numérique (ou « syndrome de vision informatique ») n'a rien de grave, mais elle rend les journées pénibles : yeux secs, picotements, vision floue par moments, parfois des maux de tête. Elle vient surtout de deux choses : on cligne beaucoup moins des yeux devant un écran, et on fixe une distance fixe pendant des heures.",
+      },
+      { type: "h2", text: "La règle du 20-20-20" },
+      {
+        type: "p",
+        text: "C'est la solution la plus efficace et la plus simple : toutes les 20 minutes, regardez un point à environ 6 mètres (20 pieds) pendant 20 secondes. Cela relâche le muscle qui accommode la vision de près et repose vos yeux.",
+      },
+      { type: "h2", text: "Réglez la luminosité et les contrastes" },
+      {
+        type: "ul",
+        items: [
+          "L'écran ne doit être ni plus lumineux ni plus sombre que la pièce autour.",
+          "Évitez les reflets : ne placez pas l'écran face à une fenêtre.",
+          "Augmentez la taille du texte plutôt que de plisser les yeux.",
+        ],
+      },
+      { type: "h2", text: "Pensez à cligner et à vous hydrater" },
+      {
+        type: "p",
+        text: "Devant un écran, on cligne des yeux jusqu'à deux fois moins que la normale, d'où la sensation de sécheresse. Faites-y attention consciemment, et gardez une bouteille d'eau à portée de main.",
+      },
+      { type: "h2", text: "Le rappel qui fait la différence" },
+      {
+        type: "p",
+        text: "Comme pour la posture, le problème n'est pas de connaître la règle du 20-20-20, mais de la respecter quand on est absorbé par son travail. Aura peut vous envoyer ce petit rappel au bon moment, avec vos autres rappels bien-être, pour que vos yeux tiennent la journée.",
+      },
+      {
+        type: "p",
+        text: "Si la gêne persiste malgré ces mesures, ou si votre vision change, consultez un ophtalmologiste. Ces conseils sont informatifs et ne remplacent pas un avis médical.",
+      },
+    ],
+  },
+  {
+    slug: "lumiere-bleue-sommeil-ecran-soir",
+    title: "Écrans le soir et sommeil : faut-il vraiment s'inquiéter de la lumière bleue ?",
+    description:
+      "La lumière bleue des écrans perturbe-t-elle le sommeil ? Ce qu'en dit la science et des habitudes simples pour mieux dormir malgré les écrans du soir.",
+    excerpt:
+      "On accuse souvent la lumière bleue des écrans de gâcher notre sommeil. Qu'en est-il vraiment, et surtout : que faire concrètement pour mieux dormir ?",
+    keyword: "lumière bleue sommeil écran",
+    readingMinutes: 5,
+    date: "2026-07-09",
+    body: [
+      {
+        type: "p",
+        text: "Regarder un écran tard le soir peut retarder l'endormissement. La lumière — bleue en particulier — envoie à votre cerveau le signal qu'il fait encore jour, ce qui freine la production de mélatonine, l'hormone du sommeil. Mais ce n'est pas la seule coupable : le contenu stimulant (réseaux, mails, séries) tient l'esprit en éveil autant que la lumière.",
+      },
+      { type: "h2", text: "Les habitudes qui aident vraiment" },
+      {
+        type: "ul",
+        items: [
+          "Baissez la luminosité et activez le mode sombre / nuit en soirée.",
+          "Essayez de couper les écrans 30 à 60 minutes avant de dormir.",
+          "Éloignez le téléphone du lit — la tentation de « juste vérifier » est le vrai voleur de sommeil.",
+        ],
+      },
+      { type: "h2", text: "Créez un rituel de fin de journée" },
+      {
+        type: "p",
+        text: "Le sommeil se prépare. Un rituel simple et répété — tamiser les lumières, ranger le téléphone, quelques minutes de lecture ou de respiration — apprend à votre corps qu'il est l'heure de ralentir. La régularité de l'heure du coucher compte souvent plus que tout le reste.",
+      },
+      { type: "h2", text: "Un compagnon pour tenir le cap" },
+      {
+        type: "p",
+        text: "Décider de couper les écrans à 22 h est facile ; s'y tenir l'est moins. Aura peut vous envoyer un rappel de fin de journée, vous aider à installer un rituel du soir et répondre à vos questions bien-être — un petit coup de pouce pour de meilleures nuits.",
+      },
+      {
+        type: "p",
+        text: "En cas de troubles du sommeil persistants, parlez-en à un professionnel de santé. Ces conseils sont informatifs et ne remplacent pas un avis médical.",
+      },
+    ],
+  },
+  {
+    slug: "mal-aux-poignets-clavier-prevention",
+    title: "Mal aux poignets à cause du clavier : soulager et prévenir les tensions",
+    description:
+      "Douleurs ou fourmillements aux poignets à force de taper ? Découvrez comment régler votre poste et quelques étirements simples pour soulager et prévenir.",
+    excerpt:
+      "Taper des heures peut réveiller des douleurs et des fourmillements dans les poignets. Voici comment régler votre poste et quelques étirements pour soulager.",
+    keyword: "mal aux poignets clavier",
+    readingMinutes: 4,
+    date: "2026-07-06",
+    body: [
+      {
+        type: "p",
+        text: "Les douleurs de poignet liées au clavier viennent souvent d'une position pliée maintenue trop longtemps. La clé, comme pour le reste du corps, est de garder les articulations dans une position neutre et de bouger régulièrement.",
+      },
+      { type: "h2", text: "Réglez votre position de frappe" },
+      {
+        type: "ul",
+        items: [
+          "Poignets droits, dans l'alignement des avant-bras — ni cassés vers le haut ni vers le bas.",
+          "Avant-bras parallèles au sol, coudes à angle droit.",
+          "Ne posez pas le poids des poignets sur le bord du bureau en tapant.",
+        ],
+      },
+      { type: "h2", text: "Trois étirements rapides" },
+      {
+        type: "p",
+        text: "Bras tendu devant vous, paume vers l'avant, tirez doucement les doigts vers vous avec l'autre main, quinze secondes. Répétez paume vers le bas. Enfin, ouvrez et fermez les poings lentement dix fois. À faire plusieurs fois par jour.",
+      },
+      { type: "h2", text: "Bougez avant que ça ne fasse mal" },
+      {
+        type: "p",
+        text: "La meilleure prévention reste la pause régulière : quelques secondes pour relâcher les mains toutes les demi-heures évitent l'accumulation de tension. Aura peut vous le rappeler au fil de la journée, en même temps que vos pauses posture et vos étirements de nuque.",
+      },
+      {
+        type: "p",
+        text: "Attention : des fourmillements persistants, un engourdissement ou une douleur qui réveille la nuit peuvent signaler un problème comme le syndrome du canal carpien. Consultez un professionnel de santé — ces conseils ne remplacent pas un avis médical.",
+      },
+    ],
+  }
+);
+
 export function getPost(slug: string): Post | undefined {
   return POSTS.find((p) => p.slug === slug);
 }
