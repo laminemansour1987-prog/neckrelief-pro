@@ -1535,41 +1535,90 @@ h3 {
   .whatsapp-fab::after { animation: none; }
 }
 
-/* ---------- Bandeau « marques » ---------- */
+/* ---------- Bandeau « fournisseurs » défilant (marquee) ---------- */
 .brands-strip {
   border-top: 1px solid var(--verre-bord);
   border-bottom: 1px solid var(--verre-bord);
   background: var(--nuit);
-}
-
-.brands-strip .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px 40px;
-  padding: 28px 24px;
+  padding: 24px 0;
+  overflow: hidden;
 }
 
 .brands-strip .brands-label {
-  font-size: 0.74rem;
+  display: block;
+  text-align: center;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--brume-faible);
+  margin-bottom: 18px;
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 60px;
+  padding-left: 60px;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 24s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .brands-strip .brand-name {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--brume);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   transition: color 0.2s ease;
+  flex-shrink: 0;
 }
 
 .brands-strip .brand-name:hover {
-  color: var(--ecume);
+  color: var(--aqua);
+}
+
+.brands-strip .brand-dot {
+  color: var(--verre-bord-vif);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 16px 36px;
+    padding-left: 0;
+  }
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 /* ---------- Mobile sticky CTA bar ---------- */
