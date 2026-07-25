@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createUser, getUserByEmail, getUserByReferralCode } from "@/lib/users";
 import { hashPassword, createSessionToken, SESSION_COOKIE, SESSION_COOKIE_MAX_AGE } from "@/lib/auth";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
   }
 
   await createUser(body.email, hashPassword(body.password), referredBy);
+
+  // Welcome email — best effort, never blocks or fails signup.
+  await sendWelcomeEmail(body.email.toLowerCase());
+
   const token = await createSessionToken(body.email.toLowerCase());
 
   const res = NextResponse.json({ email: body.email.toLowerCase() });

@@ -11,6 +11,7 @@ import { ZapIcon, SparkleIcon, TargetIcon, GlobeIcon, LockIcon, MessageIcon } fr
 import StepIllustration from "@/components/StepIllustration";
 import Tilt from "@/components/Tilt";
 import StatsBand from "@/components/StatsBand";
+import SocialProof from "@/components/SocialProof";
 
 const FEATURES = [
   {
@@ -213,6 +214,7 @@ export default function HomePage() {
               <p className="mt-4 text-xs text-white/30">
                 Aucune carte bancaire requise pour le plan gratuit.
               </p>
+              <SocialProof />
             </Reveal>
           </div>
 
