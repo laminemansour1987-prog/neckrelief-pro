@@ -19,8 +19,9 @@ const COLUMNS = [
     ],
   },
   {
-    title: "Aide",
+    title: "Ressources",
     links: [
+      { label: "Blog", href: "/blog" },
       { label: "Questions fréquentes", href: "/#features" },
       { label: "Facturation", href: "/pricing" },
     ],

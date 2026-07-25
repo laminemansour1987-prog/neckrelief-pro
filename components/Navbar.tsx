@@ -24,6 +24,9 @@ export default async function Navbar() {
           <Link href="/chat" className="transition hover:text-white">
             Essayer Aura
           </Link>
+          <Link href="/blog" className="transition hover:text-white">
+            Blog
+          </Link>
           {email && (
             <Link href="/account" className="transition hover:text-white">
               Mon compte
