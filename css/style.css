@@ -1460,6 +1460,118 @@ h3 {
   color: var(--aqua);
 }
 
+/* ---------- Bouton WhatsApp flottant ---------- */
+.whatsapp-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 190;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 58px;
+  padding: 0;
+  width: 58px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #04121b;
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.whatsapp-fab .wa-icon {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whatsapp-fab .wa-icon svg {
+  width: 30px;
+  height: 30px;
+  color: #fff;
+}
+
+.whatsapp-fab .wa-label {
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  padding-right: 22px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.whatsapp-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  animation: waPulse 2.4s infinite;
+  pointer-events: none;
+}
+
+@keyframes waPulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
+  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@media (hover: hover) {
+  .whatsapp-fab:hover {
+    width: 230px;
+    transform: translateY(-2px);
+  }
+  .whatsapp-fab:hover .wa-label {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-fab::after { animation: none; }
+}
+
+/* ---------- Bandeau « marques » ---------- */
+.brands-strip {
+  border-top: 1px solid var(--verre-bord);
+  border-bottom: 1px solid var(--verre-bord);
+  background: var(--nuit);
+}
+
+.brands-strip .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+  padding: 28px 24px;
+}
+
+.brands-strip .brands-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brume-faible);
+}
+
+.brands-strip .brand-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--brume);
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.brands-strip .brand-name:hover {
+  color: var(--ecume);
+}
+
 /* ---------- Mobile sticky CTA bar ---------- */
 .sticky-cta-bar {
   display: none;
@@ -2319,6 +2431,12 @@ h3 {
 
   body {
     padding-bottom: 80px;
+  }
+
+  /* Remonte le bouton WhatsApp au-dessus de la barre d'appel collante */
+  .whatsapp-fab {
+    bottom: 92px;
+    right: 16px;
   }
 }
 
