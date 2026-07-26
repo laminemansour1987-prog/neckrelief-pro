@@ -20,6 +20,14 @@ python3 -m http.server 8000
 
 Puis aller sur `http://localhost:8000`.
 
+## Identité visuelle
+
+Palette "console d'exploitation" : fond noir chaud / papier crème, accent marigold,
+pastilles vert de garde pour les statuts. Typographies : Fraunces (titres), Work Sans
+(texte courant), IBM Plex Mono (prix, horodatages, tags) — chargées via Google Fonts,
+avec repli sur les polices système si hors-ligne. Thèmes clair et sombre gérés via
+variables CSS (`prefers-color-scheme` + bouton de bascule en haut à droite).
+
 ## À personnaliser avant mise en ligne
 
 - Remplacer `CONTACT_EMAIL` dans `assets/script.js` par votre vraie adresse email.

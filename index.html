@@ -3,84 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DZ Automation IA — Automatisation intelligente pour entreprises algériennes</title>
-<meta name="description" content="Services d'intégration IA et d'automatisation (WhatsApp, chatbots, confirmation de commande COD) pour entreprises et e-commerçants en Algérie.">
+<title>DZ Automation — L'assistant IA qui fait tourner votre commerce, jour et nuit</title>
+<meta name="description" content="Un assistant IA qui répond sur WhatsApp, confirme les commandes COD et suit les livraisons Yalidine — pour les commerces et e-commerçants en Algérie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,500;0,9..144,650;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315110b'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e2841f'/%3E%3C/svg%3E">
 </head>
 <body>
 
 <header class="nav">
   <div class="container nav-inner">
-    <div class="logo">DZ<span>Automation</span></div>
-    <nav class="links">
-      <a href="#services">Services</a>
+    <a href="#top" class="logo">DZ<em>Automation</em></a>
+    <nav class="links" id="navLinks">
+      <a href="#services">Ce qu'il prend en charge</a>
       <a href="#demo">Démo</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Changer de thème">
+        <span class="theme-toggle-dot"></span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
-<section class="hero">
-  <div class="container hero-inner">
-    <h1>Automatisez votre entreprise avec l'IA.<br>Vendez plus, répondez plus vite.</h1>
-    <p class="subtitle">
-      Chatbots WhatsApp, confirmation automatique des commandes COD, service client 24/7 —
-      des solutions d'automatisation IA conçues pour les entreprises et e-commerçants en Algérie.
-    </p>
-    <div class="hero-cta">
-      <a href="#demo" class="btn btn-primary">Voir la démo en direct</a>
-      <a href="#contact" class="btn btn-outline">Demander un devis</a>
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">Automatisation IA · Algérie</p>
+      <h1>Pendant que vous dormez,<br><em>votre commerce</em> répond, confirme et vend.</h1>
+      <p class="subtitle">
+        Un assistant IA prend le relais sur WhatsApp et Messenger : il répond aux clients,
+        confirme les commandes à la livraison (COD) et suit les colis Yalidine —
+        du lever au coucher du soleil, et bien après.
+      </p>
+      <div class="hero-cta">
+        <a href="#demo" class="btn btn-primary">Voir la démo en direct</a>
+        <a href="#contact" class="btn btn-outline">Demander un devis</a>
+      </div>
+      <p class="hero-note">Premier message répondu en moins de 5&nbsp;secondes · 58 wilayas · Français &amp; darija</p>
     </div>
-    <p class="hero-note">Réponse aux prospects en moins de 5 minutes · Intégration Yalidine · Support français &amp; arabe</p>
+
+    <div class="ops-panel reveal" aria-label="Journal d'activité simulé de l'assistant">
+      <div class="ops-header">
+        <span class="ops-live-dot" aria-hidden="true"></span>
+        Journal d'activité — en direct
+      </div>
+      <div class="ops-feed-mask">
+        <ul class="ops-feed" id="opsFeed"></ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="services" class="section">
   <div class="container">
-    <h2>Nos services d'automatisation</h2>
-    <p class="section-lead">Chaque service est livré prêt à l'emploi et adapté au marché algérien (COD, réseaux sociaux, réglages en darija/français).</p>
+    <p class="eyebrow">Ce qu'il prend en charge</p>
+    <h2>Un assistant, quatre postes surveillés</h2>
+    <p class="section-lead">Chaque ligne tourne en continu, adaptée au terrain algérien : COD, Yalidine, réseaux sociaux, darija.</p>
 
-    <div class="cards">
-      <article class="card">
-        <div class="card-icon">💬</div>
-        <h3>Automatisation WhatsApp &amp; Messenger</h3>
-        <p>Un assistant IA qui répond automatiquement à vos prospects, qualifie les demandes et prend les commandes 24h/24, même la nuit.</p>
-      </article>
+    <ul class="board">
+      <li class="board-row reveal">
+        <span class="board-status" aria-hidden="true"></span>
+        <div class="board-body">
+          <h3>Réponse WhatsApp &amp; Messenger</h3>
+          <p>Répond aux prospects en quelques secondes, qualifie la demande et propose le produit adapté — même à 2h du matin.</p>
+        </div>
+        <span class="board-tag">24/7</span>
+      </li>
 
-      <article class="card">
-        <div class="card-icon">📦</div>
-        <h3>Confirmation de commande COD</h3>
-        <p>Réduisez les commandes annulées et les faux numéros grâce à une confirmation automatique par WhatsApp/SMS avant l'expédition via Yalidine.</p>
-      </article>
+      <li class="board-row reveal">
+        <span class="board-status" aria-hidden="true"></span>
+        <div class="board-body">
+          <h3>Confirmation de commande COD</h3>
+          <p>Un message de confirmation automatique avant expédition : moins de faux numéros, moins de colis refusés.</p>
+        </div>
+        <span class="board-tag">Anti-annulation</span>
+      </li>
 
-      <article class="card">
-        <div class="card-icon">🤖</div>
-        <h3>Chatbot service client IA</h3>
-        <p>Un agent intelligent intégré à votre site ou page Facebook, capable de répondre aux questions fréquentes et de rassurer vos clients.</p>
-      </article>
+      <li class="board-row reveal">
+        <span class="board-status" aria-hidden="true"></span>
+        <div class="board-body">
+          <h3>Suivi de livraison Yalidine</h3>
+          <p>Le client reçoit l'état de son colis sans avoir à demander, de la prise en charge jusqu'à la remise.</p>
+        </div>
+        <span class="board-tag">58 wilayas</span>
+      </li>
 
-      <article class="card">
-        <div class="card-icon">⚙️</div>
-        <h3>Automatisation des tâches internes</h3>
-        <p>Génération automatique de factures, suivi de stock, rapports de ventes hebdomadaires — l'IA s'occupe des tâches répétitives de votre équipe.</p>
-      </article>
-    </div>
+      <li class="board-row reveal">
+        <span class="board-status" aria-hidden="true"></span>
+        <div class="board-body">
+          <h3>Rapports &amp; tâches internes</h3>
+          <p>Factures générées, stock suivi, rapport de ventes envoyé chaque semaine — sans intervention manuelle.</p>
+        </div>
+        <span class="board-tag">Hebdomadaire</span>
+      </li>
+    </ul>
   </div>
 </section>
 
 <section id="demo" class="section section-alt">
   <div class="container">
-    <h2>Démo interactive</h2>
-    <p class="section-lead">
-      Essayez ci-dessous une simulation de l'assistant IA pour <strong>« Boutique Nadia »</strong>,
-      une boutique e-commerce fictive. Tapez un message comme le ferait un client sur WhatsApp.
-    </p>
+    <div class="section-head-row">
+      <div>
+        <p class="eyebrow">Essayez-le</p>
+        <h2>La démo, pas une capture d'écran</h2>
+        <p class="section-lead">
+          Simulation de l'assistant pour <strong>« Boutique Nadia »</strong>, une boutique fictive.
+          Écrivez comme le ferait un client sur WhatsApp — prix, commande, livraison.
+        </p>
+      </div>
+    </div>
 
     <div class="chat-demo">
       <div class="chat-header">
         <span class="chat-dot"></span>
         Boutique Nadia — Assistant IA
+        <span class="chat-status">en ligne</span>
       </div>
       <div class="chat-body" id="chatBody">
         <div class="msg bot">Bonjour 👋 Bienvenue chez Boutique Nadia ! Comment puis-je vous aider ? (prix, commande, livraison...)</div>
@@ -90,46 +135,47 @@
         <button type="submit">Envoyer</button>
       </form>
     </div>
-    <p class="demo-note">Démo hors-ligne à but illustratif : les réponses sont simulées pour montrer le type de scénarios qu'un assistant IA gère réellement (prix, disponibilité, confirmation de commande COD, suivi de livraison).</p>
+    <p class="demo-note">Démo hors-ligne à but illustratif : les réponses sont simulées pour montrer le type de scénarios qu'un assistant IA gère réellement.</p>
   </div>
 </section>
 
 <section id="tarifs" class="section">
   <div class="container">
-    <h2>Tarifs</h2>
-    <p class="section-lead">Des formules simples, sans engagement long terme. Devis personnalisé selon vos volumes de commandes.</p>
+    <p class="eyebrow">Tarifs</p>
+    <h2>Trois formules, un devis sur mesure</h2>
+    <p class="section-lead">Sans engagement long terme. Le devis final dépend de votre volume de commandes.</p>
 
     <div class="pricing">
-      <article class="price-card">
+      <article class="price-card reveal">
         <h3>Starter</h3>
-        <p class="price">15 000 DA<span>/mois</span></p>
+        <p class="price"><span class="price-amount">15 000</span><span class="price-unit">DA / mois</span></p>
         <ul>
           <li>Assistant WhatsApp basique</li>
           <li>Réponses aux questions fréquentes</li>
-          <li>Jusqu'à 300 conversations/mois</li>
+          <li>Jusqu'à 300 conversations / mois</li>
         </ul>
-        <a href="#contact" class="btn btn-outline">Choisir</a>
+        <a href="#contact" class="btn btn-outline">Choisir Starter</a>
       </article>
 
-      <article class="price-card featured">
-        <div class="badge">Populaire</div>
+      <article class="price-card featured reveal">
+        <p class="badge">Le plus choisi</p>
         <h3>Business</h3>
-        <p class="price">35 000 DA<span>/mois</span></p>
+        <p class="price"><span class="price-amount">35 000</span><span class="price-unit">DA / mois</span></p>
         <ul>
           <li>Tout Starter, plus :</li>
           <li>Confirmation automatique des commandes COD</li>
-          <li>Intégration Yalidine</li>
+          <li>Suivi Yalidine intégré</li>
           <li>Conversations illimitées</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Choisir</a>
+        <a href="#contact" class="btn btn-primary">Choisir Business</a>
       </article>
 
-      <article class="price-card">
+      <article class="price-card reveal">
         <h3>Sur-mesure</h3>
-        <p class="price">Devis</p>
+        <p class="price"><span class="price-amount">Devis</span></p>
         <ul>
           <li>Automatisation de workflows internes</li>
-          <li>Intégrations spécifiques (ERP, caisse, etc.)</li>
+          <li>Intégrations spécifiques (ERP, caisse...)</li>
           <li>Accompagnement dédié</li>
         </ul>
         <a href="#contact" class="btn btn-outline">Nous contacter</a>
@@ -140,12 +186,13 @@
 
 <section id="contact" class="section section-alt">
   <div class="container contact-inner">
-    <div>
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
       <h2>Parlons de votre projet</h2>
-      <p class="section-lead">Décrivez votre activité et vos besoins, je reviens vers vous rapidement avec une proposition adaptée.</p>
+      <p class="section-lead">Décrivez votre activité et vos besoins : réponse rapide avec une proposition adaptée.</p>
     </div>
 
-    <form class="contact-form" id="contactForm">
+    <form class="contact-form reveal" id="contactForm">
       <label>
         Nom
         <input type="text" name="name" required>
@@ -156,21 +203,22 @@
       </label>
       <label>
         Votre activité
-        <input type="text" name="business" placeholder="Ex: boutique de vêtements, dropshipping...">
+        <input type="text" name="business" placeholder="Ex : boutique de vêtements, dropshipping...">
       </label>
       <label>
         Message
         <textarea name="message" rows="4" placeholder="Décrivez ce dont vous avez besoin"></textarea>
       </label>
       <button type="submit" class="btn btn-primary">Envoyer la demande</button>
-      <p class="form-status" id="formStatus"></p>
+      <p class="form-status" id="formStatus" role="status"></p>
     </form>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="container">
-    <p>&copy; 2026 DZ Automation IA — Automatisation intelligente pour entreprises algériennes.</p>
+  <div class="container footer-inner">
+    <span class="logo">DZ<em>Automation</em></span>
+    <p>&copy; 2026 — Automatisation IA pour commerces algériens.</p>
   </div>
 </footer>
 

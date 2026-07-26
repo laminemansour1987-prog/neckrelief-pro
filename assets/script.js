@@ -1,3 +1,79 @@
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// --- Panneau "journal d'activité" du hero (simulation) ---
+const OPS_EVENTS = [
+  { time: "23:47", text: "Réponse envoyée à un client", place: "Oran" },
+  { time: "23:52", text: "Commande #5182 confirmée", place: "Alger" },
+  { time: "00:14", text: "Suivi de livraison partagé", place: "Béjaïa" },
+  { time: "00:36", text: "Nouveau prospect qualifié", place: "Sétif" },
+  { time: "01:02", text: "Commande #5183 confirmée", place: "Tlemcen" },
+  { time: "01:29", text: "Question prix répondue", place: "Constantine" },
+  { time: "02:05", text: "Colis remis à Yalidine", place: "Annaba" },
+  { time: "02:41", text: "Commande #5184 confirmée", place: "Blida" },
+];
+
+function buildOpsFeed() {
+  const feed = document.getElementById("opsFeed");
+  if (!feed) return;
+
+  const renderItems = () =>
+    OPS_EVENTS.map(
+      (e) => `<li><time>${e.time}</time><span>${e.text} · <span class="ops-place">${e.place}</span></span></li>`
+    ).join("");
+
+  // Le contenu est dupliqué pour permettre une boucle de défilement continue (translateY -50%).
+  feed.innerHTML = renderItems() + renderItems();
+}
+buildOpsFeed();
+
+// --- Révélation au scroll ---
+if (!prefersReducedMotion && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+}
+
+// --- Menu mobile ---
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle?.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("is-open");
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+navLinks?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+// --- Bascule thème clair / sombre ---
+const themeToggle = document.getElementById("themeToggle");
+const root = document.documentElement;
+const storedTheme = localStorage.getItem("dz-theme");
+if (storedTheme) root.setAttribute("data-theme", storedTheme);
+
+themeToggle?.addEventListener("click", () => {
+  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  const current = root.getAttribute("data-theme") || (prefersLight ? "light" : "dark");
+  const next = current === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("dz-theme", next);
+});
+
 // --- Démo de chat (simulation hors-ligne, sans appel API) ---
 const chatBody = document.getElementById("chatBody");
 const chatForm = document.getElementById("chatForm");
