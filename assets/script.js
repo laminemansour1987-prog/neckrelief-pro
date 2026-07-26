@@ -1,5 +1,16 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// --- Liens WhatsApp ---
+// Remplacez WHATSAPP_NUMBER par votre numéro au format international sans "+" ni espaces (ex: 213555000000).
+const WHATSAPP_NUMBER = "213500000000";
+
+document.querySelectorAll(".whatsapp-link").forEach((link) => {
+  const text = link.dataset.waText || "Bonjour, je voudrais en savoir plus.";
+  link.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  link.target = "_blank";
+  link.rel = "noopener";
+});
+
 // --- Panneau "journal d'activité" du hero (simulation) ---
 const OPS_EVENTS = [
   { time: "23:47", text: "Réponse envoyée à un client", place: "Oran" },

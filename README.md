@@ -30,5 +30,10 @@ variables CSS (`prefers-color-scheme` + bouton de bascule en haut à droite).
 
 ## À personnaliser avant mise en ligne
 
+- **Important** : remplacer `WHATSAPP_NUMBER` dans `assets/script.js` par votre vrai numéro
+  (format international sans "+" ni espaces, ex: `213555123456`) — tous les boutons
+  "Discuter sur WhatsApp" en dépendent.
 - Remplacer `CONTACT_EMAIL` dans `assets/script.js` par votre vraie adresse email.
 - Adapter les tarifs, textes et exemples de la démo (`Boutique Nadia`) à votre offre réelle.
+- Les mentions Yalidine / ZR Express / Maystro Delivery (FAQ et réassurance sous les tarifs)
+  sont à ajuster selon les transporteurs que vous intégrez réellement.

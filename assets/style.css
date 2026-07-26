@@ -17,6 +17,8 @@
   --guard: #6fae95;
   --line: rgba(242, 236, 224, 0.12);
   --shadow: rgba(0, 0, 0, 0.45);
+  --whatsapp: #25d366;
+  --whatsapp-ink: #06210f;
 
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -231,6 +233,13 @@ p { margin: 0; }
   background: transparent;
 }
 .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-whatsapp {
+  background: var(--whatsapp);
+  color: var(--whatsapp-ink);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--whatsapp) 60%, transparent);
+}
+.btn-whatsapp:hover { background: color-mix(in srgb, var(--whatsapp) 85%, white); }
+.btn-whatsapp svg { width: 18px; height: 18px; flex: none; }
 
 /* ---------------------------------------------------------------
    Hero
@@ -393,6 +402,145 @@ p { margin: 0; }
 }
 
 /* ---------------------------------------------------------------
+   Comparaison Avant / Avec
+------------------------------------------------------------------ */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: 44px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.compare-col {
+  background: var(--ink);
+  padding: 8px 0;
+}
+.compare-col.is-after { background: var(--surface); }
+.compare-head {
+  padding: 20px 26px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--line);
+}
+.compare-col.is-after .compare-head { color: var(--accent); }
+.compare-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.compare-col li {
+  padding: 20px 26px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+}
+.compare-col li:last-child { border-bottom: none; }
+.compare-col.is-after li { color: var(--text); }
+
+/* ---------------------------------------------------------------
+   Comment ça marche — étapes
+------------------------------------------------------------------ */
+.steps {
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.step {
+  border-top: 2px solid var(--accent);
+  padding-top: 18px;
+}
+.step-index {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.step h3 {
+  font-size: 1.05rem;
+  margin: 10px 0 8px;
+}
+.step p { color: var(--text-muted); font-size: 0.93rem; }
+
+/* ---------------------------------------------------------------
+   Réassurance (essai, engagement, humain)
+------------------------------------------------------------------ */
+.reassure {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.reassure li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+.reassure li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--guard);
+  flex: none;
+}
+
+/* ---------------------------------------------------------------
+   FAQ
+------------------------------------------------------------------ */
+.faq {
+  margin-top: 44px;
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  padding: 22px 4px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex: none;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p {
+  color: var(--text-muted);
+  max-width: 66ch;
+  padding: 0 4px 22px;
+}
+
+/* ---------------------------------------------------------------
    Chat demo
 ------------------------------------------------------------------ */
 .chat-demo {
@@ -545,6 +693,9 @@ p { margin: 0; }
   gap: 48px;
   align-items: start;
 }
+.contact-whatsapp-cta { margin-top: 24px; }
+.contact-whatsapp-note { margin-top: 20px; }
+
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -621,6 +772,10 @@ p { margin: 0; }
 @media (max-width: 860px) {
   .hero-grid { grid-template-columns: 1fr; }
   .contact-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .compare { grid-template-columns: 1fr; }
+  .compare-col li { min-height: 0; }
 }
 @media (max-width: 720px) {
   .menu-toggle { display: flex; }
