@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://lmplomberie69.fr/sitemap.xml
