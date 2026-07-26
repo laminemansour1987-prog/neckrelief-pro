@@ -99,44 +99,129 @@
   <section class="section-alt">
     <div class="container">
       <div class="section-head center reveal">
-        <span class="eyebrow-lux">Devis gratuit</span>
+        <span class="eyebrow-lux">Devis gratuit en 3 étapes</span>
         <h2>Décrivez-nous votre besoin</h2>
-        <p class="lede">Remplissez ce formulaire, votre messagerie s'ouvrira avec votre demande pré-remplie prête à nous être envoyée. Pour une urgence, préférez l'appel téléphonique.</p>
+        <p class="lede">Répondez à quelques questions simples : votre messagerie s'ouvrira avec votre demande pré-remplie, prête à nous être envoyée. Pour une urgence, préférez l'appel téléphonique.</p>
       </div>
 
-      <form id="contact-form" class="form-panel reveal">
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="name">Nom complet *</label>
-            <input type="text" id="name" name="name" required placeholder="Jean Dupont" />
-          </div>
-          <div class="form-field">
-            <label for="phone">Téléphone *</label>
-            <input type="tel" id="phone" name="phone" required placeholder="06 12 34 56 78" />
-          </div>
-          <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="vous@exemple.fr" />
-          </div>
-          <div class="form-field">
-            <label for="service">Service concerné</label>
-            <select id="service" name="service">
-              <option value="">Sélectionnez un service</option>
-              <option value="Plomberie">Plomberie</option>
-              <option value="Chauffage">Chauffage</option>
-              <option value="Climatisation">Climatisation</option>
-              <option value="Traitement de l'eau">Traitement de l'eau</option>
-              <option value="Urgence">Urgence</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          <div class="form-field full">
-            <label for="message">Votre message *</label>
-            <textarea id="message" name="message" required placeholder="Décrivez votre besoin ou votre problème..."></textarea>
+      <form id="quote-form" class="form-panel quote-form reveal" novalidate>
+        <!-- Progression -->
+        <div class="quote-progress" aria-hidden="true">
+          <div class="quote-progress-bar"><span class="quote-progress-fill"></span></div>
+          <div class="quote-steps-labels">
+            <span class="is-current" data-dot="1">Besoin</span>
+            <span data-dot="2">Détails</span>
+            <span data-dot="3">Coordonnées</span>
           </div>
         </div>
-        <p class="form-note" style="margin-top:14px;">* Champs obligatoires</p>
-        <button type="submit" class="btn btn-accent btn-block" style="margin-top:18px;">Envoyer ma demande</button>
+
+        <!-- Étape 1 : type de besoin -->
+        <div class="quote-step is-active" data-step="1">
+          <h3 class="quote-step-title">De quoi avez-vous besoin&nbsp;?</h3>
+          <div class="choice-grid" role="radiogroup" aria-label="Type de besoin">
+            <label class="choice-card">
+              <input type="radio" name="service" value="Plomberie" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14.7 6.3-1.2 1.2a3 3 0 0 0 0 4.2l1.3 1.3a1 1 0 0 0 1.4 0l3.6-3.6a1 1 0 0 0 0-1.4l-1.3-1.3a3 3 0 0 0-4.2 0z"/><path d="m9.6 11.4-6.3 6.3a2 2 0 1 0 2.8 2.8l6.3-6.3"/></svg></span>
+              <span class="choice-txt">Plomberie</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="service" value="Chauffage" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
+              <span class="choice-txt">Chauffage</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="service" value="Climatisation" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1 19.1 4.9"/></svg></span>
+              <span class="choice-txt">Climatisation</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="service" value="Traitement de l'eau" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12z"/></svg></span>
+              <span class="choice-txt">Traitement de l'eau</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="service" value="Rénovation salle de bain" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M6 12V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2"/><path d="M9 6h2"/></svg></span>
+              <span class="choice-txt">Rénovation SdB</span>
+            </label>
+            <label class="choice-card">
+              <input type="radio" name="service" value="Autre" required />
+              <span class="choice-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+              <span class="choice-txt">Autre</span>
+            </label>
+          </div>
+          <div class="quote-error" data-error="service">Sélectionnez un besoin pour continuer.</div>
+        </div>
+
+        <!-- Étape 2 : urgence + description -->
+        <div class="quote-step" data-step="2">
+          <h3 class="quote-step-title">C'est urgent&nbsp;?</h3>
+          <div class="choice-row" role="radiogroup" aria-label="Niveau d'urgence">
+            <label class="choice-pill choice-pill--urgent">
+              <input type="radio" name="urgence" value="Urgence immédiate" required />
+              <span>🚨 Oui, tout de suite</span>
+            </label>
+            <label class="choice-pill">
+              <input type="radio" name="urgence" value="Assez rapide" required />
+              <span>⏱️ Assez rapide</span>
+            </label>
+            <label class="choice-pill">
+              <input type="radio" name="urgence" value="Pour un devis" required />
+              <span>📋 Non, pour un devis</span>
+            </label>
+          </div>
+          <div class="quote-error" data-error="urgence">Indiquez le niveau d'urgence.</div>
+          <div class="form-field full" style="margin-top:22px;">
+            <label for="message">Décrivez votre besoin *</label>
+            <textarea id="message" name="message" required placeholder="Ex. : fuite sous l'évier de la cuisine, chaudière qui ne s'allume plus, projet de douche à l'italienne..."></textarea>
+          </div>
+          <div class="quote-error" data-error="message">Décrivez brièvement votre besoin.</div>
+          <div class="quote-urgent-note" hidden>
+            <strong>Besoin immédiat&nbsp;?</strong> Le plus rapide est de nous appeler directement :
+            <a href="tel:+33624630854">06 24 63 08 54</a> — disponible 24h/24, 7j/7.
+          </div>
+        </div>
+
+        <!-- Étape 3 : coordonnées -->
+        <div class="quote-step" data-step="3">
+          <h3 class="quote-step-title">Vos coordonnées</h3>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="name">Nom complet *</label>
+              <input type="text" id="name" name="name" required placeholder="Jean Dupont" />
+            </div>
+            <div class="form-field">
+              <label for="phone">Téléphone *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="06 12 34 56 78" />
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="vous@exemple.fr" />
+            </div>
+            <div class="form-field">
+              <label for="ville">Ville</label>
+              <input type="text" id="ville" name="ville" placeholder="Rillieux-la-Pape" />
+            </div>
+          </div>
+          <div class="quote-error" data-error="coordonnees">Renseignez au minimum votre nom et votre téléphone.</div>
+          <div class="quote-recap" aria-live="polite"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="quote-nav">
+          <button type="button" class="btn btn-ghost quote-prev" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Précédent
+          </button>
+          <button type="button" class="btn btn-accent quote-next">
+            Continuer
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <button type="submit" class="btn btn-accent quote-submit" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+            Envoyer ma demande
+          </button>
+        </div>
         <p class="form-status"></p>
       </form>
     </div>

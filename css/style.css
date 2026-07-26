@@ -2552,3 +2552,317 @@ h3 {
     justify-content: center;
   }
 }
+
+/* ---------- Bouton fantôme ---------- */
+.btn-ghost {
+  background: transparent;
+  border-color: var(--verre-bord);
+  color: var(--brume);
+}
+.btn-ghost:hover {
+  border-color: var(--verre-bord-vif);
+  color: var(--ecume);
+}
+
+/* ---------- Formulaire de devis multi-étapes ---------- */
+.quote-progress {
+  margin-bottom: 30px;
+}
+.quote-progress-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--verre-bord);
+  overflow: hidden;
+}
+.quote-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: var(--grad-eau);
+  transition: width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.quote-steps-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+.quote-steps-labels span {
+  position: relative;
+  padding-left: 26px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brume-faible);
+  transition: color 0.25s ease;
+}
+.quote-steps-labels span::before {
+  content: attr(data-dot);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--brume-faible);
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  transition: all 0.25s ease;
+}
+.quote-steps-labels span.is-current {
+  color: var(--ecume);
+}
+.quote-steps-labels span.is-current::before {
+  background: var(--grad-eau);
+  color: #04121b;
+  border-color: transparent;
+}
+.quote-steps-labels span.is-done {
+  color: var(--aqua);
+}
+.quote-steps-labels span.is-done::before {
+  content: "✓";
+  background: rgba(56, 198, 217, 0.16);
+  color: var(--aqua);
+  border-color: var(--verre-bord-vif);
+}
+
+.quote-step {
+  display: none;
+  animation: quoteIn 0.35s ease both;
+}
+.quote-step.is-active {
+  display: block;
+}
+@keyframes quoteIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.quote-step-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--ecume);
+  margin-bottom: 20px;
+}
+
+/* Cartes de choix (étape 1) */
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.choice-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 14px;
+  border-radius: 16px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.choice-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--verre-bord-vif);
+}
+.choice-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.choice-ic {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(56, 198, 217, 0.1);
+  color: var(--aqua);
+}
+.choice-ic svg { width: 24px; height: 24px; }
+.choice-txt {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--brume);
+}
+.choice-card:has(input:checked) {
+  background: rgba(56, 198, 217, 0.12);
+  border-color: var(--aqua);
+  box-shadow: 0 8px 26px var(--aqua-glow);
+}
+.choice-card:has(input:checked) .choice-txt { color: var(--ecume); }
+.choice-card:has(input:focus-visible) {
+  outline: 2px solid var(--aqua);
+  outline-offset: 2px;
+}
+
+/* Pastilles d'urgence (étape 2) */
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.choice-pill {
+  position: relative;
+  cursor: pointer;
+}
+.choice-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.choice-pill span {
+  display: inline-block;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--brume);
+  transition: all 0.2s ease;
+}
+.choice-pill:hover span { border-color: var(--verre-bord-vif); }
+.choice-pill:has(input:checked) span {
+  background: rgba(56, 198, 217, 0.14);
+  border-color: var(--aqua);
+  color: var(--ecume);
+}
+.choice-pill--urgent:has(input:checked) span {
+  background: rgba(242, 128, 59, 0.16);
+  border-color: var(--braise);
+  color: #ffd9c2;
+}
+.choice-pill:has(input:focus-visible) span {
+  outline: 2px solid var(--aqua);
+  outline-offset: 2px;
+}
+
+.quote-error {
+  display: none;
+  margin-top: 12px;
+  color: #ff9d7a;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.quote-error.is-visible { display: block; }
+
+.quote-urgent-note {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(242, 128, 59, 0.1);
+  border: 1px solid rgba(242, 128, 59, 0.35);
+  color: var(--brume);
+  font-size: 0.92rem;
+}
+.quote-urgent-note a {
+  color: #ffb488;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.quote-recap {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+}
+.quote-recap:empty { display: none; }
+.quote-recap-title {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ecume);
+  margin-bottom: 10px;
+}
+.quote-recap-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 6px 0;
+  border-top: 1px solid var(--verre-bord);
+  font-size: 0.9rem;
+}
+.quote-recap-row em {
+  font-style: normal;
+  color: var(--brume-faible);
+}
+.quote-recap-row strong { color: var(--ecume); }
+
+.quote-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+.quote-nav .quote-next,
+.quote-nav .quote-submit {
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .choice-grid { grid-template-columns: repeat(2, 1fr); }
+  .quote-steps-labels span { font-size: 0; padding-left: 22px; }
+  .quote-steps-labels span::before { font-size: 0.72rem; }
+  .quote-nav { flex-wrap: wrap; }
+}
+
+/* L'attribut hidden doit l'emporter sur .btn { display:inline-flex } */
+.quote-nav [hidden] { display: none !important; }
+
+/* ---------- Villes d'intervention ---------- */
+.villes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.ville-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.ville-link:hover {
+  transform: translateY(-3px);
+  border-color: var(--verre-bord-vif);
+  background: rgba(56, 198, 217, 0.08);
+}
+.ville-link svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--aqua);
+}
+.ville-link span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  font-size: 0.82rem;
+  color: var(--brume-faible);
+}
+.ville-link strong {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ecume);
+  font-weight: 600;
+}
+@media (max-width: 860px) {
+  .villes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .villes-grid { grid-template-columns: 1fr; }
+}

@@ -150,31 +150,128 @@
     }
   }
 
-  // Contact form -> mailto handoff
-  var form = document.querySelector("#contact-form");
-  if (form) {
-    var status = form.querySelector(".form-status");
+  // Formulaire de devis multi-étapes -> passage vers la messagerie (mailto)
+  var quote = document.querySelector("#quote-form");
+  if (quote) {
+    var qStatus = quote.querySelector(".form-status");
+    var steps = Array.prototype.slice.call(quote.querySelectorAll(".quote-step"));
+    var fill = quote.querySelector(".quote-progress-fill");
+    var labels = Array.prototype.slice.call(quote.querySelectorAll(".quote-steps-labels span"));
+    var btnPrev = quote.querySelector(".quote-prev");
+    var btnNext = quote.querySelector(".quote-next");
+    var btnSubmit = quote.querySelector(".quote-submit");
+    var urgentNote = quote.querySelector(".quote-urgent-note");
+    var recap = quote.querySelector(".quote-recap");
+    var currentStep = 1;
+    var total = steps.length;
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
+    var qval = function (name) {
+      var el = quote.querySelector("[name='" + name + "']:checked") || quote.querySelector("[name='" + name + "']");
+      return el ? el.value.trim() : "";
+    };
 
-      var name = form.querySelector("#name").value.trim();
-      var phone = form.querySelector("#phone").value.trim();
-      var email = form.querySelector("#email").value.trim();
-      var service = form.querySelector("#service").value;
-      var message = form.querySelector("#message").value.trim();
+    var showError = function (key, on) {
+      var e = quote.querySelector("[data-error='" + key + "']");
+      if (e) e.classList.toggle("is-visible", !!on);
+    };
 
-      if (!name || !phone || !message) {
-        showStatus("error", "Merci de renseigner au minimum votre nom, votre téléphone et votre message.");
-        return;
+    var validateStep = function (n) {
+      if (n === 1) {
+        var ok = !!quote.querySelector("[name='service']:checked");
+        showError("service", !ok);
+        return ok;
       }
+      if (n === 2) {
+        var okU = !!quote.querySelector("[name='urgence']:checked");
+        var okM = quote.querySelector("#message").value.trim().length > 2;
+        showError("urgence", !okU);
+        showError("message", !okM);
+        return okU && okM;
+      }
+      if (n === 3) {
+        var okN = quote.querySelector("#name").value.trim() && quote.querySelector("#phone").value.trim();
+        showError("coordonnees", !okN);
+        return !!okN;
+      }
+      return true;
+    };
+
+    var renderStep = function () {
+      steps.forEach(function (s) {
+        s.classList.toggle("is-active", parseInt(s.getAttribute("data-step"), 10) === currentStep);
+      });
+      labels.forEach(function (l, i) {
+        l.classList.toggle("is-current", i + 1 === currentStep);
+        l.classList.toggle("is-done", i + 1 < currentStep);
+      });
+      if (fill) fill.style.width = ((currentStep - 1) / (total - 1)) * 100 + "%";
+      btnPrev.hidden = currentStep === 1;
+      btnNext.hidden = currentStep === total;
+      btnSubmit.hidden = currentStep !== total;
+      if (currentStep === total) buildRecap();
+      var focusable = steps[currentStep - 1].querySelector("input, textarea, button");
+      if (focusable) focusable.focus();
+    };
+
+    var buildRecap = function () {
+      if (!recap) return;
+      var rows = [
+        ["Besoin", qval("service")],
+        ["Urgence", qval("urgence")],
+        ["Ville", quote.querySelector("#ville").value.trim() || "—"],
+      ];
+      recap.innerHTML =
+        '<span class="quote-recap-title">Récapitulatif</span>' +
+        rows
+          .map(function (r) {
+            return '<span class="quote-recap-row"><em>' + r[0] + "</em><strong>" + (r[1] || "—") + "</strong></span>";
+          })
+          .join("");
+    };
+
+    // Affiche la note « appelez-nous » si urgence immédiate
+    quote.addEventListener("change", function (e) {
+      if (e.target.name === "urgence" && urgentNote) {
+        urgentNote.hidden = e.target.value !== "Urgence immédiate";
+      }
+      if (e.target.name === "service") showError("service", false);
+    });
+
+    btnNext.addEventListener("click", function () {
+      if (!validateStep(currentStep)) return;
+      if (currentStep < total) {
+        currentStep++;
+        renderStep();
+      }
+    });
+
+    btnPrev.addEventListener("click", function () {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    });
+
+    quote.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!validateStep(3)) return;
+
+      var name = quote.querySelector("#name").value.trim();
+      var phone = quote.querySelector("#phone").value.trim();
+      var email = quote.querySelector("#email").value.trim();
+      var ville = quote.querySelector("#ville").value.trim();
+      var service = qval("service");
+      var urgence = qval("urgence");
+      var message = quote.querySelector("#message").value.trim();
 
       var subject = "Demande de devis - " + (service || "Site web");
       var bodyLines = [
         "Nom : " + name,
         "Téléphone : " + phone,
         "Email : " + (email || "non renseigné"),
-        "Service concerné : " + (service || "non précisé"),
+        "Ville : " + (ville || "non renseignée"),
+        "Besoin : " + (service || "non précisé"),
+        "Urgence : " + (urgence || "non précisée"),
         "",
         "Message :",
         message,
@@ -186,14 +283,13 @@
         "&body=" + encodeURIComponent(bodyLines.join("\n"));
 
       window.location.href = mailto;
-      showStatus("success", "Votre messagerie va s'ouvrir avec votre demande pré-remplie. Vous pouvez aussi nous appeler directement.");
+      qStatus.textContent =
+        "Votre messagerie va s'ouvrir avec votre demande pré-remplie. Vous pouvez aussi nous appeler directement au 06 24 63 08 54.";
+      qStatus.classList.remove("error");
+      qStatus.classList.add("visible", "success");
     });
 
-    function showStatus(type, text) {
-      status.textContent = text;
-      status.classList.remove("success", "error");
-      status.classList.add("visible", type);
-    }
+    renderStep();
   }
 
   // FAQ accordion
