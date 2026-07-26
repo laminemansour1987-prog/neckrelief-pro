@@ -2,7 +2,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 // --- Liens WhatsApp ---
 // Remplacez WHATSAPP_NUMBER par votre numéro au format international sans "+" ni espaces (ex: 213555000000).
-const WHATSAPP_NUMBER = "213500000000";
+const WHATSAPP_NUMBER = "33624630854";
 
 function refreshWhatsappLinks() {
   document.querySelectorAll(".whatsapp-link").forEach((link) => {
