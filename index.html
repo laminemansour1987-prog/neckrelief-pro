@@ -32,26 +32,50 @@
 {
   "@context": "https://schema.org",
   "@type": "Plumber",
+  "@id": "https://lmplomberie69.fr/#business",
   "name": "LM Plomberie 69",
-  "image": "",
+  "image": "https://lmplomberie69.fr/assets/og-image.jpg",
+  "logo": "https://lmplomberie69.fr/assets/logo.png",
+  "url": "https://lmplomberie69.fr/",
   "telephone": "+33624630854",
   "email": "Lmplomberie.contact@gmail.com",
+  "priceRange": "€€",
+  "vatID": "FR66981310524",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "130 Rue de l'Industrie",
     "addressLocality": "Rillieux-la-Pape",
     "postalCode": "69140",
     "addressRegion": "Auvergne-Rhône-Alpes",
     "addressCountry": "FR"
   },
-  "areaServed": ["Rillieux-la-Pape", "Lyon", "Villeurbanne", "Caluire-et-Cuire", "Sathonay-Camp", "Sathonay-Village", "Neyron", "Vaulx-en-Velin"],
-  "openingHours": "Mo-Su 00:00-23:59",
-  "priceRange": "€€",
+  "geo": { "@type": "GeoCoordinates", "latitude": 45.8161, "longitude": 4.8983 },
+  "hasMap": "https://www.google.com/maps?q=Rillieux-la-Pape,France",
+  "sameAs": ["https://www.facebook.com/plombier69.fr/"],
+  "areaServed": ["Rillieux-la-Pape", "Lyon", "Villeurbanne", "Caluire-et-Cuire", "Vaulx-en-Velin", "Bron", "Vénissieux", "Saint-Priest", "Décines-Charpieu", "Meyzieu", "Oullins", "Écully", "Tassin-la-Demi-Lune", "Sainte-Foy-lès-Lyon", "Sathonay-Camp", "Sathonay-Village", "Neyron", "Miribel", "Neuville-sur-Saône", "Fontaines-sur-Saône", "Cailloux-sur-Fontaines", "Chassieu", "Dardilly", "Saint-Cyr-au-Mont-d'Or", "Saint-Didier-au-Mont-d'Or"],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  }],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plomberie sanitaire" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chauffage" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Climatisation" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Traitement de l'eau" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dépannage d'urgence 24/7" } }
+  ],
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
     "reviewCount": "17",
     "bestRating": "5"
-  }
+  },
+  "review": [
+    { "@type": "Review", "author": { "@type": "Person", "name": "Sarah Ohb" }, "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "reviewBody": "Plombier professionnel et réactif, lors d'une urgence (chaudière morte), le changement a été fait en 24h !" },
+    { "@type": "Review", "author": { "@type": "Person", "name": "Najoua O-CY" }, "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "reviewBody": "Société sérieuse et compétitive. Plombier avenant, réactif et professionnel. Travail propre et de qualité. Je recommande vivement." }
+  ]
 }
 </script>
 <script type="application/ld+json">
