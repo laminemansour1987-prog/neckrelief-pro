@@ -57,17 +57,27 @@
       <p class="hero-note" data-i18n="hero.note">Premier message répondu en moins de 5&nbsp;secondes · 58 wilayas · Français &amp; darija</p>
     </div>
 
-    <div class="ops-panel reveal" aria-label="Journal d'activité simulé de l'assistant">
-      <div class="ops-header">
-        <span class="ops-live-dot" aria-hidden="true"></span>
-        <span data-i18n="ops.header">Journal d'activité — en direct</span>
-      </div>
-      <div class="ops-feed-mask">
-        <ul class="ops-feed" id="opsFeed"></ul>
+    <div class="phone-mock reveal" aria-hidden="true">
+      <div class="phone-frame">
+        <div class="phone-island"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <span class="phone-avatar">N</span>
+            <div>
+              <p class="phone-chat-name">Boutique Nadia</p>
+              <p class="phone-chat-sub" id="phoneStatus">en ligne</p>
+            </div>
+          </div>
+          <div class="phone-chat-body" id="phoneChatBody"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="ticker">
+  <ul class="ticker-track" id="opsFeed" aria-label="Journal d'activité simulé de l'assistant"></ul>
+</div>
 
 <section id="comparaison" class="section">
   <div class="container">

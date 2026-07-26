@@ -40,9 +40,19 @@ dans `I18N` et un attribut `data-i18n="votre.clé"` sur l'élément HTML.
 ## Calculette de perte
 
 Section `#calculateur` : à partir de 3 chiffres saisis par le visiteur (commandes
-COD/mois, % d'annulation, panier moyen), elle affiche la perte mensuelle estimée.
-C'est un calcul arithmétique direct sur les chiffres de l'utilisateur — aucun taux
-de récupération n'est inventé ou promis.
+COD/mois, % d'annulation, panier moyen), elle affiche la perte mensuelle estimée
+(avec un effet de compteur animé). C'est un calcul arithmétique direct sur les
+chiffres de l'utilisateur — aucun taux de récupération n'est inventé ou promis.
+
+## Mockup téléphone (hero)
+
+Le hero affiche un téléphone qui rejoue automatiquement, en boucle, une conversation
+WhatsApp (indicateur "en train d'écrire...", bulles animées, coches de lecture qui
+passent au bleu). Le script de conversation est bilingue et rejoué dans la bonne
+langue au changement de bouton FR/AR. C'est volontairement stylé comme le vrai
+mode sombre de WhatsApp (couleurs fixes), indépendamment du thème clair/sombre du
+site — un choix assumé plutôt qu'un oubli. Le script de conversation se modifie
+dans `PHONE_SCRIPT` (`assets/script.js`).
 
 ## À personnaliser avant mise en ligne
 

@@ -228,6 +228,7 @@ function applyLanguage(lang) {
   }
 
   buildOpsFeed(lang);
+  runPhoneDemo(lang);
   localStorage.setItem("dz-lang", lang);
 }
 
@@ -257,8 +258,124 @@ function buildOpsFeed(lang) {
         `<li><time>${e.time}</time><span>${lang === "ar" ? e.ar : e.fr} · <span class="ops-place">${lang === "ar" ? e.place.ar : e.place.fr}</span></span></li>`
     ).join("");
 
-  // Le contenu est dupliqué pour permettre une boucle de défilement continue (translateY -50%).
+  // Le contenu est dupliqué pour permettre une boucle de défilement continue (translateX -50%).
   feed.innerHTML = renderItems() + renderItems();
+}
+
+// --- Mockup téléphone : conversation WhatsApp jouée automatiquement en boucle ---
+const PHONE_SCRIPT = {
+  fr: [
+    { who: "in", text: "Bonjour, le produit est encore disponible ?" },
+    { who: "out", text: "Oui disponible ✅ 3 500 DA, livraison Yalidine incluse." },
+    { who: "in", text: "Je le prends, comment je fais ?" },
+    { who: "out", text: "Donnez-moi votre nom, wilaya et téléphone, je prépare la commande." },
+    { who: "in", text: "Amina Belkacem, Oran, 0555 12 34 56" },
+    { who: "out", text: "Commande confirmée ✅ Livraison sous 2 à 4 jours. Merci Amina !" },
+  ],
+  ar: [
+    { who: "in", text: "السلام، المنتج مازال موجود؟" },
+    { who: "out", text: "نعم متوفر ✅ السعر 3500 دج، التوصيل عبر يالدين مشمول." },
+    { who: "in", text: "نأخذه، كيفاش ندير؟" },
+    { who: "out", text: "عطيني اسمك، ولايتك، ورقم هاتفك، ونحضرلك الطلب." },
+    { who: "in", text: "أمينة بلقاسم، وهران، 0555 12 34 56" },
+    { who: "out", text: "تم تأكيد الطلب ✅ التوصيل خلال يومين إلى 4 أيام. شكراً أمينة!" },
+  ],
+};
+
+let phoneGeneration = 0;
+
+function phoneTime() {
+  return new Date().toLocaleTimeString(currentLang === "ar" ? "ar-DZ" : "fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function appendPhoneTyping(body) {
+  const el = document.createElement("div");
+  el.className = "phone-bubble in typing";
+  el.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+  body.appendChild(el);
+  body.scrollTop = body.scrollHeight;
+  return el;
+}
+
+function appendPhoneBubble(body, msg, animateTicks) {
+  const el = document.createElement("div");
+  el.className = `phone-bubble ${msg.who}`;
+
+  const textSpan = document.createElement("span");
+  textSpan.textContent = msg.text;
+  el.appendChild(textSpan);
+
+  const meta = document.createElement("span");
+  meta.className = "phone-meta";
+  const time = document.createElement("span");
+  time.textContent = phoneTime();
+  meta.appendChild(time);
+
+  if (msg.who === "out") {
+    const ticks = document.createElement("span");
+    ticks.className = "phone-check";
+    ticks.textContent = "✓✓";
+    meta.appendChild(ticks);
+    if (animateTicks) {
+      setTimeout(() => ticks.classList.add("read"), 700);
+    } else {
+      ticks.classList.add("read");
+    }
+  }
+  el.appendChild(meta);
+
+  body.appendChild(el);
+  body.scrollTop = body.scrollHeight;
+}
+
+function runPhoneDemo(lang) {
+  const gen = ++phoneGeneration;
+  const body = document.getElementById("phoneChatBody");
+  const statusEl = document.getElementById("phoneStatus");
+  if (!body) return;
+  const script = PHONE_SCRIPT[lang] || PHONE_SCRIPT.fr;
+  body.innerHTML = "";
+
+  if (prefersReducedMotion) {
+    script.forEach((msg) => appendPhoneBubble(body, msg, false));
+    if (statusEl) statusEl.textContent = lang === "ar" ? "متصل الآن" : "en ligne";
+    return;
+  }
+
+  let i = 0;
+  function step() {
+    if (gen !== phoneGeneration) return; // une nouvelle boucle a pris le relais
+    if (i >= script.length) {
+      setTimeout(() => {
+        if (gen !== phoneGeneration) return;
+        body.innerHTML = "";
+        i = 0;
+        step();
+      }, 2600);
+      return;
+    }
+    const msg = script[i];
+    if (msg.who === "out") {
+      if (statusEl) statusEl.textContent = lang === "ar" ? "يكتب..." : "en train d'écrire...";
+      const typingEl = appendPhoneTyping(body);
+      setTimeout(() => {
+        if (gen !== phoneGeneration) return;
+        typingEl.remove();
+        appendPhoneBubble(body, msg, true);
+        if (statusEl) statusEl.textContent = lang === "ar" ? "متصل الآن" : "en ligne";
+        i += 1;
+        setTimeout(step, 1000);
+      }, 900);
+    } else {
+      appendPhoneBubble(body, msg, false);
+      i += 1;
+      setTimeout(step, 1100);
+    }
+  }
+  step();
 }
 
 // --- Révélation au scroll ---
@@ -401,12 +518,36 @@ const calcCancelRate = document.getElementById("calcCancelRate");
 const calcBasket = document.getElementById("calcBasket");
 const calcResult = document.getElementById("calcResult");
 
+let calcDisplayed = 0;
+let calcAnimFrame = null;
+
+function animateCalcTo(target) {
+  if (prefersReducedMotion) {
+    calcDisplayed = target;
+    calcResult.textContent = target.toLocaleString("fr-FR");
+    return;
+  }
+  cancelAnimationFrame(calcAnimFrame);
+  const start = calcDisplayed;
+  const startTime = performance.now();
+  const duration = 500;
+
+  function frame(now) {
+    const t = Math.min(1, (now - startTime) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    calcDisplayed = Math.round(start + (target - start) * eased);
+    calcResult.textContent = calcDisplayed.toLocaleString("fr-FR");
+    if (t < 1) calcAnimFrame = requestAnimationFrame(frame);
+  }
+  calcAnimFrame = requestAnimationFrame(frame);
+}
+
 function updateCalc() {
   const orders = Math.max(0, Number(calcOrders.value) || 0);
   const rate = Math.min(100, Math.max(0, Number(calcCancelRate.value) || 0));
   const basket = Math.max(0, Number(calcBasket.value) || 0);
   const loss = Math.round((orders * (rate / 100) * basket) / 100) * 100;
-  calcResult.textContent = loss.toLocaleString("fr-FR");
+  animateCalcTo(loss);
 }
 
 [calcOrders, calcCancelRate, calcBasket].forEach((input) => {
