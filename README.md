@@ -54,6 +54,14 @@ mode sombre de WhatsApp (couleurs fixes), indépendamment du thème clair/sombre
 site — un choix assumé plutôt qu'un oubli. Le script de conversation se modifie
 dans `PHONE_SCRIPT` (`assets/script.js`).
 
+## Mettre à jour le site en ligne
+
+Après chaque modification de `assets/style.css` ou `assets/script.js`, incrémentez le
+paramètre `?v=` sur les balises `<link>`/`<script>` correspondantes dans `index.html`
+(ex: `?v=2` → `?v=3`). Sans ça, les navigateurs (surtout mobile) gardent en cache
+l'ancienne version du fichier et les visiteurs ne verront pas vos changements
+immédiatement, même si le déploiement a réussi.
+
 ## À personnaliser avant mise en ligne
 
 - **Important** : remplacer `WHATSAPP_NUMBER` dans `assets/script.js` par votre vrai numéro
