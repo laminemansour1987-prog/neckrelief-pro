@@ -1,0 +1,12 @@
+{
+  "name": "LM Plomberie 69",
+  "short_name": "LM Plomberie",
+  "description": "Plombier chauffagiste à Rillieux-la-Pape et Grand Lyon. Urgence 24/7.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0c1626",
+  "theme_color": "#0c1626",
+  "icons": [
+    { "src": "assets/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
