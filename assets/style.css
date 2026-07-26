@@ -23,6 +23,7 @@
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-arabic: "Cairo", "Segoe UI", Tahoma, sans-serif;
 }
 
 :root[data-theme="light"] {
@@ -156,6 +157,21 @@ p { margin: 0; }
   gap: 10px;
   flex: none;
 }
+
+.lang-toggle {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-arabic);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: none;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
 .theme-toggle {
   width: 40px;
@@ -635,6 +651,69 @@ p { margin: 0; }
 }
 
 /* ---------------------------------------------------------------
+   Calculette de perte
+------------------------------------------------------------------ */
+.calc-box {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.calc-inputs {
+  background: var(--ink);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.calc-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.calc-inputs input {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px 13px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+.calc-inputs input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.calc-result {
+  background: var(--surface);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.calc-result-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.calc-result-value {
+  font-family: var(--font-mono);
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.calc-unit { font-size: 1.1rem; color: var(--text-muted); }
+.calc-result-note { color: var(--text-muted); font-size: 0.86rem; max-width: 42ch; }
+
+/* ---------------------------------------------------------------
    Pricing
 ------------------------------------------------------------------ */
 .pricing {
@@ -799,4 +878,22 @@ p { margin: 0; }
   .links a:last-child { border-bottom: none; }
   .board-row { flex-wrap: wrap; }
   .board-tag { margin-left: 30px; }
+  html[dir="rtl"] .board-tag { margin-left: 0; margin-right: 30px; }
 }
+@media (max-width: 780px) {
+  .calc-box { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------------
+   Arabe / RTL
+------------------------------------------------------------------ */
+body.lang-ar {
+  --font-display: var(--font-arabic);
+  --font-body: var(--font-arabic);
+  --font-mono: var(--font-arabic);
+}
+body.lang-ar h1, body.lang-ar h2, body.lang-ar h3 { font-weight: 700; }
+body.lang-ar .logo em { font-style: normal; }
+
+html[dir="rtl"] .msg.bot { border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+html[dir="rtl"] .msg.user { border-bottom-right-radius: 14px; border-bottom-left-radius: 4px; }

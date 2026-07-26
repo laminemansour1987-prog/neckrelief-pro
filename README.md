@@ -28,6 +28,22 @@ pastilles vert de garde pour les statuts. Typographies : Fraunces (titres), Work
 avec repli sur les polices système si hors-ligne. Thèmes clair et sombre gérés via
 variables CSS (`prefers-color-scheme` + bouton de bascule en haut à droite).
 
+## Bilingue FR / AR
+
+Le site bascule intégralement entre français (LTR) et arabe (RTL) via le bouton
+en haut à droite de la navigation — layout, calculette, et démo de chat inclus
+(le bot répond en arabe si la question est posée en arabe). Toutes les chaînes
+sont centralisées dans l'objet `I18N` en tête de `assets/script.js` : chaque clé
+a une paire `{ fr, ar }`. Pour ajouter un texte traduisible, ajoutez une entrée
+dans `I18N` et un attribut `data-i18n="votre.clé"` sur l'élément HTML.
+
+## Calculette de perte
+
+Section `#calculateur` : à partir de 3 chiffres saisis par le visiteur (commandes
+COD/mois, % d'annulation, panier moyen), elle affiche la perte mensuelle estimée.
+C'est un calcul arithmétique direct sur les chiffres de l'utilisateur — aucun taux
+de récupération n'est inventé ou promis.
+
 ## À personnaliser avant mise en ligne
 
 - **Important** : remplacer `WHATSAPP_NUMBER` dans `assets/script.js` par votre vrai numéro

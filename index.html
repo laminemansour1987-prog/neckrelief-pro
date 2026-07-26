@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
 <meta name="description" content="Un assistant IA qui répond sur WhatsApp, confirme les commandes COD et suit les livraisons Yalidine — pour les commerces et e-commerçants en Algérie.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,500;0,9..144,650;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,320;0,9..144,500;0,9..144,650;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315110b'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e2841f'/%3E%3C/svg%3E">
 </head>
@@ -17,18 +17,20 @@
   <div class="container nav-inner">
     <a href="#top" class="logo">DZ<em>Automation</em></a>
     <nav class="links" id="navLinks">
-      <a href="#services">Ce qu'il prend en charge</a>
-      <a href="#comment-ca-marche">Comment ça marche</a>
-      <a href="#demo">Démo</a>
-      <a href="#tarifs">Tarifs</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="#services" data-i18n="nav.services">Ce qu'il prend en charge</a>
+      <a href="#comment-ca-marche" data-i18n="nav.how">Comment ça marche</a>
+      <a href="#demo" data-i18n="nav.demo">Démo</a>
+      <a href="#tarifs" data-i18n="nav.pricing">Tarifs</a>
+      <a href="#calculateur" data-i18n="nav.calc">Calculette</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Changer de thème">
+      <button class="lang-toggle" id="langToggle" type="button">عربي</button>
+      <button class="theme-toggle" id="themeToggle" type="button" data-i18n-aria="a11y.theme" aria-label="Changer de thème">
         <span class="theme-toggle-dot"></span>
       </button>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+      <button class="menu-toggle" id="menuToggle" type="button" data-i18n-aria="a11y.menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -38,9 +40,9 @@
 <section class="hero" id="top">
   <div class="container hero-grid">
     <div class="hero-copy reveal">
-      <p class="eyebrow">Automatisation IA · Algérie</p>
-      <h1>Pendant que vous dormez,<br><em>votre commerce</em> répond, confirme et vend.</h1>
-      <p class="subtitle">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Automatisation IA · Algérie</p>
+      <h1 data-i18n="hero.title" data-i18n-html>Pendant que vous dormez,<br><em>votre commerce</em> répond, confirme et vend.</h1>
+      <p class="subtitle" data-i18n="hero.subtitle">
         Un assistant IA prend le relais sur WhatsApp et Messenger : il répond aux clients,
         confirme les commandes à la livraison (COD) et suit les colis Yalidine —
         du lever au coucher du soleil, et bien après.
@@ -48,17 +50,17 @@
       <div class="hero-cta">
         <a href="#" class="btn btn-whatsapp whatsapp-link" data-wa-text="Bonjour, je voudrais en savoir plus sur l'assistant IA pour mon commerce.">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5s.8 1.9.8 2.1c.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.3-.5.5-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.2.5.2.6.4.1.2.1.9-.1 1.6z"/></svg>
-          Discuter sur WhatsApp
+          <span data-i18n="cta.whatsapp">Discuter sur WhatsApp</span>
         </a>
-        <a href="#demo" class="btn btn-outline">Voir la démo en direct</a>
+        <a href="#demo" class="btn btn-outline" data-i18n="cta.demo">Voir la démo en direct</a>
       </div>
-      <p class="hero-note">Premier message répondu en moins de 5&nbsp;secondes · 58 wilayas · Français &amp; darija</p>
+      <p class="hero-note" data-i18n="hero.note">Premier message répondu en moins de 5&nbsp;secondes · 58 wilayas · Français &amp; darija</p>
     </div>
 
     <div class="ops-panel reveal" aria-label="Journal d'activité simulé de l'assistant">
       <div class="ops-header">
         <span class="ops-live-dot" aria-hidden="true"></span>
-        Journal d'activité — en direct
+        <span data-i18n="ops.header">Journal d'activité — en direct</span>
       </div>
       <div class="ops-feed-mask">
         <ul class="ops-feed" id="opsFeed"></ul>
@@ -69,27 +71,27 @@
 
 <section id="comparaison" class="section">
   <div class="container">
-    <p class="eyebrow">La différence</p>
-    <h2>Ce qui change concrètement</h2>
-    <p class="section-lead">Rien d'abstrait : voici ce qui se passe réellement sur vos conversations, avant et après.</p>
+    <p class="eyebrow" data-i18n="compare.eyebrow">La différence</p>
+    <h2 data-i18n="compare.title">Ce qui change concrètement</h2>
+    <p class="section-lead" data-i18n="compare.lead">Rien d'abstrait : voici ce qui se passe réellement sur vos conversations, avant et après.</p>
 
     <div class="compare reveal">
       <div class="compare-col">
-        <p class="compare-head">Sans assistant</p>
+        <p class="compare-head" data-i18n="compare.before.head">Sans assistant</p>
         <ul>
-          <li>Vous répondez quand vous pouvez, parfois plusieurs heures après le message</li>
-          <li>Vous appelez chaque client un par un pour confirmer la commande COD</li>
-          <li>Les messages du soir et du weekend attendent le lendemain</li>
-          <li>Le client vous relance pour savoir où en est son colis</li>
+          <li data-i18n="compare.before.1">Vous répondez quand vous pouvez, parfois plusieurs heures après le message</li>
+          <li data-i18n="compare.before.2">Vous appelez chaque client un par un pour confirmer la commande COD</li>
+          <li data-i18n="compare.before.3">Les messages du soir et du weekend attendent le lendemain</li>
+          <li data-i18n="compare.before.4">Le client vous relance pour savoir où en est son colis</li>
         </ul>
       </div>
       <div class="compare-col is-after">
-        <p class="compare-head">Avec DZ Automation</p>
+        <p class="compare-head" data-i18n="compare.after.head">Avec DZ Automation</p>
         <ul>
-          <li>Réponse en moins de 5 secondes, à toute heure</li>
-          <li>Confirmation automatique envoyée avant l'expédition</li>
-          <li>L'assistant répond aussi la nuit et le weekend</li>
-          <li>Le statut du colis est envoyé sans que le client ait à demander</li>
+          <li data-i18n="compare.after.1">Réponse en moins de 5 secondes, à toute heure</li>
+          <li data-i18n="compare.after.2">Confirmation automatique envoyée avant l'expédition</li>
+          <li data-i18n="compare.after.3">L'assistant répond aussi la nuit et le weekend</li>
+          <li data-i18n="compare.after.4">Le statut du colis est envoyé sans que le client ait à demander</li>
         </ul>
       </div>
     </div>
@@ -98,45 +100,45 @@
 
 <section id="services" class="section section-alt">
   <div class="container">
-    <p class="eyebrow">Ce qu'il prend en charge</p>
-    <h2>Un assistant, quatre postes surveillés</h2>
-    <p class="section-lead">Chaque ligne tourne en continu, adaptée au terrain algérien : COD, Yalidine, réseaux sociaux, darija.</p>
+    <p class="eyebrow" data-i18n="services.eyebrow">Ce qu'il prend en charge</p>
+    <h2 data-i18n="services.title">Un assistant, quatre postes surveillés</h2>
+    <p class="section-lead" data-i18n="services.lead">Chaque ligne tourne en continu, adaptée au terrain algérien : COD, Yalidine, réseaux sociaux, darija.</p>
 
     <ul class="board">
       <li class="board-row reveal">
         <span class="board-status" aria-hidden="true"></span>
         <div class="board-body">
-          <h3>Réponse WhatsApp &amp; Messenger</h3>
-          <p>Répond aux prospects en quelques secondes, qualifie la demande et propose le produit adapté — même à 2h du matin.</p>
+          <h3 data-i18n="services.1.title">Réponse WhatsApp &amp; Messenger</h3>
+          <p data-i18n="services.1.desc">Répond aux prospects en quelques secondes, qualifie la demande et propose le produit adapté — même à 2h du matin.</p>
         </div>
-        <span class="board-tag">24/7</span>
+        <span class="board-tag" data-i18n="services.1.tag">24/7</span>
       </li>
 
       <li class="board-row reveal">
         <span class="board-status" aria-hidden="true"></span>
         <div class="board-body">
-          <h3>Confirmation de commande COD</h3>
-          <p>Un message de confirmation automatique avant expédition : moins de faux numéros, moins de colis refusés.</p>
+          <h3 data-i18n="services.2.title">Confirmation de commande COD</h3>
+          <p data-i18n="services.2.desc">Un message de confirmation automatique avant expédition : moins de faux numéros, moins de colis refusés.</p>
         </div>
-        <span class="board-tag">Anti-annulation</span>
+        <span class="board-tag" data-i18n="services.2.tag">Anti-annulation</span>
       </li>
 
       <li class="board-row reveal">
         <span class="board-status" aria-hidden="true"></span>
         <div class="board-body">
-          <h3>Suivi de livraison Yalidine</h3>
-          <p>Le client reçoit l'état de son colis sans avoir à demander, de la prise en charge jusqu'à la remise.</p>
+          <h3 data-i18n="services.3.title">Suivi de livraison Yalidine</h3>
+          <p data-i18n="services.3.desc">Le client reçoit l'état de son colis sans avoir à demander, de la prise en charge jusqu'à la remise.</p>
         </div>
-        <span class="board-tag">58 wilayas</span>
+        <span class="board-tag" data-i18n="services.3.tag">58 wilayas</span>
       </li>
 
       <li class="board-row reveal">
         <span class="board-status" aria-hidden="true"></span>
         <div class="board-body">
-          <h3>Rapports &amp; tâches internes</h3>
-          <p>Factures générées, stock suivi, rapport de ventes envoyé chaque semaine — sans intervention manuelle.</p>
+          <h3 data-i18n="services.4.title">Rapports &amp; tâches internes</h3>
+          <p data-i18n="services.4.desc">Factures générées, stock suivi, rapport de ventes envoyé chaque semaine — sans intervention manuelle.</p>
         </div>
-        <span class="board-tag">Hebdomadaire</span>
+        <span class="board-tag" data-i18n="services.4.tag">Hebdomadaire</span>
       </li>
     </ul>
   </div>
@@ -144,30 +146,30 @@
 
 <section id="comment-ca-marche" class="section">
   <div class="container">
-    <p class="eyebrow">Comment ça marche</p>
-    <h2>Du premier échange à la mise en service</h2>
-    <p class="section-lead">Un processus court, pensé pour ne pas vous faire perdre de temps sur quelque chose que vous ne connaissez pas encore.</p>
+    <p class="eyebrow" data-i18n="steps.eyebrow">Comment ça marche</p>
+    <h2 data-i18n="steps.title">Du premier échange à la mise en service</h2>
+    <p class="section-lead" data-i18n="steps.lead">Un processus court, pensé pour ne pas vous faire perdre de temps sur quelque chose que vous ne connaissez pas encore.</p>
 
     <ol class="steps">
       <li class="step reveal">
         <p class="step-index">01</p>
-        <h3>Appel de découverte (15 min)</h3>
-        <p>On regarde vos produits, votre volume de commandes et votre façon actuelle de répondre aux clients.</p>
+        <h3 data-i18n="steps.1.title">Appel de découverte (15 min)</h3>
+        <p data-i18n="steps.1.desc">On regarde vos produits, votre volume de commandes et votre façon actuelle de répondre aux clients.</p>
       </li>
       <li class="step reveal">
         <p class="step-index">02</p>
-        <h3>Configuration sur mesure</h3>
-        <p>Réponses, ton, produits et zones de livraison sont réglés spécifiquement pour votre activité, en français et darija.</p>
+        <h3 data-i18n="steps.2.title">Configuration sur mesure</h3>
+        <p data-i18n="steps.2.desc">Réponses, ton, produits et zones de livraison sont réglés spécifiquement pour votre activité, en français et darija.</p>
       </li>
       <li class="step reveal">
         <p class="step-index">03</p>
-        <h3>Test en conditions réelles (7 jours)</h3>
-        <p>Vous suivez chaque conversation en direct pendant l'essai gratuit, et on ajuste ensemble ce qui doit l'être.</p>
+        <h3 data-i18n="steps.3.title">Test en conditions réelles (7 jours)</h3>
+        <p data-i18n="steps.3.desc">Vous suivez chaque conversation en direct pendant l'essai gratuit, et on ajuste ensemble ce qui doit l'être.</p>
       </li>
       <li class="step reveal">
         <p class="step-index">04</p>
-        <h3>Mise en service</h3>
-        <p>L'assistant tourne seul au quotidien. Vous gardez la main à tout moment sur n'importe quelle conversation.</p>
+        <h3 data-i18n="steps.4.title">Mise en service</h3>
+        <p data-i18n="steps.4.desc">L'assistant tourne seul au quotidien. Vous gardez la main à tout moment sur n'importe quelle conversation.</p>
       </li>
     </ol>
   </div>
@@ -177,10 +179,10 @@
   <div class="container">
     <div class="section-head-row">
       <div>
-        <p class="eyebrow">Essayez-le</p>
-        <h2>La démo, pas une capture d'écran</h2>
-        <p class="section-lead">
-          Simulation de l'assistant pour <strong>« Boutique Nadia »</strong>, une boutique fictive.
+        <p class="eyebrow" data-i18n="demo.eyebrow">Essayez-le</p>
+        <h2 data-i18n="demo.title">La démo, pas une capture d'écran</h2>
+        <p class="section-lead" data-i18n="demo.lead">
+          Simulation de l'assistant pour « Boutique Nadia », une boutique fictive.
           Écrivez comme le ferait un client sur WhatsApp — prix, commande, livraison.
         </p>
       </div>
@@ -189,139 +191,169 @@
     <div class="chat-demo">
       <div class="chat-header">
         <span class="chat-dot"></span>
-        Boutique Nadia — Assistant IA
-        <span class="chat-status">en ligne</span>
+        <span data-i18n="demo.chatTitle">Boutique Nadia — Assistant IA</span>
+        <span class="chat-status" data-i18n="demo.chatStatus">en ligne</span>
       </div>
       <div class="chat-body" id="chatBody">
-        <div class="msg bot">Bonjour 👋 Bienvenue chez Boutique Nadia ! Comment puis-je vous aider ? (prix, commande, livraison...)</div>
+        <div class="msg bot" id="chatFirstMsg">Bonjour 👋 Bienvenue chez Boutique Nadia ! Comment puis-je vous aider ? (prix, commande, livraison...)</div>
       </div>
       <form class="chat-input" id="chatForm">
-        <input type="text" id="chatInput" placeholder="Écrivez votre message..." autocomplete="off" required>
-        <button type="submit">Envoyer</button>
+        <input type="text" id="chatInput" data-i18n-placeholder="demo.placeholder" placeholder="Écrivez votre message..." autocomplete="off" required>
+        <button type="submit" data-i18n="demo.send">Envoyer</button>
       </form>
     </div>
-    <p class="demo-note">Démo hors-ligne à but illustratif : les réponses sont simulées pour montrer le type de scénarios qu'un assistant IA gère réellement.</p>
+    <p class="demo-note" data-i18n="demo.note">Démo hors-ligne à but illustratif : les réponses sont simulées pour montrer le type de scénarios qu'un assistant IA gère réellement.</p>
   </div>
 </section>
 
-<section id="tarifs" class="section">
+<section id="calculateur" class="section">
   <div class="container">
-    <p class="eyebrow">Tarifs</p>
-    <h2>Trois formules, un devis sur mesure</h2>
-    <p class="section-lead">Sans engagement long terme. Le devis final dépend de votre volume de commandes.</p>
+    <p class="eyebrow" data-i18n="calc.eyebrow">Calculette</p>
+    <h2 data-i18n="calc.title">Combien vous coûtent les commandes non confirmées ?</h2>
+    <p class="section-lead" data-i18n="calc.lead">Un calcul simple à partir de vos propres chiffres — pas une estimation marketing.</p>
+
+    <div class="calc-box reveal">
+      <div class="calc-inputs">
+        <label>
+          <span data-i18n="calc.field1">Commandes COD par mois</span>
+          <input type="number" id="calcOrders" min="0" value="200" inputmode="numeric">
+        </label>
+        <label>
+          <span data-i18n="calc.field2">% de commandes annulées / injoignables</span>
+          <input type="number" id="calcCancelRate" min="0" max="100" value="20" inputmode="numeric">
+        </label>
+        <label>
+          <span data-i18n="calc.field3">Panier moyen (DA)</span>
+          <input type="number" id="calcBasket" min="0" value="4000" inputmode="numeric">
+        </label>
+      </div>
+      <div class="calc-result">
+        <p class="calc-result-label" data-i18n="calc.resultLabel">Perte estimée chaque mois</p>
+        <p class="calc-result-value"><span id="calcResult">160 000</span> <span class="calc-unit">DA</span></p>
+        <p class="calc-result-note" data-i18n="calc.note">Basé uniquement sur vos chiffres ci-dessus. La confirmation automatique vise à récupérer une partie de ce montant en fiabilisant chaque commande avant expédition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tarifs" class="section section-alt">
+  <div class="container">
+    <p class="eyebrow" data-i18n="pricing.eyebrow">Tarifs</p>
+    <h2 data-i18n="pricing.title">Trois formules, un devis sur mesure</h2>
+    <p class="section-lead" data-i18n="pricing.lead">Sans engagement long terme. Le devis final dépend de votre volume de commandes.</p>
 
     <div class="pricing">
       <article class="price-card reveal">
         <h3>Starter</h3>
-        <p class="price"><span class="price-amount">15 000</span><span class="price-unit">DA / mois</span></p>
+        <p class="price"><span class="price-amount">15 000</span><span class="price-unit" data-i18n="pricing.unit">DA / mois</span></p>
         <ul>
-          <li>Assistant WhatsApp basique</li>
-          <li>Réponses aux questions fréquentes</li>
-          <li>Jusqu'à 300 conversations / mois</li>
+          <li data-i18n="pricing.starter.1">Assistant WhatsApp basique</li>
+          <li data-i18n="pricing.starter.2">Réponses aux questions fréquentes</li>
+          <li data-i18n="pricing.starter.3">Jusqu'à 300 conversations / mois</li>
         </ul>
-        <a href="#contact" class="btn btn-outline">Choisir Starter</a>
+        <a href="#contact" class="btn btn-outline"><span data-i18n="pricing.choose">Choisir</span> Starter</a>
       </article>
 
       <article class="price-card featured reveal">
-        <p class="badge">Le plus choisi</p>
+        <p class="badge" data-i18n="pricing.badge">Le plus choisi</p>
         <h3>Business</h3>
-        <p class="price"><span class="price-amount">35 000</span><span class="price-unit">DA / mois</span></p>
+        <p class="price"><span class="price-amount">35 000</span><span class="price-unit" data-i18n="pricing.unit">DA / mois</span></p>
         <ul>
-          <li>Tout Starter, plus :</li>
-          <li>Confirmation automatique des commandes COD</li>
-          <li>Suivi Yalidine intégré</li>
-          <li>Conversations illimitées</li>
+          <li data-i18n="pricing.business.1">Tout Starter, plus :</li>
+          <li data-i18n="pricing.business.2">Confirmation automatique des commandes COD</li>
+          <li data-i18n="pricing.business.3">Suivi Yalidine intégré</li>
+          <li data-i18n="pricing.business.4">Conversations illimitées</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Choisir Business</a>
+        <a href="#contact" class="btn btn-primary"><span data-i18n="pricing.choose">Choisir</span> Business</a>
       </article>
 
       <article class="price-card reveal">
-        <h3>Sur-mesure</h3>
-        <p class="price"><span class="price-amount">Devis</span></p>
+        <h3 data-i18n="pricing.custom.title">Sur-mesure</h3>
+        <p class="price"><span class="price-amount" data-i18n="pricing.custom.price">Devis</span></p>
         <ul>
-          <li>Automatisation de workflows internes</li>
-          <li>Intégrations spécifiques (ERP, caisse...)</li>
-          <li>Accompagnement dédié</li>
+          <li data-i18n="pricing.custom.1">Automatisation de workflows internes</li>
+          <li data-i18n="pricing.custom.2">Intégrations spécifiques (ERP, caisse...)</li>
+          <li data-i18n="pricing.custom.3">Accompagnement dédié</li>
         </ul>
-        <a href="#contact" class="btn btn-outline">Nous contacter</a>
+        <a href="#contact" class="btn btn-outline" data-i18n="pricing.custom.cta">Nous contacter</a>
       </article>
     </div>
 
     <ul class="reassure reveal">
-      <li>7 jours d'essai gratuit</li>
-      <li>Sans engagement long terme</li>
-      <li>Un humain reprend la main à tout moment</li>
-      <li>Compatible Yalidine, ZR Express, Maystro Delivery</li>
+      <li data-i18n="reassure.1">7 jours d'essai gratuit</li>
+      <li data-i18n="reassure.2">Sans engagement long terme</li>
+      <li data-i18n="reassure.3">Un humain reprend la main à tout moment</li>
+      <li data-i18n="reassure.4">Compatible Yalidine, ZR Express, Maystro Delivery</li>
     </ul>
   </div>
 </section>
 
-<section id="faq" class="section section-alt">
+<section id="faq" class="section">
   <div class="container">
-    <p class="eyebrow">Questions fréquentes</p>
-    <h2>Avant de vous décider</h2>
-    <p class="section-lead">Les questions qu'on nous pose le plus souvent avant de se lancer.</p>
+    <p class="eyebrow" data-i18n="faq.eyebrow">Questions fréquentes</p>
+    <h2 data-i18n="faq.title">Avant de vous décider</h2>
+    <p class="section-lead" data-i18n="faq.lead">Les questions qu'on nous pose le plus souvent avant de se lancer.</p>
 
     <div class="faq reveal">
       <details class="faq-item">
-        <summary>Est-ce que je perds le contrôle de mes conversations ?</summary>
-        <p>Non. Vous voyez toutes les conversations en temps réel et pouvez reprendre la main manuellement à tout moment, sur n'importe quel client.</p>
+        <summary data-i18n="faq.1.q">Est-ce que je perds le contrôle de mes conversations ?</summary>
+        <p data-i18n="faq.1.a">Non. Vous voyez toutes les conversations en temps réel et pouvez reprendre la main manuellement à tout moment, sur n'importe quel client.</p>
       </details>
       <details class="faq-item">
-        <summary>Ça fonctionne avec Yalidine, ZR Express ou Maystro Delivery ?</summary>
-        <p>Oui. L'intégration se fait avec le service de livraison que vous utilisez déjà — pas besoin d'en changer.</p>
+        <summary data-i18n="faq.2.q">Ça fonctionne avec Yalidine, ZR Express ou Maystro Delivery ?</summary>
+        <p data-i18n="faq.2.a">Oui. L'intégration se fait avec le service de livraison que vous utilisez déjà — pas besoin d'en changer.</p>
       </details>
       <details class="faq-item">
-        <summary>C'est un vrai assistant IA ou un chatbot rigide qui répond à côté ?</summary>
-        <p>L'assistant est configuré spécifiquement sur vos produits et votre façon de vendre, pas un script générique. Et un humain peut toujours reprendre la conversation si la demande sort du cadre.</p>
+        <summary data-i18n="faq.3.q">C'est un vrai assistant IA ou un chatbot rigide qui répond à côté ?</summary>
+        <p data-i18n="faq.3.a">L'assistant est configuré spécifiquement sur vos produits et votre façon de vendre, pas un script générique. Et un humain peut toujours reprendre la conversation si la demande sort du cadre.</p>
       </details>
       <details class="faq-item">
-        <summary>Combien de temps avant que ce soit opérationnel ?</summary>
-        <p>Comptez 3 à 5 jours entre le premier échange et la mise en service, précédés d'une semaine de test en conditions réelles.</p>
+        <summary data-i18n="faq.4.q">Combien de temps avant que ce soit opérationnel ?</summary>
+        <p data-i18n="faq.4.a">Comptez 3 à 5 jours entre le premier échange et la mise en service, précédés d'une semaine de test en conditions réelles.</p>
       </details>
       <details class="faq-item">
-        <summary>Est-ce que ça remplace mon équipe ?</summary>
-        <p>Non. L'assistant absorbe les tâches répétitives — réponses, confirmations, suivi de livraison — pour que vous et votre équipe vous concentriez sur le reste.</p>
+        <summary data-i18n="faq.5.q">Est-ce que ça remplace mon équipe ?</summary>
+        <p data-i18n="faq.5.a">Non. L'assistant absorbe les tâches répétitives — réponses, confirmations, suivi de livraison — pour que vous et votre équipe vous concentriez sur le reste.</p>
       </details>
       <details class="faq-item">
-        <summary>Je peux arrêter quand je veux ?</summary>
-        <p>Oui, aucun engagement long terme. Vous résiliez à tout moment, sans frais cachés.</p>
+        <summary data-i18n="faq.6.q">Je peux arrêter quand je veux ?</summary>
+        <p data-i18n="faq.6.a">Oui, aucun engagement long terme. Vous résiliez à tout moment, sans frais cachés.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section id="contact" class="section">
+<section id="contact" class="section section-alt">
   <div class="container contact-inner">
     <div class="reveal">
-      <p class="eyebrow">Contact</p>
-      <h2>Parlons de votre projet</h2>
-      <p class="section-lead">La plupart des échanges se font directement sur WhatsApp — c'est le plus rapide.</p>
+      <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+      <h2 data-i18n="contact.title">Parlons de votre projet</h2>
+      <p class="section-lead" data-i18n="contact.lead">La plupart des échanges se font directement sur WhatsApp — c'est le plus rapide.</p>
       <a href="#" class="btn btn-whatsapp whatsapp-link contact-whatsapp-cta" data-wa-text="Bonjour, je voudrais discuter d'un devis pour automatiser mon commerce.">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5s.8 1.9.8 2.1c.1.2.1.4 0 .6-.1.2-.2.3-.3.5-.2.2-.3.3-.5.5-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.2.5.2.6.4.1.2.1.9-.1 1.6z"/></svg>
-        Discuter sur WhatsApp
+        <span data-i18n="cta.whatsapp">Discuter sur WhatsApp</span>
       </a>
-      <p class="demo-note contact-whatsapp-note">Ou laissez vos coordonnées ci-contre, réponse sous 24h.</p>
+      <p class="demo-note contact-whatsapp-note" data-i18n="contact.note">Ou laissez vos coordonnées ci-contre, réponse sous 24h.</p>
     </div>
 
     <form class="contact-form reveal" id="contactForm">
       <label>
-        Nom
+        <span data-i18n="contact.form.name">Nom</span>
         <input type="text" name="name" required>
       </label>
       <label>
-        Téléphone ou email
+        <span data-i18n="contact.form.contact">Téléphone ou email</span>
         <input type="text" name="contact" required>
       </label>
       <label>
-        Votre activité
-        <input type="text" name="business" placeholder="Ex : boutique de vêtements, dropshipping...">
+        <span data-i18n="contact.form.business">Votre activité</span>
+        <input type="text" name="business" data-i18n-placeholder="contact.form.businessPh" placeholder="Ex : boutique de vêtements, dropshipping...">
       </label>
       <label>
-        Message
-        <textarea name="message" rows="4" placeholder="Décrivez ce dont vous avez besoin"></textarea>
+        <span data-i18n="contact.form.message">Message</span>
+        <textarea name="message" rows="4" data-i18n-placeholder="contact.form.messagePh" placeholder="Décrivez ce dont vous avez besoin"></textarea>
       </label>
-      <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+      <button type="submit" class="btn btn-primary" data-i18n="contact.form.submit">Envoyer la demande</button>
       <p class="form-status" id="formStatus" role="status"></p>
     </form>
   </div>
@@ -330,7 +362,7 @@
 <footer class="footer">
   <div class="container footer-inner">
     <span class="logo">DZ<em>Automation</em></span>
-    <p>&copy; 2026 — Automatisation IA pour commerces algériens.</p>
+    <p data-i18n="footer.copy">&copy; 2026 — Automatisation IA pour commerces algériens.</p>
   </div>
 </footer>
 
