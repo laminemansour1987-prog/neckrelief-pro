@@ -2921,3 +2921,63 @@ h3 {
 .article-related ul { list-style: none; padding: 0; }
 .article-related li { padding: 8px 0; border-bottom: 1px dotted var(--verre-bord); }
 .article-related a { color: var(--aqua); font-weight: 600; }
+
+/* ---------- Cocon sémantique : mise en page fille ---------- */
+.cocon-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 40px;
+  align-items: start;
+}
+.cocon-layout .article-body { max-width: none; margin: 0; }
+.cocon-aside { position: sticky; top: 100px; }
+.silo-nav {
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.silo-nav-title {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brume-faible);
+  margin-bottom: 8px;
+}
+.silo-mother {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--aqua);
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(56, 198, 217, 0.08);
+  margin-bottom: 6px;
+}
+.silo-mother svg { width: 16px; height: 16px; }
+.silo-mother:hover { background: rgba(56, 198, 217, 0.15); }
+.silo-link {
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--brume);
+  font-size: 0.92rem;
+  border-left: 2px solid transparent;
+  transition: all 0.18s ease;
+}
+.silo-link:hover { background: var(--verre); color: var(--ecume); border-left-color: var(--aqua); }
+.silo-link.is-current {
+  background: var(--verre);
+  color: var(--ecume);
+  font-weight: 700;
+  border-left-color: var(--aqua);
+}
+@media (max-width: 900px) {
+  .cocon-layout { grid-template-columns: 1fr; }
+  .cocon-aside { position: static; }
+}
