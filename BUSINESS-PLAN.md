@@ -125,6 +125,16 @@ Bonus non négligeable : tu vends déjà des tableaux numériques, donc la livra
 
 **Quand ouvrir une deuxième boutique :** quand la gamme dépassera une vingtaine d'annonces et méritera sa propre marque. Pas maintenant — une boutique neuve repart de zéro en historique, ce qu'on cherche précisément à éviter. Une exception, décrite dans les risques ci-dessous.
 
+### Le nom de la boutique — à corriger avant de publier
+
+La boutique s'appelle `Lamsshop69`. Pour des t-shirts, ce n'est pas un sujet. Pour des carnets de suivi médical, c'en est un : le « 69 » se lit comme une blague à connotation sexuelle par un acheteur anglophone, et l'anglophone est justement le marché visé par ces annonces. Or acheter un journal de douleur chronique qu'on va remettre à son médecin est un **achat de confiance** — c'est le type de produit où le nom du vendeur pèse au moment de cliquer.
+
+Etsy autorise **cinq changements de nom** depuis les paramètres de la boutique avant de devoir passer par le support. Le changement conserve l'historique de ventes, les avis et la note — seule l'URL change, et Etsy redirige l'ancienne. C'est donc une correction quasiment gratuite.
+
+Contraintes Etsy : 4 à 20 caractères, sans espace, sans ponctuation, sans accent. Une piste qui garde la continuité avec l'existant tout en fonctionnant pour toutes tes catégories (textile, accessoires, art numérique, carnets) : `LamsStudio`.
+
+À faire **avant** de publier les carnets. Un changement de nom une fois les annonces lancées gâche la reconnaissance qu'elles auront commencé à construire.
+
 ## 6. Les trois canaux, un seul contenu
 
 C'est le vrai argument de ce montage : **le contenu est écrit une fois, monétisé trois fois.**
