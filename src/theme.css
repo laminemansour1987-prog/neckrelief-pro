@@ -1,0 +1,205 @@
+/* Steady Press — print design system.
+   Ink-light on purpose: buyers print these at home on inkjets.
+   No large dark fills outside the cover band. */
+
+:root {
+  --ink: #16181d;
+  --ink-2: #414852;
+  --muted: #878e9a;
+  --rule: #b9bfc8;
+  --rule-soft: #dfe3e8;
+  --rule-faint: #ecEEF1;
+  --accent: #2c6e6a;
+  --accent-soft: #eef4f3;
+  --pad: 15mm;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  font-family: "Liberation Sans", Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-size: 9pt;
+  line-height: 1.35;
+}
+
+@page { margin: 0; }
+
+.page {
+  width: var(--pw);
+  height: var(--ph);
+  padding: var(--pad);
+  page-break-after: always;
+  break-after: page;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+/* ---------- page header ---------- */
+
+.head { border-bottom: 1.4px solid var(--ink); padding-bottom: 3mm; margin-bottom: 6mm; }
+.head .kicker {
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5mm;
+}
+.head h2 {
+  font-family: "Bitstream Charter", Georgia, serif;
+  font-size: 16pt;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.head .sub { font-size: 8.5pt; color: var(--ink-2); margin-top: 1.5mm; max-width: 130mm; }
+
+.body { flex: 1; display: flex; flex-direction: column; gap: 5mm; min-height: 0; }
+
+.foot {
+  margin-top: 4mm;
+  padding-top: 2.5mm;
+  border-top: 1px solid var(--rule-soft);
+  display: flex;
+  justify-content: space-between;
+  font-size: 6.5pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- cover ---------- */
+
+.cover { justify-content: space-between; }
+.cover .band { height: 7mm; background: var(--accent); margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 0; }
+.cover .mark {
+  font-size: 8pt; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--accent); margin-top: 22mm;
+}
+.cover h1 {
+  font-family: "Bitstream Charter", Georgia, serif;
+  font-size: 34pt;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-top: 6mm;
+  max-width: 145mm;
+}
+.cover .tag {
+  font-size: 11pt; color: var(--ink-2); margin-top: 6mm; max-width: 120mm; line-height: 1.5;
+}
+.cover .contents { margin-top: 14mm; }
+.cover .contents b {
+  display: block; font-size: 6.5pt; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 3mm;
+}
+.cover .contents ul { list-style: none; columns: 2; column-gap: 14mm; font-size: 8.5pt; color: var(--ink-2); }
+.cover .contents li {
+  break-inside: avoid; padding: 1.7mm 0; border-bottom: 1px solid var(--rule-faint);
+  display: flex; gap: 4mm;
+}
+.cover .contents li .n { color: var(--accent); font-weight: 700; font-size: 7pt; padding-top: 0.4mm; }
+
+.cover .rule { height: 1.4px; background: var(--ink); margin: 12mm 0 6mm; }
+.cover .meta { display: flex; gap: 12mm; font-size: 8pt; color: var(--ink-2); }
+.cover .meta b { display: block; font-size: 6.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5mm; }
+.cover .spacer { flex: 1; }
+
+/* ---------- generic blocks ---------- */
+
+.blk { break-inside: avoid; }
+.blk-title {
+  font-size: 7.5pt; font-weight: 700; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 2.5mm;
+  display: flex; align-items: baseline; gap: 3mm;
+}
+.blk-title span { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 7.5pt; color: var(--muted); }
+
+p.text { font-size: 8.5pt; color: var(--ink-2); max-width: 155mm; }
+p.text + p.text { margin-top: 2mm; }
+
+.note {
+  font-size: 7.5pt; color: var(--ink-2); background: var(--accent-soft);
+  border-left: 2px solid var(--accent); padding: 3mm 4mm; line-height: 1.45;
+}
+
+/* fields on a rule */
+.fields { display: flex; gap: 6mm; }
+.field { flex: 1 1 0; }
+.field .lbl { font-size: 6.5pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1mm; }
+.field .slot { border-bottom: 1px solid var(--rule); height: 7mm; }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th {
+  font-size: 6.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-2); text-align: left; padding: 0 2mm 1.5mm; border-bottom: 1.2px solid var(--ink);
+}
+td { border-bottom: 1px solid var(--rule-soft); padding: 0 2mm; }
+tr.alt td { background: #f7f8f9; }
+
+/* checklist */
+.check { display: grid; gap: 2.2mm 6mm; }
+.check .item { display: flex; align-items: flex-start; gap: 2.5mm; font-size: 8.5pt; color: var(--ink-2); }
+.check .box { flex: 0 0 auto; width: 3.6mm; height: 3.6mm; border: 1px solid var(--rule); margin-top: 0.6mm; }
+
+/* 0–10 scale */
+.scale { display: flex; align-items: center; gap: 2mm; }
+.scale .cell {
+  flex: 1 1 0; height: 8mm; border: 1px solid var(--rule-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7.5pt; color: var(--muted);
+}
+.scale .cell.mark { border-color: var(--rule); }
+.scale-ends { display: flex; justify-content: space-between; font-size: 6.5pt; color: var(--muted); margin-top: 1mm; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* box grid (calendar / habit) */
+.grid { display: grid; gap: 1.2mm; }
+.grid .cell { border: 1px solid var(--rule-soft); aspect-ratio: 1 / 1; position: relative; }
+.grid .cell .n { position: absolute; top: 0.8mm; left: 1.2mm; font-size: 6pt; color: var(--muted); }
+.grid .hdr { font-size: 6.5pt; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); text-align: center; padding-bottom: 0.5mm; }
+
+/* ruled writing lines */
+.lines .ln { border-bottom: 1px solid var(--rule-soft); height: 7mm; }
+
+/* a grow block absorbs the leftover height of the page and rules it */
+.blk.grow { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.lines.grow {
+  flex: 1;
+  min-height: calc(var(--lh) * 3);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--lh) - 1px),
+    var(--rule-soft) calc(var(--lh) - 1px),
+    var(--rule-soft) var(--lh)
+  );
+}
+
+/* legend */
+.legend { display: flex; flex-wrap: wrap; gap: 2mm 6mm; font-size: 7.5pt; color: var(--ink-2); }
+.legend .k { display: flex; align-items: center; gap: 2mm; }
+.legend .sw { width: 4.5mm; height: 4.5mm; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 7pt; font-weight: 700; color: var(--ink-2); }
+
+/* body map */
+.bodymap { display: flex; gap: 10mm; justify-content: center; align-items: flex-start; }
+.bodymap figure { text-align: center; }
+.bodymap svg { display: block; }
+.bodymap figcaption { font-size: 6.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 2mm; }
+.bodymap path, .bodymap ellipse, .bodymap line { fill: none; stroke: var(--ink-2); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.bodymap .guide { stroke: var(--rule-soft); stroke-width: 1; stroke-dasharray: 3 3; }
+
+/* two-column split */
+.cols { display: flex; gap: 8mm; }
+.cols > * { flex: 1 1 0; min-width: 0; }
+
+.fill { flex: 1; min-height: 0; }

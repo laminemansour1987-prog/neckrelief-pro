@@ -1,0 +1,13 @@
+{
+  "name": "steady-press-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generates print-ready PDF products and marketplace listing copy for the Steady Press printable line.",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "listings": "node src/listings.mjs",
+    "preview": "node src/build.mjs --preview",
+    "all": "npm run build && npm run listings"
+  }
+}
