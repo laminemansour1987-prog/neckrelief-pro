@@ -142,7 +142,8 @@ Ce test coûte deux heures et tranche une question à plusieurs centaines d'euro
 
 - **Renommer la boutique** (voir plus bas). Cinq minutes, et c'est maintenant que ça coûte le moins cher.
 - Créer une **section de boutique** dédiée, par exemple « Health & Pain Trackers ». Etsy en autorise vingt. Ça donne de la cohérence au visiteur qui arrive sur ta page boutique, sans rien ouvrir de nouveau.
-- Envoyer une réduction aux **9 acheteurs qui ont mis tes articles en favoris**. Etsy propose le bouton directement depuis les statistiques. Deux minutes, et ces gens ont déjà manifesté un intérêt — c'est la seule action du plan qui peut produire une vente dans la journée.
+- Envoyer une réduction aux **9 acheteurs qui ont mis tes articles en favoris**. Fait le 28 juillet, code `LAMSSHOP5` — mais **à 5 %, ce qui est trop faible pour déclencher quoi que ce soit** : sur un article à 15 €, ça représente 75 centimes. Passe l'offre à **10 ou 15 %**, c'est le seuil à partir duquel une réduction devient une raison d'acheter plutôt qu'un détail. Le coût réel est nul tant que personne n'achète.
+- Activer les **trois types d'offres ciblées** proposés par Etsy, pas seulement celle des favoris : panier abandonné et visiteurs récents fonctionnent sur la même logique et se paramètrent une fois pour toutes. C'est le meilleur rapport effet/effort de toute la boutique, puisque l'envoi est automatique et permanent.
 - Publier les 3 premières annonces : **Neck & Shoulder**, **Migraine**, **Doctor Visit Prep**. Ce sont celles à plus forte intention d'achat. Le texte est dans `listings/`, à coller sans le retoucher.
 - Le lendemain, publier les 3 autres plus le lot. Sept annonces au total.
 - Photos : `hero.png` en première position, puis la couverture, puis trois ou quatre pages intérieures. Sept photos minimum par annonce.
