@@ -82,11 +82,36 @@ Trois choses à comprendre dans ce tableau :
 
 1. **Le premier mois est presque vide, et c'est normal.** Etsy ne met pas en avant une boutique sans historique ni avis. C'est précisément là que 90 % des gens arrêtent.
 2. **La variable qui pilote tout, c'est le nombre d'annonces.** Chaque annonce est un billet de loterie sur le moteur de recherche. C'est pour cette raison que le moteur de génération existe : passer de 7 à 40 annonces doit coûter des heures, pas des mois.
-Ce tableau est calculé pour une boutique neuve, et c'est bien le cas de figure qui s'applique. Statistiques relevées au 28 juillet : **102 visites et 1 commande sur 30 jours**, avec un trafic à zéro pendant les onze premiers jours de la période. La boutique a donc environ trois semaines d'activité réelle. Elle n'apportera pas le coup de pouce d'un compte établi — garde les chiffres du tableau tels quels.
+Ce tableau est calculé pour une boutique neuve, et c'est bien le cas de figure qui s'applique. Statistiques relevées au 28 juillet : **102 visites et 1 commande sur 30 jours**, avec un trafic à zéro pendant les onze premiers jours de la période. La boutique a donc environ trois semaines d'activité réelle. Elle n'apportera pas le coup de pouce d'un compte établi — garde les chiffres du tableau tels quels, et vise même **le bas de chaque fourchette** tant que le test décrit au point 4 bis n'a pas confirmé que les carnets se positionnent réellement dans la recherche.
 
-Le chiffre qui compte dans ces statistiques n'est pas le taux de conversion de 1 %, qui ne veut rien dire sur un échantillon d'une seule commande : une deuxième vente l'aurait fait passer à 2 %. **Le vrai problème est le dénominateur.** 102 visites par mois, quel que soit le taux de conversion, ne peuvent pas produire plus d'une ou deux ventes. C'est la démonstration directe de l'argument du point 2 ci-dessus : sur Etsy, le trafic est une fonction du nombre d'annonces bien ciblées, et rien d'autre ne bougera tant que ce nombre ne bouge pas.
+Le chiffre qui compte dans ces statistiques n'est pas le taux de conversion de 1 %, qui ne veut rien dire sur un échantillon d'une seule commande : une deuxième vente l'aurait fait passer à 2 %. **Le vrai problème est le dénominateur.** 102 visites par mois, quel que soit le taux de conversion, ne peuvent pas produire plus d'une ou deux ventes.
+
+Attention toutefois à la formulation du point 2 : le trafic est une fonction du nombre d'annonces **qui se positionnent**. Multiplier des annonces qui ne ressortent pas dans la recherche ne produit rien. Voir le diagnostic ci-dessous.
 
 3. **Le plafond est bas parce que tu as choisi de ne pas faire de marketing.** C'est un arbitrage cohérent, pas un échec. Si un jour tu veux dépasser ce plafond, le levier est Pinterest ou TikTok — et c'est du travail.
+
+## 4 bis. Diagnostic : pourquoi les 29 annonces actuelles ne rapportent rien
+
+29 fiches produit, 102 visites, 1 commande sur 30 jours. Le ratio qui compte : **3,5 visites par annonce et par mois**, soit une visite tous les huit ou neuf jours pour chaque fiche. Une annonce Etsy correctement positionnée en reçoit plutôt 20 à 100. Autrement dit, **tes annonces ne ressortent pratiquement pas dans la recherche Etsy.**
+
+Deux causes, et la seconde est de loin la principale.
+
+**L'âge de la boutique.** Trois semaines, une vente, aucun avis : Etsy n'a encore aucune raison de te pousser. Ça se corrige mécaniquement avec le temps et les ventes, sans rien faire de particulier.
+
+**Les catégories.** Le t-shirt et l'art numérique sont deux des catégories les plus saturées d'Etsy — et l'art numérique est en plus celle qui a été la plus inondée de génération par IA depuis deux ans. Sur ces requêtes, tu es en concurrence frontale avec des centaines de milliers d'annonces tenues par des boutiques qui ont des années d'ancienneté et des milliers d'avis. Une boutique de trois semaines y est structurellement invisible, quelle que soit la qualité des fiches.
+
+C'est exactement ce que la gamme de carnets est construite pour éviter. `neck and shoulder pain tracker printable` est une requête de longue traîne : beaucoup moins de volume, mais aussi beaucoup moins de concurrence, et un acheteur qui sait précisément ce qu'il cherche.
+
+**Décision : ne consacre aucun effort à sauver les 29 annonces existantes.** Réécrire 29 fiches dans des catégories saturées demande des jours de travail pour un résultat incertain — l'inverse exact de ta contrainte de départ. Publie les carnets et observe.
+
+**Le test, 30 jours après publication :**
+
+- **Plus de 10 visites par annonce et par mois** → la thèse est confirmée, le problème venait de la catégorie. La suite devient mécanique : produire d'autres carnets avec le moteur.
+- **3 ou 4 visites, comme les annonces actuelles** → le problème est au niveau de la boutique, et en publier davantage n'y changera rien. Il faudra laisser la boutique vieillir et accumuler quelques avis avant de réinvestir du temps.
+
+Ce test coûte deux heures et tranche une question à plusieurs centaines d'euros. C'est la seule chose à faire avant de décider quoi que ce soit d'autre.
+
+**Vérification complémentaire, trente secondes :** dans tes statistiques Etsy, regarde la répartition des sources de trafic. Si la part « recherche Etsy » est faible et que l'essentiel vient du direct ou des réseaux, ça confirme que le référencement ne fonctionne pas du tout.
 
 ## 5. Plan de lancement — 30 jours, environ 7 heures au total
 
