@@ -82,13 +82,17 @@ Trois choses à comprendre dans ce tableau :
 
 1. **Le premier mois est presque vide, et c'est normal.** Etsy ne met pas en avant une boutique sans historique ni avis. C'est précisément là que 90 % des gens arrêtent.
 2. **La variable qui pilote tout, c'est le nombre d'annonces.** Chaque annonce est un billet de loterie sur le moteur de recherche. C'est pour cette raison que le moteur de génération existe : passer de 7 à 40 annonces doit coûter des heures, pas des mois.
+Ce tableau est calculé pour une boutique neuve. **Comme tu publies depuis une boutique qui a déjà un historique, le mois 1 devrait être moins vide** — de combien dépend du nombre d'avis et de la régularité de tes ventes actuelles. Ne compte pas dessus pour autant : les carnets visent des mots-clés sur lesquels la boutique n'a encore aucune antériorité.
+
 3. **Le plafond est bas parce que tu as choisi de ne pas faire de marketing.** C'est un arbitrage cohérent, pas un échec. Si un jour tu veux dépasser ce plafond, le levier est Pinterest ou TikTok — et c'est du travail.
 
-## 5. Plan de lancement — 30 jours, environ 8 heures au total
+## 5. Plan de lancement — 30 jours, environ 7 heures au total
 
-**Semaine 1 — mise en ligne (≈ 3 h)**
+> Tu as déjà une boutique Etsy (t-shirts, accessoires, tableaux numériques). **On l'utilise, on n'en ouvre pas une deuxième.** Voir §5 bis pour le raisonnement.
 
-- Créer la boutique Etsy. Le nom `Steady Press` est peut-être pris ; solutions de repli : `Steadyline Press`, `Northline Press`, `Quietly Press`. Boutique en EUR, expédition non applicable (produits numériques).
+**Semaine 1 — mise en ligne (≈ 2 h)**
+
+- Créer une **section de boutique** dédiée, par exemple « Health & Pain Trackers ». Etsy en autorise vingt. Ça donne de la cohérence au visiteur qui arrive sur ta page boutique, sans rien ouvrir de nouveau.
 - Publier les 3 premières annonces : **Neck & Shoulder**, **Migraine**, **Doctor Visit Prep**. Ce sont celles à plus forte intention d'achat. Le texte est dans `listings/`, à coller sans le retoucher.
 - Le lendemain, publier les 3 autres plus le lot. Sept annonces au total.
 - Photos : `hero.png` en première position, puis la couverture, puis trois ou quatre pages intérieures. Sept photos minimum par annonce.
@@ -108,6 +112,18 @@ Trois choses à comprendre dans ce tableau :
 
 - Joindre le lot complet en cadeau à chaque commande physique de ta boutique Shopify. Coût nul, augmente la valeur perçue du produit physique.
 - Écrire aux premiers acheteurs pour demander un avis. Les cinq premiers avis comptent plus que les cinquante suivants.
+
+## 5 bis. Boutique existante ou deuxième boutique ?
+
+**Réponse : la boutique existante.** Deux raisons.
+
+D'abord, le référencement Etsy se joue surtout **au niveau de l'annonce** — titre, tags, catégorie, attributs — et non au niveau de la boutique. Vendre des t-shirts et des carnets de suivi sous la même enseigne ne te pénalise pas dans les résultats de recherche. Le seul effet réel porte sur le taux de conversion de ta page boutique, et il est marginal : la quasi-totalité des acheteurs Etsy achètent depuis la fiche produit, pas depuis la vitrine.
+
+Ensuite, et c'est le point important : les signaux de qualité qu'Etsy regarde — historique de ventes, avis, ancienneté, réactivité — sont **au niveau de la boutique**. Une boutique qui a déjà vendu fait démarrer une nouvelle annonce nettement plus vite qu'une boutique créée hier. C'est exactement le point faible du plan (le premier mois vide), et ta boutique existante l'atténue gratuitement.
+
+Bonus non négligeable : tu vends déjà des tableaux numériques, donc la livraison automatique de fichiers est déjà en place et tu connais le circuit. Rien de technique à découvrir.
+
+**Quand ouvrir une deuxième boutique :** quand la gamme dépassera une vingtaine d'annonces et méritera sa propre marque. Pas maintenant — une boutique neuve repart de zéro en historique, ce qu'on cherche précisément à éviter. Une exception, décrite dans les risques ci-dessous.
 
 ## 6. Les trois canaux, un seul contenu
 
@@ -130,6 +146,8 @@ Niches adjacentes qui se vendent sur la même mécanique, par ordre de proximit�
 **Le marché est encombré.** Plus de 3 000 annonces sur `symptom tracker printable`. La réponse est la spécificité : un carnet « cou et épaules » gagne contre un carnet « douleur » générique, parce que l'acheteur cherche son problème à lui. C'est pour ça que le catalogue est découpé en six produits ciblés plutôt qu'un seul gros.
 
 **Etsy a durci ses règles.** La politique « Creativity Standards » exige que l'article soit fondé sur un design original du vendeur, et il faut cocher la case « créé avec l'IA » quand elle s'applique. Ces PDF sont un design original produit par du code écrit sur mesure, pas un modèle acheté et revendu — mais lis la politique avant de publier et coche ce qui doit l'être. Une boutique suspendue, c'est zéro revenu du jour au lendemain.
+
+**Tes annonces de tableaux numériques.** C'est la catégorie la plus exposée au durcissement d'Etsy : l'art numérique est ce qui a été le plus massivement inondé de génération par IA, et c'est là que les retraits tombent. Si ces tableaux sont générés par IA sans que la case de divulgation soit cochée, ta boutique porte déjà un risque de suspension — et une suspension emporterait aussi les carnets, puisqu'ils seront sous la même enseigne. **Vérifie et régularise ces annonces avant de publier les trackers**, c'est une demi-heure de travail. Si tu estimes que ces annonces sont réellement en danger et que tu ne veux pas les corriger, c'est le seul cas qui justifie d'ouvrir une deuxième boutique malgré le démarrage à froid.
 
 **Zéro vente pendant quatre à six semaines.** Ce n'est pas un signal d'échec, c'est le fonctionnement normal du référencement Etsy. Décide maintenant que tu ne jugeras rien avant le 60ᵉ jour.
 

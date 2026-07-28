@@ -30,6 +30,8 @@ Une fois les 7 annonces en ligne, il n'y a plus rien à faire pour qu'une vente 
 
 **La suite est décrite pas à pas dans [BUSINESS-PLAN.md](BUSINESS-PLAN.md)** — économie unitaire réelle, plan de lancement sur 30 jours, projection de revenu honnête, et les démarches côté France.
 
+Le plan part de la **boutique Etsy existante** (t-shirts, accessoires, tableaux numériques) plutôt que d'en ouvrir une nouvelle : l'historique de ventes d'une boutique déjà active fait démarrer une annonce bien plus vite qu'un compte créé le jour même.
+
 ---
 
 ## Régénérer les fichiers
