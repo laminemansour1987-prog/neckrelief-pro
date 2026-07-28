@@ -82,7 +82,9 @@ Trois choses à comprendre dans ce tableau :
 
 1. **Le premier mois est presque vide, et c'est normal.** Etsy ne met pas en avant une boutique sans historique ni avis. C'est précisément là que 90 % des gens arrêtent.
 2. **La variable qui pilote tout, c'est le nombre d'annonces.** Chaque annonce est un billet de loterie sur le moteur de recherche. C'est pour cette raison que le moteur de génération existe : passer de 7 à 40 annonces doit coûter des heures, pas des mois.
-Ce tableau est calculé pour une boutique neuve. **Comme tu publies depuis une boutique qui a déjà un historique, le mois 1 devrait être moins vide** — de combien dépend du nombre d'avis et de la régularité de tes ventes actuelles. Ne compte pas dessus pour autant : les carnets visent des mots-clés sur lesquels la boutique n'a encore aucune antériorité.
+Ce tableau est calculé pour une boutique neuve, et c'est bien le cas de figure qui s'applique. Statistiques relevées au 28 juillet : **102 visites et 1 commande sur 30 jours**, avec un trafic à zéro pendant les onze premiers jours de la période. La boutique a donc environ trois semaines d'activité réelle. Elle n'apportera pas le coup de pouce d'un compte établi — garde les chiffres du tableau tels quels.
+
+Le chiffre qui compte dans ces statistiques n'est pas le taux de conversion de 1 %, qui ne veut rien dire sur un échantillon d'une seule commande : une deuxième vente l'aurait fait passer à 2 %. **Le vrai problème est le dénominateur.** 102 visites par mois, quel que soit le taux de conversion, ne peuvent pas produire plus d'une ou deux ventes. C'est la démonstration directe de l'argument du point 2 ci-dessus : sur Etsy, le trafic est une fonction du nombre d'annonces bien ciblées, et rien d'autre ne bougera tant que ce nombre ne bouge pas.
 
 3. **Le plafond est bas parce que tu as choisi de ne pas faire de marketing.** C'est un arbitrage cohérent, pas un échec. Si un jour tu veux dépasser ce plafond, le levier est Pinterest ou TikTok — et c'est du travail.
 
@@ -92,7 +94,9 @@ Ce tableau est calculé pour une boutique neuve. **Comme tu publies depuis une b
 
 **Semaine 1 — mise en ligne (≈ 2 h)**
 
+- **Renommer la boutique** (voir plus bas). Cinq minutes, et c'est maintenant que ça coûte le moins cher.
 - Créer une **section de boutique** dédiée, par exemple « Health & Pain Trackers ». Etsy en autorise vingt. Ça donne de la cohérence au visiteur qui arrive sur ta page boutique, sans rien ouvrir de nouveau.
+- Envoyer une réduction aux **9 acheteurs qui ont mis tes articles en favoris**. Etsy propose le bouton directement depuis les statistiques. Deux minutes, et ces gens ont déjà manifesté un intérêt — c'est la seule action du plan qui peut produire une vente dans la journée.
 - Publier les 3 premières annonces : **Neck & Shoulder**, **Migraine**, **Doctor Visit Prep**. Ce sont celles à plus forte intention d'achat. Le texte est dans `listings/`, à coller sans le retoucher.
 - Le lendemain, publier les 3 autres plus le lot. Sept annonces au total.
 - Photos : `hero.png` en première position, puis la couverture, puis trois ou quatre pages intérieures. Sept photos minimum par annonce.
@@ -119,7 +123,9 @@ Ce tableau est calculé pour une boutique neuve. **Comme tu publies depuis une b
 
 D'abord, le référencement Etsy se joue surtout **au niveau de l'annonce** — titre, tags, catégorie, attributs — et non au niveau de la boutique. Vendre des t-shirts et des carnets de suivi sous la même enseigne ne te pénalise pas dans les résultats de recherche. Le seul effet réel porte sur le taux de conversion de ta page boutique, et il est marginal : la quasi-totalité des acheteurs Etsy achètent depuis la fiche produit, pas depuis la vitrine.
 
-Ensuite, et c'est le point important : les signaux de qualité qu'Etsy regarde — historique de ventes, avis, ancienneté, réactivité — sont **au niveau de la boutique**. Une boutique qui a déjà vendu fait démarrer une nouvelle annonce nettement plus vite qu'une boutique créée hier. C'est exactement le point faible du plan (le premier mois vide), et ta boutique existante l'atténue gratuitement.
+Ensuite, ouvrir une deuxième boutique reviendrait à **répartir un trafic déjà minuscule sur deux vitrines** et à doubler l'administratif, pour un bénéfice nul à ce stade.
+
+Une nuance honnête sur ce dernier point : les signaux de qualité qu'Etsy regarde — historique de ventes, avis, ancienneté — sont au niveau de la boutique, et une boutique qui a déjà vendu démarre plus vite qu'un compte créé hier. Mais avec trois semaines d'activité et une seule commande, **cet avantage est aujourd'hui quasi nul chez toi**. On garde la boutique existante par économie d'effort, pas parce qu'elle donne une avance.
 
 Bonus non négligeable : tu vends déjà des tableaux numériques, donc la livraison automatique de fichiers est déjà en place et tu connais le circuit. Rien de technique à découvrir.
 
@@ -133,7 +139,7 @@ Etsy autorise **cinq changements de nom** depuis les paramètres de la boutique 
 
 Contraintes Etsy : 4 à 20 caractères, sans espace, sans ponctuation, sans accent. Une piste qui garde la continuité avec l'existant tout en fonctionnant pour toutes tes catégories (textile, accessoires, art numérique, carnets) : `LamsStudio`.
 
-À faire **avant** de publier les carnets. Un changement de nom une fois les annonces lancées gâche la reconnaissance qu'elles auront commencé à construire.
+À faire **maintenant**, avant de publier les carnets. Avec une seule commande et neuf mises en favoris au compteur, il n'y a littéralement aucune notoriété à perdre — c'est le moment le moins coûteux de toute la vie de la boutique pour changer de nom. Dans six mois et cent ventes, ce ne sera plus vrai.
 
 ## 6. Les trois canaux, un seul contenu
 
