@@ -43,7 +43,7 @@ Included:
 - **Physical Therapy Exercise Log** (10 pages) — Record the programme, do the reps, prove the progress — a 12-week log for anyone who has been given exercises and needs to actually do them.
 - **Doctor Visit Prep Pack** (10 pages) — Walk into a ten-minute appointment with your symptoms, timeline, medications and questions already on paper.
 
-Each comes as both A4 and US Letter. All 12 PDFs arrive in a single ZIP.
+Each comes as both A4 and US Letter. All 12 PDFs arrive in a single ZIP — Etsy caps a listing at five files, so this is the one product that has to be zipped.
 
 **DELIVERY & TERMS**
 

@@ -38,7 +38,7 @@ Paste one per tag field:
 
 - Category: Paper & Party Supplies → Paper → Stationery → Design & Templates → Templates
 - Type: Digital download
-- Files: 2 PDFs in one ZIP (A4 + US Letter)
+- Files: upload the 2 PDFs separately (A4 + US Letter) — do not zip them
 - Digital download: yes — automatic delivery
 
 ## Description
@@ -58,10 +58,12 @@ Ninety days is the horizon most specialists want before they will call something
 
 **WHAT YOU GET**
 
-An instant-download ZIP containing two PDFs:
+Two PDF files, downloadable the moment your payment goes through:
 
 - Chronic Pain & Symptom Journal — A4 (16 pages)
 - Chronic Pain & Symptom Journal — US Letter (16 pages)
+
+Nothing to unzip. Print whichever size your printer uses and ignore the other.
 
 Pages included:
 

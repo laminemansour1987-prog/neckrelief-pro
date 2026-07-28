@@ -187,10 +187,12 @@ const SHARED = (product) => `
 
 **WHAT YOU GET**
 
-An instant-download ZIP containing two PDFs:
+Two PDF files, downloadable the moment your payment goes through:
 
 - ${product.title} — A4 (${product.pages.length + 2} pages)
 - ${product.title} — US Letter (${product.pages.length + 2} pages)
+
+Nothing to unzip. Print whichever size your printer uses and ignore the other.
 
 Pages included:
 
@@ -256,7 +258,7 @@ ${c.tags.map((t) => `- ${t}`).join("\n")}
 
 - Category: Paper & Party Supplies → Paper → Stationery → Design & Templates → Templates
 - Type: Digital download
-- Files: 2 PDFs in one ZIP (A4 + US Letter)
+- Files: upload the 2 PDFs separately (A4 + US Letter) — do not zip them
 - Digital download: yes — automatic delivery
 
 ## Description
@@ -332,7 +334,7 @@ ${products
 
 Each comes as both A4 and US Letter. All ${
     products.length * 2
-  } PDFs arrive in a single ZIP.
+  } PDFs arrive in a single ZIP — Etsy caps a listing at five files, so this is the one product that has to be zipped.
 
 **DELIVERY & TERMS**
 

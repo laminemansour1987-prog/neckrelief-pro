@@ -141,6 +141,29 @@ async function main() {
         ? `  ${bundle.slug.padEnd(38)} ${pdfs.length} files zipped`
         : "  (zip unavailable — ship the folder instead)"
     );
+
+    /* One archive to download and work from: every product PDF, the hero
+       image for each listing, the bundle, and the listing copy. */
+    const kit = join(DIST, "launch-kit.zip");
+    rmSync(kit, { force: true });
+    const kitFiles = [
+      ...products.flatMap((p) => [
+        `dist/${p.slug}/${p.slug}-A4.pdf`,
+        `dist/${p.slug}/${p.slug}-US-Letter.pdf`,
+        `dist/${p.slug}/images/hero.png`,
+        `listings/${p.slug}.md`,
+      ]),
+      `dist/${bundle.slug}.zip`,
+      `listings/${bundle.slug}.md`,
+    ].filter((f) => existsSync(join(ROOT, f)));
+    const kitRes = spawnSync("zip", ["-q", "dist/launch-kit.zip", ...kitFiles], {
+      cwd: ROOT,
+    });
+    console.log(
+      kitRes.status === 0
+        ? `  ${"launch-kit".padEnd(38)} ${kitFiles.length} files zipped`
+        : "  (launch kit skipped)"
+    );
   }
 
   await browser.close();
