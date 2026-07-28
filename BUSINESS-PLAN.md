@@ -121,7 +121,26 @@ Trois choses en ressortent.
 
 **Les 40 visites en « trafic direct » sont à écarter du raisonnement.** Le direct regroupe les gens qui tapent l'adresse, cliquent un lien enregistré, ou arrivent d'une source non traçable — typiquement un lien envoyé en message privé. Pour une boutique de trois semaines sans aucune communication, 39 % de direct n'a pas d'explication commerciale plausible : c'est très probablement toi, tes proches, et les liens que tu as partagés toi-même. Etsy exclut tes visites quand tu es connecté en tant que propriétaire, mais pas si tu navigues déconnecté ou depuis un autre appareil. En retirant le direct, ta découverte client réelle tourne autour de **60 visites par mois**, dont un tiers seulement vient de la recherche.
 
-**Tu paies de la publicité Etsy pour 6 visites.** Vérifie le budget et la dépense réelle dans Marketing → Publicité Etsy. La publicité amplifie une fiche qui convertit, elle ne crée pas la conversion : sur des annonces qui ne se positionnent pas et avec une seule commande au total, cet argent ne produit rien. Mets-la en pause jusqu'à ce que les carnets soient en ligne.
+**La publicité Etsy** n'a tourné que deux jours, les 26 et 27 juillet. Le détail vaut d'être lu, parce qu'il dit l'inverse de ce qu'on croit au premier coup d'œil.
+
+| | 26 juil. | 27 juil. | Total |
+|---|---|---|---|
+| Impressions | 314 | 330 | 644 |
+| Clics | 5 | 6 | 11 |
+| Commandes | 0 | 0 | 0 |
+| Dépense | 1,84 $ | 2,11 $ | 3,95 $ |
+| Taux de clics | 1,6 % | 1,8 % | 1,7 % |
+
+**Le taux de clics de 1,7 % est bon** — la moyenne sur Etsy Ads tourne plutôt autour de 1 %. Quand Etsy montre tes annonces, les gens cliquent. Tes visuels et tes titres ne sont donc pas le problème, ce qui recoupe le diagnostic : le problème est que tes fiches ne sont pas *montrées* dans la recherche organique.
+
+**Zéro commande sur 11 clics ne prouve rien.** Il faudrait une centaine de clics pour avoir le moindre signal sur la conversion. N'en conclus pas que la publicité ne marche pas — on n'en sait rien.
+
+En revanche, un calcul tranche la question, et il est sans appel. Le coût par clic ressort à **0,36 $, soit environ 0,33 €**. Pour que la publicité soit rentable, il faut que la marge d'une vente couvre le coût des clics nécessaires pour l'obtenir :
+
+- Sur un carnet à **4,90 €** (3,69 € net), il faudrait convertir **9 % des clics**. Un produit numérique sur Etsy convertit plutôt entre 2 et 5 %. **La publicité est donc structurellement perdante sur les articles à l'unité.**
+- Sur le **lot à 14,90 €** (12,35 € net), le seuil tombe à **2,7 %**. C'est atteignable.
+
+**Conclusion : mets la publicité en pause maintenant**, et si tu la relances un jour, uniquement sur le lot, jamais sur les articles à l'unité. Baisse aussi le budget : il est réglé à 5 $/jour, soit 150 $/mois si la diffusion s'améliore, pour une boutique qui n'a encore rien gagné. 1 €/jour suffit à collecter des données.
 
 **Décision : ne consacre aucun effort à sauver les 29 annonces existantes.** Réécrire 29 fiches dans des catégories saturées demande des jours de travail pour un résultat incertain — l'inverse exact de ta contrainte de départ. Publie les carnets et observe.
 
@@ -151,7 +170,7 @@ Ce test coûte deux heures et tranche une question à plusieurs centaines d'euro
 
 **Semaine 2 — laisser tourner (≈ 1 h)**
 
-- Tu as déjà de la publicité Etsy active, qui a produit 6 visites le mois dernier. Mets-la en pause le temps du lancement, puis relance-la à 1 €/jour **uniquement sur les sept annonces de carnets**, pendant 14 jours. L'objectif n'est pas de vendre, c'est de savoir sur quels mots-clés tu es affiché. Couper au bout de deux semaines si le retour est inférieur à la dépense.
+- La publicité Etsy est en pause depuis le lancement (voir le calcul au point 4 bis). Si tu veux la reprendre, ce sera à **1 €/jour et uniquement sur le lot à 14,90 €** — c'est le seul produit dont la marge couvre le coût par clic. L'objectif n'est pas de vendre mais de découvrir sur quels mots-clés tu es affiché. Couper au bout de deux semaines si le retour est inférieur à la dépense.
 - Ne pas activer les Offsite Ads tant que tu es sous 10 000 $ de ventes annuelles — c'est optionnel à ce niveau, et la commission est lourde.
 
 **Semaine 3 — corriger (≈ 2 h)**
