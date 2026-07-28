@@ -287,9 +287,35 @@
         "Votre messagerie va s'ouvrir avec votre demande pré-remplie. Vous pouvez aussi nous appeler directement au 06 24 63 08 54.";
       qStatus.classList.remove("error");
       qStatus.classList.add("visible", "success");
+
+      if (typeof gtag === "function") {
+        gtag("event", "generate_lead", { form_id: "quote-form", service: service || "non précisé" });
+      }
     });
 
     renderStep();
+  }
+
+  // Suivi Google Analytics : appels téléphoniques et WhatsApp (mesure des conversions réelles)
+  if (typeof gtag === "function") {
+    var callZone = function (link) {
+      if (link.closest(".sticky-cta-bar")) return "barre_mobile";
+      if (link.closest(".topbar")) return "bandeau_haut";
+      if (link.closest(".hero-phone, .hero-actions")) return "hero_accueil";
+      if (link.closest(".site-footer")) return "pied_de_page";
+      if (link.closest(".cta-banner")) return "bandeau_cta";
+      return "autre";
+    };
+    document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        gtag("event", "phone_call_click", { call_zone: callZone(link), page_path: window.location.pathname });
+      });
+    });
+    document.querySelectorAll('a.whatsapp-fab, a[href*="wa.me"]').forEach(function (link) {
+      link.addEventListener("click", function () {
+        gtag("event", "whatsapp_click", { page_path: window.location.pathname });
+      });
+    });
   }
 
   // FAQ accordion
