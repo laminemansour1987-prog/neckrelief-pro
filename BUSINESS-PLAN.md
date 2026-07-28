@@ -102,16 +102,37 @@ Deux causes, et la seconde est de loin la principale.
 
 C'est exactement ce que la gamme de carnets est construite pour éviter. `neck and shoulder pain tracker printable` est une requête de longue traîne : beaucoup moins de volume, mais aussi beaucoup moins de concurrence, et un acheteur qui sait précisément ce qu'il cherche.
 
+### La répartition des sources confirme le diagnostic
+
+Sur les 102 visites du mois :
+
+| Source | Visites |
+|---|---|
+| Trafic direct et autre | 40 |
+| Application Etsy et autres pages Etsy | 25 |
+| **Recherche Etsy** | **21** |
+| Marketing et référencement Etsy | 8 |
+| Publicité sur Etsy | 6 |
+| Réseaux sociaux | 1 |
+
+Trois choses en ressortent.
+
+**La recherche Etsy ne t'apporte que 21 visites par mois, soit 0,7 visite par annonce.** C'est le chiffre réel du référencement, et il est bien plus sévère que les 3,5 visites toutes sources confondues. Tes fiches ne se positionnent pas : c'est désormais établi, pas supposé.
+
+**Les 40 visites en « trafic direct » sont à écarter du raisonnement.** Le direct regroupe les gens qui tapent l'adresse, cliquent un lien enregistré, ou arrivent d'une source non traçable — typiquement un lien envoyé en message privé. Pour une boutique de trois semaines sans aucune communication, 39 % de direct n'a pas d'explication commerciale plausible : c'est très probablement toi, tes proches, et les liens que tu as partagés toi-même. Etsy exclut tes visites quand tu es connecté en tant que propriétaire, mais pas si tu navigues déconnecté ou depuis un autre appareil. En retirant le direct, ta découverte client réelle tourne autour de **60 visites par mois**, dont un tiers seulement vient de la recherche.
+
+**Tu paies de la publicité Etsy pour 6 visites.** Vérifie le budget et la dépense réelle dans Marketing → Publicité Etsy. La publicité amplifie une fiche qui convertit, elle ne crée pas la conversion : sur des annonces qui ne se positionnent pas et avec une seule commande au total, cet argent ne produit rien. Mets-la en pause jusqu'à ce que les carnets soient en ligne.
+
 **Décision : ne consacre aucun effort à sauver les 29 annonces existantes.** Réécrire 29 fiches dans des catégories saturées demande des jours de travail pour un résultat incertain — l'inverse exact de ta contrainte de départ. Publie les carnets et observe.
 
-**Le test, 30 jours après publication :**
+**Le test, 30 jours après publication.** Mesure uniquement la source **« Recherche Etsy »** : le trafic direct est trop pollué pour servir d'indicateur, et les visites venant des pages Etsy reflètent surtout le coup de pouce temporaire accordé aux nouvelles annonces.
 
-- **Plus de 10 visites par annonce et par mois** → la thèse est confirmée, le problème venait de la catégorie. La suite devient mécanique : produire d'autres carnets avec le moteur.
-- **3 ou 4 visites, comme les annonces actuelles** → le problème est au niveau de la boutique, et en publier davantage n'y changera rien. Il faudra laisser la boutique vieillir et accumuler quelques avis avant de réinvestir du temps.
+Ta référence actuelle est de **0,7 visite de recherche par annonce et par mois**.
+
+- **Les carnets atteignent 5 visites de recherche par annonce ou plus** → la thèse est confirmée, le problème venait de la catégorie. La suite devient mécanique : produire d'autres carnets avec le moteur.
+- **Ils restent au niveau des annonces actuelles, autour de 1** → le problème est au niveau de la boutique, et en publier davantage n'y changera rien. Il faudra laisser la boutique vieillir et accumuler quelques avis avant de réinvestir du temps.
 
 Ce test coûte deux heures et tranche une question à plusieurs centaines d'euros. C'est la seule chose à faire avant de décider quoi que ce soit d'autre.
-
-**Vérification complémentaire, trente secondes :** dans tes statistiques Etsy, regarde la répartition des sources de trafic. Si la part « recherche Etsy » est faible et que l'essentiel vient du direct ou des réseaux, ça confirme que le référencement ne fonctionne pas du tout.
 
 ## 5. Plan de lancement — 30 jours, environ 7 heures au total
 
@@ -129,7 +150,7 @@ Ce test coûte deux heures et tranche une question à plusieurs centaines d'euro
 
 **Semaine 2 — laisser tourner (≈ 1 h)**
 
-- Activer les Etsy Ads à 1 €/jour pendant 14 jours. L'objectif n'est **pas** de vendre, c'est de savoir sur quels mots-clés tu es affiché. Couper au bout de deux semaines si le retour est inférieur à la dépense.
+- Tu as déjà de la publicité Etsy active, qui a produit 6 visites le mois dernier. Mets-la en pause le temps du lancement, puis relance-la à 1 €/jour **uniquement sur les sept annonces de carnets**, pendant 14 jours. L'objectif n'est pas de vendre, c'est de savoir sur quels mots-clés tu es affiché. Couper au bout de deux semaines si le retour est inférieur à la dépense.
 - Ne pas activer les Offsite Ads tant que tu es sous 10 000 $ de ventes annuelles — c'est optionnel à ce niveau, et la commission est lourde.
 
 **Semaine 3 — corriger (≈ 2 h)**
