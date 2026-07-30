@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://lmplomberie69.fr/sitemap.xml
+
+# Fichier de contexte pour les IA (ChatGPT, Claude, Perplexity...)

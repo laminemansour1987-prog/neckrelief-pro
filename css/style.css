@@ -3018,3 +3018,16 @@ h3 {
 .pillar-content ul { margin: 10px 0 18px; padding-left: 22px; }
 .pillar-content li { color: var(--brume); line-height: 1.7; margin-bottom: 8px; }
 .pillar-content a { color: var(--aqua); font-weight: 600; }
+
+/* ---------- Date de mise à jour (fraîcheur du contenu) ---------- */
+.date-update {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--verre);
+  border: 1px solid var(--verre-bord);
+  color: var(--brume-faible);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
