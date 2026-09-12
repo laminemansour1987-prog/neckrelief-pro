@@ -87,6 +87,13 @@ function notifyNewAppointment(appointment) {
 
   sendAdminEmail(subject, text).catch(() => {});
 
+  // Alerte SMS au plombier lui-meme (numero personnel), en plus de l'email.
+  const { ADMIN_PHONE } = process.env;
+  if (ADMIN_PHONE) {
+    const adminMsg = `${urgencyFlag}Nouvelle demande plomberie : ${appointment.issueLabel} - ${appointment.name} (${appointment.phone}) - ${appointment.slotLabel}. Ref ${appointment.id}.`;
+    sendSms(ADMIN_PHONE, adminMsg).catch(() => {});
+  }
+
   if (appointment.autoConfirmed) {
     const clientMsg = `Bonjour ${appointment.name}, votre rendez-vous plomberie (${appointment.issueLabel}) est confirme : ${appointment.slotLabel}. Reference ${appointment.id}.`;
     sendSms(appointment.phone, clientMsg).catch(() => {});
