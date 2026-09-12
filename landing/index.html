@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeckRelief Pro — Soulagez vos cervicales en 10 minutes</title>
+<style>
+  :root{
+    --bg:#0f1720;
+    --bg-soft:#16212c;
+    --card:#1c2a37;
+    --text:#f2f5f7;
+    --muted:#a9b7c3;
+    --accent:#3ddc97;
+    --accent-dark:#2bb87d;
+    --danger:#ff6b6b;
+    --border:#2a3a48;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+  header{
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;background:rgba(15,23,32,.92);backdrop-filter:blur(6px);z-index:10;
+  }
+  header .wrap{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.2px;}
+  .logo span{color:var(--accent);}
+  .cta-mini{
+    background:var(--accent);color:#062017;font-weight:700;padding:9px 16px;border-radius:999px;
+    text-decoration:none;font-size:14px;white-space:nowrap;
+  }
+
+  .hero{padding:56px 0 40px;}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+  @media (max-width:820px){.hero .wrap{grid-template-columns:1fr;}}
+
+  .eyebrow{
+    display:inline-block;background:rgba(61,220,151,.12);color:var(--accent);
+    padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:16px;
+  }
+  h1{font-size:clamp(28px,4vw,44px);line-height:1.15;margin:0 0 16px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--muted);font-size:17px;margin:0 0 26px;max-width:52ch;}
+
+  .cta{
+    display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#062017;
+    font-weight:800;font-size:16px;padding:16px 28px;border-radius:12px;text-decoration:none;
+    box-shadow:0 8px 24px rgba(61,220,151,.25);
+  }
+  .cta:hover{background:var(--accent-dark);}
+  .trust{margin-top:16px;color:var(--muted);font-size:13px;display:flex;gap:16px;flex-wrap:wrap;}
+  .trust span{display:flex;align-items:center;gap:6px;}
+
+  .hero-visual{
+    background:linear-gradient(160deg,var(--card),var(--bg-soft));
+    border:1px solid var(--border);border-radius:20px;padding:28px;text-align:center;
+  }
+  .hero-visual .badge{
+    display:inline-block;background:var(--danger);color:#fff;font-weight:800;font-size:13px;
+    padding:6px 12px;border-radius:8px;margin-bottom:14px;
+  }
+  .hero-visual .price-row{display:flex;justify-content:center;align-items:baseline;gap:10px;margin:10px 0 4px;}
+  .hero-visual .old{color:var(--muted);text-decoration:line-through;font-size:18px;}
+  .hero-visual .new{color:var(--accent);font-size:38px;font-weight:800;}
+  .hero-visual .stars{color:#ffcc4d;font-size:18px;margin-top:10px;}
+  .hero-visual .reviews{color:var(--muted);font-size:13px;}
+  .device-emoji{font-size:72px;margin:6px 0 10px;}
+
+  section{padding:52px 0;border-top:1px solid var(--border);}
+  .section-title{text-align:center;font-size:clamp(22px,3vw,30px);margin:0 0 10px;}
+  .section-sub{text-align:center;color:var(--muted);max-width:60ch;margin:0 auto 36px;}
+
+  .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:760px){.pain-grid{grid-template-columns:1fr;}}
+  .pain-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;}
+  .pain-card .emoji{font-size:28px;margin-bottom:10px;}
+  .pain-card h3{margin:0 0 8px;font-size:16px;}
+  .pain-card p{margin:0;color:var(--muted);font-size:14px;}
+
+  .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:760px){.benefits{grid-template-columns:1fr;}}
+  .benefit{display:flex;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;}
+  .benefit .check{
+    flex:0 0 30px;height:30px;border-radius:50%;background:rgba(61,220,151,.15);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:800;
+  }
+  .benefit h4{margin:0 0 4px;font-size:15px;}
+  .benefit p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:760px){.steps{grid-template-columns:1fr;}}
+  .step{text-align:center;}
+  .step .num{
+    width:44px;height:44px;border-radius:50%;background:var(--accent);color:#062017;font-weight:800;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px;
+  }
+  .step h4{margin:0 0 6px;font-size:15px;}
+  .step p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:820px){.testimonials{grid-template-columns:1fr;}}
+  .testi{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .testi .stars{color:#ffcc4d;font-size:14px;margin-bottom:8px;}
+  .testi p{margin:0 0 12px;font-size:14px;color:var(--text);}
+  .testi .who{color:var(--muted);font-size:13px;font-weight:600;}
+
+  .offer{
+    background:linear-gradient(160deg,var(--card),var(--bg-soft));
+    border:1px solid var(--border);border-radius:20px;padding:40px 28px;text-align:center;
+  }
+  .offer h2{margin:0 0 8px;font-size:clamp(22px,3vw,28px);}
+  .offer p.lead{color:var(--muted);margin:0 0 24px;}
+  .offer .price-row{display:flex;justify-content:center;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .offer .old{color:var(--muted);text-decoration:line-through;font-size:20px;}
+  .offer .new{color:var(--accent);font-size:44px;font-weight:800;}
+  .offer .note{color:var(--muted);font-size:13px;margin-bottom:24px;}
+
+  .faq{max-width:760px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--border);padding:16px 0;}
+  .faq-item summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";color:var(--accent);font-size:20px;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{color:var(--muted);margin:10px 0 0;font-size:14px;}
+
+  footer{padding:30px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px;text-align:center;}
+
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;background:var(--bg-soft);border-top:1px solid var(--border);
+    padding:12px 16px;display:flex;justify-content:center;z-index:20;
+  }
+  .sticky-cta .cta{width:100%;max-width:420px;justify-content:center;}
+  @media (min-width:821px){.sticky-cta{display:none;}}
+  body{padding-bottom:70px;}
+  @media (min-width:821px){body{padding-bottom:0;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Neck<span>Relief</span> Pro</div>
+    <a href="#offre" class="cta-mini">Voir l'offre</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">🔥 Best-seller du moment</span>
+      <h1>Vos cervicales bloquées après une journée d'écran ? <em>Soulagement en 10 minutes.</em></h1>
+      <p class="sub">NeckRelief Pro combine chaleur apaisante et massage par électrostimulation pour détendre les tensions du cou accumulées au bureau, en télétravail ou après une mauvaise nuit — sans rendez-vous, sans médicament.</p>
+      <a href="#offre" class="cta">Je découvre l'offre de lancement →</a>
+      <div class="trust">
+        <span>✅ Livraison sous 5-8 jours</span>
+        <span>✅ Garantie satisfait ou remboursé 30 jours</span>
+        <span>✅ +2 400 clients soulagés</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <span class="badge">-38% aujourd'hui</span>
+      <div class="device-emoji">🩹</div>
+      <div class="price-row">
+        <span class="old">64,90 €</span>
+        <span class="new">39,90 €</span>
+      </div>
+      <div class="stars">★★★★★</div>
+      <div class="reviews">4,8/5 — 612 avis vérifiés</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Vous reconnaissez cette sensation ?</h2>
+    <p class="section-sub">8 heures d'écran par jour laissent des traces — et ce n'est pas une fatalité.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="emoji">💻</div>
+        <h3>Nuque raide en fin de journée</h3>
+        <p>La position devant l'écran comprime les cervicales heure après heure, sans qu'on s'en rende compte.</p>
+      </div>
+      <div class="pain-card">
+        <div class="emoji">😖</div>
+        <h3>Maux de tête récurrents</h3>
+        <p>Les tensions cervicales remontent souvent jusqu'aux tempes en fin de journée de travail.</p>
+      </div>
+      <div class="pain-card">
+        <div class="emoji">🌙</div>
+        <h3>Sommeil perturbé</h3>
+        <p>Impossible de trouver une position confortable la nuit quand la nuque reste tendue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Comment NeckRelief Pro détend vos cervicales</h2>
+    <p class="section-sub">Une technologie double action, pensée pour un usage quotidien à la maison ou au bureau.</p>
+    <div class="benefits">
+      <div class="benefit">
+        <div class="check">✓</div>
+        <div><h4>Chauffage apaisant</h4><p>3 niveaux de chaleur pour détendre les muscles en profondeur dès les premières minutes.</p></div>
+      </div>
+      <div class="benefit">
+        <div class="check">✓</div>
+        <div><h4>Massage par électrostimulation</h4><p>Reproduit la sensation d'un massage manuel, avec 6 modes et 15 intensités réglables.</p></div>
+      </div>
+      <div class="benefit">
+        <div class="check">✓</div>
+        <div><h4>Sans fil, ultra léger</h4><p>Rechargeable en USB-C, autonomie de 5 séances, utilisable partout — bureau, canapé, voiture.</p></div>
+      </div>
+      <div class="benefit">
+        <div class="check">✓</div>
+        <div><h4>Simple à utiliser</h4><p>Un seul bouton, résultat ressenti dès la première utilisation de 10 minutes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">3 étapes, 10 minutes, une nuque détendue</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Placez l'appareil autour du cou</h4>
+        <p>Ajustable, s'adapte à toutes les morphologies.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Choisissez chaleur + intensité</h4>
+        <p>6 modes de massage, réglage en un clic.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Détendez-vous 10 minutes</h4>
+        <p>Ressentez la différence dès la première séance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Ils ont retrouvé une nuque détendue</h2>
+    <div class="testimonials">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Je télétravaille tous les jours, j'avais des douleurs constantes. Depuis que je l'utilise le soir, je dors beaucoup mieux."</p>
+        <div class="who">— Camille, 34 ans</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Simple, efficace, et vraiment agréable à utiliser. Je le prends même en déplacement."</p>
+        <div class="who">— Thomas, 41 ans</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Mes maux de tête en fin de journée ont clairement diminué depuis que je l'utilise régulièrement."</p>
+        <div class="who">— Nadia, 29 ans</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offre">
+  <div class="wrap">
+    <div class="offer">
+      <h2>Offre de lancement</h2>
+      <p class="lead">Aujourd'hui seulement : -38% + livraison offerte dès 2 articles.</p>
+      <div class="price-row">
+        <span class="old">64,90 €</span>
+        <span class="new">39,90 €</span>
+      </div>
+      <p class="note">Garantie satisfait ou remboursé 30 jours — sans risque.</p>
+      <a href="#" class="cta">Je commande mon NeckRelief Pro →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Questions fréquentes</h2>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Combien de temps dure la livraison ?</summary>
+        <p>Comptez 5 à 8 jours ouvrés en France métropolitaine. Un email de suivi vous est envoyé dès l'expédition.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Est-ce adapté si je n'ai jamais utilisé ce type de produit ?</summary>
+        <p>Oui, l'appareil se règle en un clic et propose des niveaux d'intensité progressifs, adaptés aux débutants comme aux habitués.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Que se passe-t-il si le produit ne me convient pas ?</summary>
+        <p>Vous disposez de 30 jours pour nous contacter et être intégralement remboursé.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Puis-je l'utiliser tous les jours ?</summary>
+        <p>Oui, une utilisation quotidienne de 10 à 15 minutes est recommandée pour un effet durable.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2026 NeckRelief Pro — Page de pré-lancement. Les avis affichés sont des exemples de placeholders à remplacer par de vrais avis clients avant mise en ligne.
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#offre" class="cta">Voir l'offre à 39,90 €</a>
+</div>
+
+</body>
+</html>
