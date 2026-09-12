@@ -138,6 +138,28 @@ main {
   cursor: not-allowed;
 }
 
+.quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
+
+.quick-reply-btn {
+  background: white;
+  border: 1.5px solid var(--blue);
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.quick-reply-btn:hover {
+  background: var(--blue);
+  color: white;
+}
+
 /* Admin */
 
 .filters {
@@ -226,4 +248,53 @@ select.status-select {
   text-align: center;
   color: var(--muted);
   padding: 40px 0;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.stat-tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  min-width: 110px;
+}
+
+.stat-tile .value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stat-tile .label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.badge.a_confirmer { background: #b98a1e; }
+
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2a9d5c;
+  margin-right: 6px;
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.35; }
+  100% { opacity: 1; }
+}
+
+.live-indicator {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 10px;
 }

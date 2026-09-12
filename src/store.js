@@ -57,8 +57,18 @@ function updateAppointmentStatus(id, status) {
   return appointments[idx];
 }
 
+/**
+ * Nombre de demandes actives (hors annulees) deja positionnees sur ce creneau fixe.
+ * Sert a ne jamais proposer/accepter un creneau au-dela de la capacite disponible.
+ */
+function countActiveAtSlot(slotISO) {
+  if (!slotISO) return 0;
+  return readAll().filter((a) => a.slotISO === slotISO && a.status !== 'annule').length;
+}
+
 module.exports = {
   createAppointment,
   listAppointments,
   updateAppointmentStatus,
+  countActiveAtSlot,
 };

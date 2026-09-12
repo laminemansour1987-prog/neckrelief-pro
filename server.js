@@ -5,6 +5,7 @@ const express = require('express');
 
 const { handleMessage } = require('./src/agent');
 const { listAppointments, updateAppointmentStatus } = require('./src/store');
+const { events: notifyEvents, notifyNewAppointment } = require('./src/notify');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,9 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'sessionId requis.' });
     }
     const result = await handleMessage(sessionId, typeof message === 'string' ? message : '');
+    if (result.appointment) {
+      notifyNewAppointment(result.appointment);
+    }
     res.json(result);
   } catch (err) {
     console.error('Erreur /api/chat :', err);
@@ -45,13 +49,52 @@ app.get('/api/appointments', requireAdmin, (req, res) => {
 
 app.patch('/api/appointments/:id', requireAdmin, (req, res) => {
   const { status } = req.body || {};
-  const allowed = ['nouveau', 'confirme', 'en_cours', 'termine', 'annule'];
+  const allowed = ['nouveau', 'a_confirmer', 'confirme', 'en_cours', 'termine', 'annule'];
   if (!allowed.includes(status)) {
     return res.status(400).json({ error: `status doit etre l'un de : ${allowed.join(', ')}` });
   }
   const updated = updateAppointmentStatus(req.params.id, status);
   if (!updated) return res.status(404).json({ error: 'Rendez-vous introuvable.' });
   res.json(updated);
+});
+
+app.get('/api/stats', requireAdmin, (req, res) => {
+  const appointments = listAppointments();
+  const byStatus = {};
+  const byUrgency = {};
+  const todayStr = new Date().toDateString();
+  let today = 0;
+
+  for (const a of appointments) {
+    byStatus[a.status] = (byStatus[a.status] || 0) + 1;
+    byUrgency[a.urgency] = (byUrgency[a.urgency] || 0) + 1;
+    if (new Date(a.createdAt).toDateString() === todayStr) today += 1;
+  }
+
+  res.json({ total: appointments.length, today, byStatus, byUrgency });
+});
+
+// Flux temps reel : le tableau de bord admin recoit chaque nouvelle demande
+// instantanement, sans avoir besoin de rafraichir manuellement la page.
+app.get('/api/events', requireAdmin, (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    Connection: 'keep-alive',
+  });
+  res.write('\n');
+
+  const onAppointment = (appointment) => {
+    res.write(`event: appointment\ndata: ${JSON.stringify(appointment)}\n\n`);
+  };
+  notifyEvents.on('appointment', onAppointment);
+
+  const heartbeat = setInterval(() => res.write(':\n\n'), 25000);
+
+  req.on('close', () => {
+    clearInterval(heartbeat);
+    notifyEvents.off('appointment', onAppointment);
+  });
 });
 
 app.listen(PORT, () => {

@@ -14,22 +14,103 @@
 
   const STATUS_LABELS = {
     nouveau: 'Nouveau',
+    a_confirmer: 'A confirmer',
     confirme: 'Confirme',
     en_cours: 'En cours',
     termine: 'Termine',
     annule: 'Annule',
   };
 
+  const URGENCY_LABELS = {
+    urgente: 'Urgente',
+    rapide: 'Rapide',
+    normale: 'Normale',
+    planifiable: 'Planifiable',
+  };
+
+  const statsBar = document.getElementById('stats-bar');
+  const liveIndicator = document.getElementById('live-indicator');
+  let eventSource = null;
+
   function showDashboard() {
     loginView.style.display = 'none';
     dashboardView.style.display = 'block';
     loadAppointments();
+    loadStats();
+    connectLiveFeed();
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }
 
   function showLogin(message) {
     loginView.style.display = 'block';
     dashboardView.style.display = 'none';
     if (message) alert(message);
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/stats', { headers: { 'x-admin-token': token } });
+      if (!res.ok) return;
+      const stats = await res.json();
+      renderStats(stats);
+    } catch (err) { /* silencieux : la table reste la source de verite */ }
+  }
+
+  function renderStats(stats) {
+    const urgente = stats.byUrgency?.urgente || 0;
+    const aConfirmer = stats.byStatus?.a_confirmer || 0;
+    const tiles = [
+      { label: 'Demandes recues (total)', value: stats.total },
+      { label: "Aujourd'hui", value: stats.today },
+      { label: 'Urgentes', value: urgente },
+      { label: 'A confirmer', value: aConfirmer },
+    ];
+    statsBar.innerHTML = tiles.map((t) => `
+      <div class="stat-tile"><div class="value">${t.value}</div><div class="label">${t.label}</div></div>
+    `).join('');
+  }
+
+  function playBeep() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = 880;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } catch (err) { /* audio indisponible, ignorer */ }
+  }
+
+  function connectLiveFeed() {
+    if (eventSource) eventSource.close();
+    eventSource = new EventSource(`/api/events?token=${encodeURIComponent(token)}`);
+
+    eventSource.onopen = () => {
+      liveIndicator.innerHTML = '<span class="live-dot"></span>Suivi en temps reel actif : les nouvelles demandes apparaissent automatiquement.';
+    };
+
+    eventSource.addEventListener('appointment', (e) => {
+      let appointment = null;
+      try { appointment = JSON.parse(e.data); } catch (err) { /* ignore */ }
+      playBeep();
+      if ('Notification' in window && Notification.permission === 'granted') {
+        const urgencyTxt = appointment ? (URGENCY_LABELS[appointment.urgency] || '') : '';
+        new Notification('Nouvelle demande de plomberie', {
+          body: appointment ? `${appointment.issueLabel} - ${urgencyTxt} (${appointment.name})` : 'Une nouvelle demande vient d\'arriver.',
+        });
+      }
+      loadAppointments();
+      loadStats();
+    });
+
+    eventSource.onerror = () => {
+      liveIndicator.innerHTML = '<span class="live-dot"></span>Reconnexion au flux temps reel...';
+    };
   }
 
   async function loadAppointments() {
@@ -124,6 +205,8 @@
       if (!res.ok) {
         alert('Impossible de mettre a jour le statut.');
         loadAppointments();
+      } else {
+        loadStats();
       }
     } catch (err) {
       alert('Erreur reseau lors de la mise a jour du statut.');

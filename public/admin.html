@@ -20,10 +20,13 @@
   </div>
 
   <div id="dashboard-view" style="display:none;">
+    <p class="live-indicator" id="live-indicator"><span class="live-dot"></span>Connexion au flux temps reel...</p>
+    <div id="stats-bar" class="stats-bar"></div>
     <div class="filters">
       <select id="filter-status">
         <option value="">Tous les statuts</option>
         <option value="nouveau">Nouveau</option>
+        <option value="a_confirmer">A confirmer</option>
         <option value="confirme">Confirme</option>
         <option value="en_cours">En cours</option>
         <option value="termine">Termine</option>
