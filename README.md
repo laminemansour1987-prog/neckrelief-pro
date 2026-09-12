@@ -54,6 +54,47 @@ L'application est disponible sur `http://localhost:3000` :
 - `/admin.html` : tableau de bord (jeton defini par `ADMIN_TOKEN`, `changeme`
   par defaut)
 
+## Deploiement en continu (Render, gratuit)
+
+Pour que l'agent tourne en permanence (et pas seulement pendant une session
+Claude Code), le depot inclut un `render.yaml` pret a l'emploi :
+
+1. Allez sur [render.com](https://render.com) et connectez-vous avec votre
+   compte GitHub (bouton "Get Started" puis "GitHub").
+2. Cliquez sur **New +** -> **Blueprint**, puis choisissez le depot
+   `laminemansour1987-prog/neckrelief-pro` et la branche
+   `claude/plomberie-ia-agent-khsvvv` (ou `main` une fois la branche fusionnee).
+3. Render detecte automatiquement `render.yaml` et propose de creer le
+   service `plomberie-ia-agent` (plan gratuit). Cliquez sur **Apply**.
+4. Avant le premier deploiement, Render vous demande de renseigner les
+   variables marquees "secretes" dans le blueprint. Remplissez au minimum :
+   - `ADMIN_TOKEN` : un mot de passe de votre choix pour `/admin.html`.
+   - `SMTP_USER` / `SMTP_FROM` / `ADMIN_EMAIL` : `laminemansour1987@gmail.com`.
+   - `SMTP_PASS` : le mot de passe d'application Gmail (voir section suivante).
+   - `ADMIN_PHONE` : `+33624630854` (pour les alertes SMS, optionnel).
+   - `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` / `TWILIO_FROM_NUMBER` si vous
+     activez les SMS (optionnel).
+5. Render construit et demarre le service ; au bout de quelques minutes vous
+   obtenez une URL publique du type `https://plomberie-ia-agent.onrender.com`
+   a partager avec vos clients (`/` pour le chat, `/admin.html` pour vous).
+
+**A savoir sur le plan gratuit Render** : le service peut se mettre en veille
+apres 15 minutes sans trafic (premiere requete un peu plus lente le temps du
+reveil) et le disque n'est pas persistant entre deploiements — l'historique
+des rendez-vous dans `data/appointments.json` serait donc perdu a chaque
+redeploiement. Si vous voulez un historique fiable sur le long terme, passez
+au plan payant "Starter" avec un disque persistant attache, ou dites-le moi
+pour que je bascule le stockage vers une base de donnees.
+
+### Generer le mot de passe d'application Gmail
+
+1. Sur votre compte Google, activez la validation en 2 etapes si ce n'est pas
+   deja fait (myaccount.google.com/security).
+2. Allez sur myaccount.google.com/apppasswords, choisissez un nom (ex :
+   "Agent plomberie") et generez le mot de passe de 16 caracteres.
+3. Collez-le comme valeur de `SMTP_PASS` (dans `.env` en local, ou dans les
+   variables d'environnement Render en production).
+
 ## Architecture
 
 ```
