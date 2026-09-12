@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent IA Plomberie</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>🔧 Agent IA Plomberie</h1>
+  <a href="admin.html">Espace admin</a>
+</header>
+
+<main>
+  <section class="intro">
+    <h2>Un probleme de plomberie ?</h2>
+    <p>Decrivez votre panne dans la conversation ci-dessous. L'agent va :</p>
+    <ul>
+      <li>Identifier le type de probleme (fuite, bouchon, panne de chauffe-eau...)</li>
+      <li>Evaluer le niveau d'urgence et vous donner les bons reflexes de securite</li>
+      <li>Vous communiquer une estimation tarifaire indicative</li>
+      <li>Prendre rendez-vous avec un technicien si besoin</li>
+    </ul>
+  </section>
+
+  <section class="chat-card">
+    <div id="chat-messages" class="chat-messages"></div>
+    <form id="chat-form" class="chat-input">
+      <input id="chat-input" type="text" autocomplete="off" placeholder="Ex : mon evier est bouche depuis ce matin..." />
+      <button type="submit" id="chat-send">Envoyer</button>
+    </form>
+  </section>
+</main>
+
+<script src="js/chat.js"></script>
+</body>
+</html>

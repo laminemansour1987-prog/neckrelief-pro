@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin - Agent IA Plomberie</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <h1>📋 Tableau de bord - Demandes de plomberie</h1>
+  <a href="index.html">Retour au chat</a>
+</header>
+
+<main>
+  <div id="login-view" class="login-box">
+    <h2>Connexion admin</h2>
+    <input id="token-input" type="password" placeholder="Jeton admin" />
+    <button id="login-btn">Se connecter</button>
+  </div>
+
+  <div id="dashboard-view" style="display:none;">
+    <div class="filters">
+      <select id="filter-status">
+        <option value="">Tous les statuts</option>
+        <option value="nouveau">Nouveau</option>
+        <option value="confirme">Confirme</option>
+        <option value="en_cours">En cours</option>
+        <option value="termine">Termine</option>
+        <option value="annule">Annule</option>
+      </select>
+      <select id="filter-urgency">
+        <option value="">Toutes urgences</option>
+        <option value="urgente">Urgente</option>
+        <option value="rapide">Rapide</option>
+        <option value="normale">Normale</option>
+        <option value="planifiable">Planifiable</option>
+      </select>
+      <button id="refresh-btn">Actualiser</button>
+    </div>
+
+    <div id="table-container"></div>
+  </div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
