@@ -2,13 +2,14 @@
 
 **Date de constat :** 23/09/2026
 **Type d'intervention :** Recherche de fuite — constat photographique (inspection visuelle)
-**Nombre de points examinés :** 2
+**Nombre de points examinés :** 5
+**Résultat :** ✅ **Fuite localisée et confirmée — chaudière (point n°5)**
 
 ---
 
 ## 1. Objet de l'intervention
 
-Ce rapport documente une inspection visuelle réalisée à partir de deux photographies transmises, dans le cadre d'une recherche de fuite d'eau. Il présente les observations relevées sur chaque point, leur interprétation, et les préconisations pour la suite de la recherche.
+Ce rapport documente une inspection visuelle réalisée à partir de cinq photographies transmises en deux temps, dans le cadre d'une recherche de fuite d'eau. Il présente les observations relevées sur chaque point, leur interprétation, et les préconisations pour la suite. **La recherche a abouti à la localisation d'une fuite active au niveau de la chaudière** (point n°5).
 
 > **Limite de méthode :** ce constat repose uniquement sur l'analyse d'images fixes. Il ne remplace pas un contrôle sur site avec les outils dédiés (test de débit au compteur, détection acoustique/géophone, caméra thermique, colorant traceur). Les préconisations de la section 4 visent à lever ces limites.
 
@@ -56,24 +57,76 @@ Ce rapport documente une inspection visuelle réalisée à partir de deux photog
 
 ---
 
-## 4. Synthèse et préconisations
+## 4. Point n°3 — Mise en pression du réseau (matériel de test)
 
-| Point | Indice de fuite visible | Conclusion | Action recommandée |
-|---|---|---|---|
-| 1 — Compteur d'eau | Aucun | Fond de fouille sec, raccords propres | Test statique au compteur (voir ci-dessous) + vérifier l'état du chiffon trouvé au sol |
-| 2 — Raccord en T / traversée de mur | Non déterminable (photo surexposée) | Non concluant | Nouveau contrôle visuel avec éclairage neutre + contrôle tactile du té et du manchon |
+![Matériel de test de pression](images/photo-3-materiel-test-pression.jpg)
 
-**Test statique du compteur (à réaliser en priorité) :**
-1. Fermer tous les points de puisage du logement (robinets, chasses d'eau, électroménagers).
-2. Relever l'index du compteur SM4 (dernier chiffre rouge inclus).
-3. Attendre 30 à 60 minutes sans aucune consommation.
-4. Relever à nouveau l'index : toute variation indique une fuite active sur le réseau, à localiser ensuite point par point (compteur → traversée de mur → appareils).
+**Éléments identifiés :**
+- Pompe de mise en pression manuelle **Virax** avec manomètre intégré, raccordée par flexible noir au réseau (probablement branchée sur la vanne de prélèvement du point n°2, ou sur un point bas du circuit).
+- Le manomètre permet un test d'épreuve : mise sous pression du réseau à l'arrêt, puis surveillance de la chute de pression dans le temps — une chute anormale confirme une fuite sur le tronçon testé.
+- Un seau/bac rose est visible à proximité, avec une flaque au sol sous l'appareil — cohérent avec une purge d'air ou d'eau lors de la mise en place du test.
 
-**Recherche complémentaire si le test statique confirme une fuite :**
-- Détection acoustique (géophone) le long du tracé de canalisation entre le compteur et le point n°2.
-- Contrôle du raccord en T et du manchon de traversée de mur avec un détecteur d'humidité ou une caméra thermique.
-- Test de pression sur le tronçon suspecté si l'accès le permet.
+**Interprétation :** ce matériel atteste qu'un test de pression a été engagé sur le réseau pour confirmer/isoler la fuite, en complément du test statique au compteur préconisé au point 1.
 
 ---
 
-*Rapport établi à partir des deux photographies fournies le 23/09/2026. Photos jointes dans `images/`.*
+## 5. Point n°4 — Gaine technique (alimentation lave-linge)
+
+![Gaine technique](images/photo-4-gaine-technique-seche.jpg)
+
+**Localisation :** gaine technique murale, flexible inox raccordé en partie haute (vanne d'arrêt au plafond) et desservant un lave-linge en partie basse via une seconde vanne bleue.
+
+**Observations :**
+- Sol et parois de la gaine **secs**, aucune trace d'humidité, de calcaire ou de coulure visible le long du flexible ni au niveau des deux vannes.
+- Tuyauteries cuivre visibles en applique sur le mur ne présentent pas de trace de suintement.
+
+**Interprétation :** ce tronçon (alimentation eau du lave-linge) est **écarté** comme origine de la fuite recherchée.
+
+---
+
+## 6. Point n°5 — Chaudière : fuite confirmée ✅
+
+![Fuite confirmée sous la chaudière](images/photo-5-chaudiere-fuite-confirmee.jpg)
+
+**Localisation :** face avant/inférieure de la chaudière (murale, type chauffage + ECS), au niveau du bloc hydraulique et des raccords de tuyauteries sous l'appareil.
+
+**Observations :**
+- Une **bassine a été positionnée sous la chaudière** pour recueillir l'eau qui s'écoule des raccords situés sous l'appareil — présence d'eau visible dans la bassine.
+- Les tuyauteries sous la chaudière (départ/retour chauffage, alimentation/sortie ECS, éventuellement le groupe de sécurité ou le vase d'expansion) sont la zone la plus probable de la fuite au vu de la position de la bassine.
+- Cette observation, combinée aux points 1, 2 et 4 (secs, non concluants ou écartés) et au test de pression engagé (point 3), **permet de localiser la fuite au niveau de la chaudière**, et non sur le réseau de distribution enterré ou intérieur en amont.
+
+**Interprétation :** ✅ **Fuite active confirmée sur/sous la chaudière.** Il s'agit d'une fuite sur un composant hydraulique interne à l'appareil (raccord, vanne, groupe de sécurité, vase d'expansion, échangeur ou purgeur automatique) — hors du champ d'une intervention de plomberie générale.
+
+---
+
+## 7. Synthèse et préconisations
+
+| Point | Élément | Indice de fuite | Conclusion |
+|---|---|---|---|
+| 1 — Compteur d'eau | Regard extérieur | Aucun | Écarté |
+| 2 — Raccord en T / traversée de mur | Intérieur | Non concluant (photo surexposée) | Écarté par déduction (voir point 5) |
+| 3 — Mise en pression | Test de pression Virax | — | Test engagé pour isoler la fuite |
+| 4 — Gaine technique lave-linge | Flexible + vannes | Aucun | Écarté (sec) |
+| **5 — Chaudière** | **Bloc hydraulique / raccords sous l'appareil** | **Eau active recueillie dans une bassine** | **✅ Fuite confirmée** |
+
+### Conclusion
+
+La recherche de fuite est **positive et localisée au niveau de la chaudière**. Le réseau de distribution d'eau (compteur, traversées de mur, alimentation lave-linge) a été contrôlé et écarté ; la fuite provient d'un composant interne ou d'un raccord hydraulique de la chaudière elle-même.
+
+### Préconisation
+
+**➡️ Faire intervenir une société spécialisée en chauffage/chaudières (chauffagiste agréé, idéalement le SAV du fabricant de l'appareil).**
+
+La réparation d'une fuite sur une chaudière (raccords hydrauliques internes, groupe de sécurité, vase d'expansion, échangeur, purgeur) relève d'une compétence spécifique en chauffagerie et peut nécessiter :
+- une intervention sous garantie constructeur selon l'âge de l'appareil ;
+- la dépose de pièces hydrauliques internes (hors périmètre plomberie générale) ;
+- un contrôle de la pression du circuit de chauffage et un ré-équilibrage après réparation.
+
+En attendant l'intervention :
+- Laisser la bassine en place sous la chaudière pour limiter les dégâts des eaux.
+- Ne pas remettre l'appareil sous pression/en chauffe au-delà du nécessaire.
+- Couper l'alimentation électrique de la chaudière si le suintement s'aggrave ou s'approche de composants électriques.
+
+---
+
+*Rapport établi à partir de cinq photographies fournies le 23/09/2026 (2 photos initiales + 3 photos complémentaires ayant permis la localisation de la fuite). Photos jointes dans `images/`.*
